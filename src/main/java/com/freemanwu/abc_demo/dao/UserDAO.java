@@ -9,6 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserDAO {
     void register(User user);
     User findByNameAndPassword(User user);
-
+    User findByName(User user);
     void update(User user);
 }

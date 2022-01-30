@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>First</title>
+    <link rel="stylesheet" th:href="@{/css/Type1.css}">
+</head>
+<body>
+
+<div class="ue1">
+    <div class="ue2">
+        <div class="ue3">
+            <a href="http://localhost:8082/Donation_war/first.jsp">
+                <img src="http://localhost:8082/Donation_war/img/logo.png" class="logo">
+            </a>
+        </div>
+        <div class="ue4">
+            <ul>
+                <li class="ue6">
+                    <a th:href="@{http://localhost:8080/ABC/user/findByName?username=session.loginUser.username}">
+                        <b>
+                            当前用户：<span th:text="${session.loginUser.username}"></span>
+                        </b>
+                    </a>
+                </li>
+                <li>
+                    <a><img src="http://localhost:8082/Donation_war/img/57-My%20Center%202.png" class="img2"></a>
+                </li>
+                <li class="add">
+                    <a href="http://localhost:8082/Donation_war/user/findByName?username=${loginUser.username}">主页&nbsp&nbsp丨</a>
+                </li>
+                <li class="add">
+                    <a href="http://localhost:8082/Donation_war/login.jsp">退出</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="n">
+        <div>
+            <div class="leftbtn">
+                <button class="see" onclick="javascrtpt:window.location.href='http://localhost:8082/Donation_war/event/find1'"><b>全部物资</b></button>
+            </div>
+        </div>
+        <div class="line">
+            <div class="rightbtns">
+                <button class="love" onclick="javascrtpt:window.location.href='http://localhost:8082/Donation_war/donate.jsp'"><b>捐赠物资</b></button>
+            </div>
+<!--            <div class="rightbtns">-->
+<!--                <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'"><button class="love"><b>捐款通道</b></button></a>-->
+<!--                <div id="light" class="white_content">-->
+<!--                    <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">-->
+<!--                        <img src="http://localhost:8082/Donation_war/img/my.jpg">-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--                <div id="fade" class="black_overlay"></div>-->
+<!--            </div>-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

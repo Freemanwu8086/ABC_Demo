@@ -14,4 +14,9 @@
     <update id="update" parameterType="java.lang.String">
         update User set password = #{password} where username = #{username};
     </update>
+
+<!--查看用户主页-->
+    <select id="findByName" parameterType="User" resultType="User">
+        select * from User where username = #{username};
+    </select>
 </mapper>

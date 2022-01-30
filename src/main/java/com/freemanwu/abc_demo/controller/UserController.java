@@ -4,7 +4,9 @@ import com.freemanwu.abc_demo.entity.User;
 import com.freemanwu.abc_demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,13 +23,19 @@ public class UserController {
     }
 
     @RequestMapping("findByNameAndPassword")
-    public String findByNameAndPassword(User user, HttpSession session){
+    public String findByNameAndPassword(User user, HttpSession session, Model model){
        User loginUser = userService.findByNameAndPassword(user);
        if (loginUser != null){
            session.setAttribute("loginUser",loginUser);
-           return "";
+//           model.addAttribute("loginUser",loginUser);
+           return "First";
        }else
-           return "error";
+           return "Error";
+    }
 
+    @RequestMapping("findByName")
+    public String findByName(User user){
+        userService.findByName(user);
+        return "UserPage";
     }
 }
