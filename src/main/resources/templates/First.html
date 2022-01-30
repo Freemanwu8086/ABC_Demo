@@ -5,7 +5,7 @@
     <title>First</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 </head>
-<body>
+<body style="background-color: #FFF5EE">
 
 <div class="ue1">
     <div class="ue2">
@@ -17,7 +17,7 @@
         <div class="ue4">
             <ul>
                 <li class="ue6">
-                    <a th:href="@{http://localhost:8080/ABC/user/findByName?username=session.loginUser.username}">
+                    <a th:href="@{http://localhost:8080/ABC/user/findByName}">
                         <b>
                             当前用户：<span th:text="${session.loginUser.username}"></span>
                         </b>

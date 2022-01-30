@@ -626,3 +626,260 @@ a{
     margin: 0px 520px;
     line-height:30px;
 }
+
+*{
+    -webkit-user-select: none;
+}
+div{
+    display: block;
+}
+.ue1{
+    margin: 0px;
+    padding: 0px;
+    background: #FFFAFA;
+    box-shadow: #CFCFCF 3px 3px 3px;
+}
+.ue2{
+    width: 100%;
+    height: 50px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+.logo{
+    width: 80px;
+    height: 30px;
+    float: left;
+    padding-right: 800px;
+    padding-top: 10px;
+    margin: 0px 20px;
+}
+a{
+    color: #CFCFCF;
+    text-decoration: none;
+    outline: none;
+    list-style: none;
+}
+.ue4{
+    height: 50px;
+    float: right;
+}
+.ue4 li{
+    height: 50px;
+    float: left;
+    margin-right: 10px;
+    list-style: none;
+}
+.ue4 li*{
+    color: #EEE5DE;
+    font-size: 17px;
+    display: inline-block;
+    line-height: 30px;
+    vertical-align: top;
+}
+.ue4 li a{
+    height: 12px;
+    line-height: 10px;
+}
+
+.img2{
+    float: right;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin:-10px 10px;
+    border: 1px solid #CFCFCF;
+    margin-right: 20px;
+}
+.add{
+    float: right;
+    font-size: 1px;
+    color: #EEE5DE;
+}
+
+.return{
+    color: #CFCFCF;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.under{
+    margin-top: 10px;
+}
+.left{
+    float: left;
+    width: 270px;
+    height: 500px;
+    background-color: #FFFFFF;
+    border-right: 3px solid;
+    border-image: linear-gradient(to right,#FFFFFF,grey,#FFFFff)0 20 0;
+    padding-top: 60px;
+}
+.img1{
+    width: 150px;
+    height: 150px;
+    margin-left: 60px;
+    border-radius: 5px;
+    border: 1px solid #CDC9C9;
+}
+.img1 img{
+    width: 150px;
+    height: 160px;
+}
+.ul0{
+    width: 150px;
+    height: 250px;
+    margin-left: 50px;
+    padding-top: 60px;
+}
+.ul0 ul li{
+    padding-bottom: 30px;
+    list-style: none;
+}
+.ul0 ul li a:hover{
+    color: #FF8C69;
+}
+.out0 ul li{
+    float: left;
+    list-style: none;
+}
+
+.forg2{
+    margin-top: -30px;
+    margin-left: 400px;
+}
+.forg3{
+    padding-top: 50px;
+}
+.forg_n{
+    width: 100px;
+    float: left;
+    font-size: 19px;
+    color: #FFA07A;
+    margin-top: 5px;
+}
+.find{
+    margin-top:50px;
+    margin-left: 300px;
+}
+.feature{
+    color: #CDC9C9;
+    margin-left: 50px;
+    line-height: 40px;
+}
+.right{
+    width: 800px;
+    margin-left: 100px;
+}
+.forg1{
+    color: #FF8C69;
+    margin-left: 200px;
+    font-size: 20px;
+}
+.img{
+    float: left;
+    width: 50px;
+    height: 50px;
+    padding-right: 20px;
+}
+.xiaojiang {
+    color: #CFCFCF;
+    font-size: 10px;
+    margin-left: 520px;
+    margin-top: 50px;
+    line-height:30px;
+}
+
+*{
+    -webkit-user-select: none;
+}
+div{
+    display: block;
+}
+
+a {
+    color: #CFCFCF;
+    text-decoration: none;
+    outline: none;
+    list-style: none;
+}
+.ue4 li{
+    height: 50px;
+    float: left;
+    margin-right: 10px;
+    list-style: none;
+}
+.ue4 li*{
+    color: #EEE5DE;
+    font-size: 17px;
+    display: inline-block;
+    line-height: 30px;
+    vertical-align: top;
+}
+.ue4 li a{
+    height: 12px;
+    line-height: 10px;
+}
+.img1 img{
+    width: 150px;
+    height: 160px;
+}
+.ul0 ul li{
+    padding-bottom: 30px;
+    list-style: none;
+}
+.ul0 ul li a:hover{
+    color: #FF8C69;
+}
+.out0 ul li{
+    float: left;
+    list-style: none;
+}
+
+.forg2{
+    margin-top: -30px;
+    margin-left: 400px;
+}
+.forg3{
+    padding-top: 50px;
+}
+.forg_n{
+    width: 100px;
+    float: left;
+    font-size: 19px;
+    color: #FFA07A;
+    margin-top: 5px;
+}
+.btn0{
+    float:left;
+    padding-right: 200px;
+    margin-left: 40px;
+}
+.btn:hover{
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, .25);
+    transition: all 0.2s ease-in-out;
+}
+.btn{
+    width: 150px;
+    height:30px;
+    background: #FFA07A;
+    color: #FFFAFA;
+    border-radius: 5px;
+    box-shadow: #CFCFCF 2px 2px 2px;
+    border: 1px solid #FF8C69;
+}
+
+.input_head{
+    background-color: #FFFAFA;
+    color: #CFCFCF;
+    margin-top:0px;
+    width: 80px;
+    height:80px;
+    border:#CFCFCF 1px;
+    border-radius: 5px;
+    border: 1px dashed #CFCFCF;
+}
+.find{
+    margin-top:50px;
+    margin-left: 300px;
+}

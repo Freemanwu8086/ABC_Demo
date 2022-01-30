@@ -2,7 +2,8 @@
 <mapper namespace="com.freemanwu.abc_demo.dao.UserDAO">
 <!--注册-->
     <insert id="register" parameterType="User">
-        insert into User (username, password) values (#{username},#{password});
+        insert into User (username, password, phoneNUmber, birthday)
+         values (#{username}, #{password}, #{phoneNumber}, #{birthday});
     </insert>
 
 <!--登陆-->
@@ -19,4 +20,5 @@
     <select id="findByName" parameterType="User" resultType="User">
         select * from User where username = #{username};
     </select>
+<!--    useCache="true" flushCache="false-->
 </mapper>
