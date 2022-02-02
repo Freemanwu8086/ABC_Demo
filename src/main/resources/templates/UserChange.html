@@ -2,11 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>用户主页</title>
+    <title>用户信息修改</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 </head>
 <body style="background-color: #FFF5EE">
-
 <div class="ue1">
     <div class="ue2">
         <div class="ue3">
@@ -34,25 +33,25 @@
 </div>
 
 <div class="return">
-<!--    <a th:href="@{http://localhost:8080/ABC/user/findByNameAndPassword(username=${session.loginUser.username},password=${session.loginUser.password})}">-->
-<!--        <a th:href="@{http://localhost:8080/ABC/user/findByNameAndPassword?username=session.loginUser.username&password=session.loginUser.password}">-->
-    <a th:href="@{http://localhost:8080/ABC/user/First_Redirect}">
-<!--        <a href="add.html" th:href="@{/goodBase/edit(id=${good.ID},pageNum=${page.pageNum})}">修改</a>-->
+     <a th:href="@{http://localhost:8080/ABC/user/First_Redirect}">
         <&nbsp&nbsp返回主页</a>
 </div>
 
 <div class="under">
     <div class="left">
+<!--        <div class="img1">-->
+<!--            <img src="http://localhost:8082/Donation_war/img/57-My%20Center%202.png">-->
+<!--        </div>-->
         <div class="ul0">
             <ul>
                 <li>
-                    <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}" style="color: #FF8C69">—我的信息—</a>
+                    <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">—我的信息—</a>
                 </li>
                 <li>
-                    <a href="http://localhost:8080/ABC/">—我的曲谱—</a>
+                    <a href="http://localhost:8082/Donation_war/event/findByName?name=${loginUser.username}">—我的捐赠—</a>
                 </li>
                 <li>
-                    <a th:href="@{http://localhost:8080/ABC/user/update1(username=${session.loginUser.username})}">—更改信息—</a>
+                    <a th:href="@{http://localhost:8080/ABC/user/update1(username=${session.loginUser.username})}" style="color: #FF8C69">—更改信息—</a>
                 </li>
             </ul>
         </div>
@@ -70,40 +69,51 @@
     <div class="right">
         <div class="forg1">
 <!--            <img src="http://localhost:8082/Donation_war/img/57-My%20Center.png" class="img">-->
-            <h1>个人信息&nbsp丨</h1>
+            <h1>更改信息&nbsp丨</h1>
         </div>
 
-        <div class="forg2">
-            <div class="forg3">
-                <div class="forg_n">
-                    <b>用&nbsp户&nbsp名</b>
+        <form th:action="@{update2}" method="post">
+
+            <div class="forg2">
+                <div class="forg3">
+                    <div class="forg_n">
+                        <b>用&nbsp户&nbsp名</b>
+                    </div>
+                    <div>
+                        <input type="text" th:value="${session.loginUser.username}" name="username" class="input" readonly unselectable="on">
+                    </div>
                 </div>
-                <div>
-                    <b class="feature"><span th:text="${session.loginUser.username}"></span></b>
+                <div class="forg3">
+                    <div class="forg_n">
+                        <b>电话号码</b>
+                    </div>
+                    <div>
+                        <input type="text" name="phoneNumber" th:value="${Model_User_Info.phoneNumber}" class="input">
+                    </div>
+                </div>
+                <div class="forg3">
+                    <div class="forg_n">
+                        <b>生&nbsp&nbsp&nbsp日</b>
+                    </div>
+                    <div>
+                        <input type="date" name="birthday" th:value="${Model_User_Info.birthday}" class="input">
+                    </div>
                 </div>
             </div>
-            <div class="forg3">
-                <div class="forg_n">
-                    <b>电话号码</b>
-                </div>
-                <div>
-                    <b class="feature"><span th:text="${Model_User_Info.phoneNumber}"></span></b>
+
+            <div class="find">
+                <div class="btn0">
+                    <input type="submit" value="确定" class="btn">
                 </div>
             </div>
-            <div class="forg3">
-                <div class="forg_n">
-                    <b>生&nbsp&nbsp&nbsp日</b>
-                </div>
-                <div>
-                    <b class="feature"><span th:text="${Model_User_Info.birthday}"></span></b>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 
 <div class="xiaojiang">
     <h6>——最终解释权归freemanwu所有——</h6>
 </div>
+
+
 </body>
 </html>

@@ -3,15 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/Type1.css}">
 </head>
-<body>
-<h1>this is a test page</h1>
-    <form action="/ABC/user/findByNameAndPassword" method="post">
-        <p><input type="text" name="username" placeholder="请输入用户名"></p>
-        <p><input type="password" name="password" placeholder="请输入密码"></p>
-        <p><input type="submit" value="登陆"></p>
-    </form>
+<style>
+    *{
+        -webkit-user-select: none;
+    }
+    div{
+        display: block;
+    }
 
-    <a href="UserRegister.html">还没有账号？注册一个！</a>
+    a {
+        color: #CFCFCF;
+        text-decoration: none;
+        outline: none;
+        list-style: none;
+    }
+    .ue4 li{
+        height: 50px;
+        float: left;
+        margin-right: 10px;
+        list-style: none;
+    }
+    .ue4 li*{
+        color: #EEE5DE;
+        font-size: 17px;
+        display: inline-block;
+        line-height: 30px;
+        vertical-align: top;
+    }
+    .ue4 li a{
+        height: 12px;
+        line-height: 10px;
+    }
+    .img1 img{
+        width: 150px;
+        height: 160px;
+    }
+    .ul0 ul li{
+        padding-bottom: 30px;
+        list-style: none;
+    }
+    .ul0 ul li a:hover{
+        color: #FF8C69;
+    }
+    .out0 ul li{
+        float: left;
+        list-style: none;
+    }
+
+    .forg2{
+        margin-top: -30px;
+        margin-left: 400px;
+    }
+    .forg3{
+        padding-top: 50px;
+    }
+    .forg_n{
+        width: 100px;
+        float: left;
+        font-size: 19px;
+        color: #FFA07A;
+        margin-top: 5px;
+    }
+    .btn0{
+        float:left;
+        padding-right: 200px;
+        margin-left: 40px;
+    }
+    .btn:hover{
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, .25);
+        transition: all 0.2s ease-in-out;
+    }
+    .btn{
+        width: 150px;
+        height:30px;
+        background: #FFA07A;
+        color: #FFFAFA;
+        border-radius: 5px;
+        box-shadow: #CFCFCF 2px 2px 2px;
+        border: 1px solid #FF8C69;
+    }
+
+</style>
+
+<body style="background-color: #fff3e9">
+    <form action="/ABC/user/findByNameAndPassword" method="post" style="position: center">
+        <div class="forg2" style="position: center">
+            <div class="forg3">
+                <div class="forg_n">
+                    <b>用户名</b>
+                </div>
+                <div>
+                    <input type="text" name="username" placeholder="请输入您的用户名" class="input">
+                </div>
+            </div>
+            <div class="forg3">
+                <div class="forg_n">
+                    <b>密码</b>
+                </div>
+                <div>
+                    <input type="password" name="password" placeholder="请输入您的密码" class="input">
+                </div>
+            </div>
+            <div style="margin-top: 30px">
+                <div class="btn0">
+                    <input type="submit" value="确定" class="btn">
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <div class="return">
+        <a href="UserRegister.html">还没有账号？注册一个！</a>
+    </div>
 </body>
 </html>

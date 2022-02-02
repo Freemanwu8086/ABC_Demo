@@ -623,8 +623,11 @@ a{
 .xiaojiang{
     color: #CFCFCF;
     font-size: 10px;
-    margin: 0px 520px;
     line-height:30px;
+    margin-top: 350px;
+    margin-right: 520px;
+    margin-left: 520px;
+    margin-bottom: 0px;
 }
 
 *{
@@ -759,8 +762,8 @@ a{
     margin-top: 5px;
 }
 .find{
-    margin-top:50px;
-    margin-left: 300px;
+    margin-top:100px;
+    margin-left: 450px;
 }
 .feature{
     color: #CDC9C9;
@@ -781,13 +784,6 @@ a{
     width: 50px;
     height: 50px;
     padding-right: 20px;
-}
-.xiaojiang {
-    color: #CFCFCF;
-    font-size: 10px;
-    margin-left: 520px;
-    margin-top: 50px;
-    line-height:30px;
 }
 
 *{
@@ -878,8 +874,4 @@ a {
     border:#CFCFCF 1px;
     border-radius: 5px;
     border: 1px dashed #CFCFCF;
-}
-.find{
-    margin-top:50px;
-    margin-left: 300px;
 }

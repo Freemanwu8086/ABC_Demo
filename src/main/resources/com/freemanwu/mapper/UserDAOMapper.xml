@@ -12,13 +12,15 @@
     </select>
 
 <!--忘记密码-->
-    <update id="update" parameterType="java.lang.String">
-        update User set password = #{password} where username = #{username};
+    <update id="update" parameterType="User">
+        update User set phoneNumber = #{phoneNumber}, birthday = #{birthday}
+        where username = #{username};
     </update>
 
 <!--查看用户主页-->
     <select id="findByName" parameterType="User" resultType="User">
         select * from User where username = #{username};
     </select>
+
 <!--    useCache="true" flushCache="false-->
 </mapper>
