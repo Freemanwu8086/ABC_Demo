@@ -5,24 +5,17 @@ import com.freemanwu.abc_demo.entity.User;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @CacheNamespace
 @Mapper
-public interface UserDAO {
-    //用户注册
-    void register(User user);
-
-    //用户登陆
-    User findByNameAndPassword(User user);
-
-    //用户主页
-    User findByName(User user);
-
-    //用户更新信息
-    void update(User user);
+public interface Sheet_MusicDAO {
+    //新增乐谱
+    void save(Sheet_Music music);
 //——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-    //个人曲谱查询（用户）
-    Sheet_Music findMusicByUserName(Sheet_Music music);
+    //展示所有曲谱（管理员/用户）
+    List<Sheet_Music> findAllMusic();
 
-    //个人曲谱修改（用户）
-    void updateMusicUser(Sheet_Music music);
+    //按名称模糊查询曲谱（管理员/用户）
+    List<Sheet_Music> findByMusicName(Sheet_Music music);
 }

@@ -16,5 +16,4 @@ public class User  {
     private String password;
     private String phoneNumber;
     private Date birthday;
-
 }
