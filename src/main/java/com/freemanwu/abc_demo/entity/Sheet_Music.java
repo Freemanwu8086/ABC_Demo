@@ -19,5 +19,5 @@ public class Sheet_Music {
     private String username;
     private String location;
     private Date insert_date;
-    private Date update_date;
+    private Date last_update_date;
 }
