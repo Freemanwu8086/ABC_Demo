@@ -1,7 +1,6 @@
 package com.freemanwu.abc_demo.dao;
 
 import com.freemanwu.abc_demo.entity.Sheet_Music;
-import com.freemanwu.abc_demo.entity.User;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
 
