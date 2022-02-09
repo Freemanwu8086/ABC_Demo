@@ -365,11 +365,11 @@ body{
 }
 .fl-table thead th {
     color: #ffffff;
-    background: #FF8C69;
+    background: #ffb29b;
 }
 .fl-table thead th:nth-child(odd) {
     color: #ffffff;
-    background: #30a7a7;
+    background: #9CBFEE;
 }
 .fl-table tr:nth-child(even) {
     background: #F8F8F8;
@@ -588,8 +588,8 @@ a{
 }
 
 .tell{
-    width: 210px;
-    height: 400px;
+    width: 250px;
+    height: 500px;
     float: right;
     margin-right: 30px;
     margin-top: 50px;
@@ -863,6 +863,15 @@ a {
     border-radius: 5px;
     box-shadow: #CFCFCF 2px 2px 2px;
     border: 1px solid #FF8C69;
+}
+.btn_FenYe{
+    width: 50px;
+    height:30px;
+    background: #9CBFEE;
+    color: #FFFAFA;
+    border-radius: 5px;
+    box-shadow: #CFCFCF 2px 2px 2px;
+    border: 1px solid #5aa0ff;
 }
 
 .input_head{

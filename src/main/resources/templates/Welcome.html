@@ -84,11 +84,31 @@
         box-shadow: #CFCFCF 2px 2px 2px;
         border: 1px solid #FF8C69;
     }
+    .radio{
+        margin-left: 400px; margin-top: 200px; color: #FFA07A
+    }
 
 </style>
+<script type="text/javascript">
+    function a() {
+        var num = document.form.m.value
+
+        if (num == 1) {
+            document.form.action = "http://localhost:8080/ABC/user/findByNameAndPassword"
+        } else {
+            document.form.action = "http://localhost:8080/ABC/admin/adminLogin"
+        }
+    }
+</script>
+
 
 <body style="background-color: #fff3e9">
-    <form action="/ABC/user/findByNameAndPassword" method="post" style="position: center">
+    <form name="form" method="post" style="position: center; font-size: small">
+        <div class="radio">
+            请选择您的登陆身份：
+            <input type="radio" name="m" value="1" checked />用户
+            <input type="radio" name="m" value="2"/>管理员
+        </div>
         <div class="forg2" style="position: center">
             <div class="forg3">
                 <div class="forg_n">
@@ -108,7 +128,7 @@
             </div>
             <div style="margin-top: 30px">
                 <div class="btn0">
-                    <input type="submit" value="确定" class="btn">
+                    <input type="submit" value="登陆" class="btn" onclick="a()">
                 </div>
             </div>
         </div>

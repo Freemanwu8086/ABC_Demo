@@ -39,7 +39,7 @@ public class UserController {
        if (loginUser != null){
            session.setAttribute("loginUser",loginUser);
 //           model.addAttribute("User",loginUser);
-           return "First";
+           return "UserFirst";
        }else
            return "Error";
     }
@@ -65,7 +65,7 @@ public class UserController {
     public String First_Redirect(User user,Model model){
         User UserInfo = userService.findByName(user);
         model.addAttribute("Model_User_Info",UserInfo);
-        return "First";
+        return "UserFirst";
     }
 
     //用户信息更新
