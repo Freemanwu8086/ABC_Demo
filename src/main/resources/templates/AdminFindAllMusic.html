@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员之乐谱全展示</title>
+    <link rel="stylesheet" th:href="@{/css/Type1.css}">
+</head>
+<body style="background-color: #FFF5EE">
+
+<div class="ue1">
+    <div class="ue2">
+        <div class="ue3">
+        </div>
+        <div class="ue4">
+            <ul>
+                <li class="ue6" style="font-size: 2px; color: #EEE5DE">
+                    <b>
+                        当前管理员：<span th:text="${session.loginAdmin.username}"></span>
+                    </b>
+                </li>
+                <li class="add">
+                    <a href="http://localhost:8080/ABC/Welcome.html">&nbsp|&nbsp退出登陆</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+        <tr>
+            <th>乐曲名</th>
+            <th>创建用户</th>
+            <th>拍数</th>
+            <th>定调</th>
+            <th>创建时间</th>
+        </tr>
+        </thead>
+                <tbody>
+                <tr th:each="music,musicStat:${musics}">
+                    <td><span th:text="${music.music_name}"/></td>
+                    <td><span th:text="${music.username}"/></td>
+                    <td><span th:text="${music.beat}"/></td>
+                    <td><span th:text="${music.tone}"/></td>
+                    <td><span th:text="${#dates.format(music.insert_date,'yyyy年MM月dd日')}"/></td>
+                </tr>
+                </tbody>
+    </table>
+</div>
+<div th:if="${page.pages>0}" style="margin-left: 33%">
+    <!--当前页-->
+    <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
+    &nbsp&nbsp&nbsp
+    <!--            首页作为第一页不可点击-->
+    <a th:href="@{http://localhost:8080/ABC/music/listMusicAdmin(pageNo=1)}" class="btn" style="width: 40px">首页</a>
+    &nbsp&nbsp
+    <span th:if="${page.pageNum==1}">
+                <a onclick="return false" class="btn_FenYe">上一页</a>
+            </span>
+    <span th:unless="${page.pageNum==1}">
+                <a th:href="@{http://localhost:8080/ABC/music/listMusicAdmin(pageNo=${page.pageNum - 1})}" class="btn_FenYe">上一页</a>
+            </span>
+    &nbsp&nbsp
+
+    <span th:each="i:${#numbers.sequence(1,page.pages)}">
+        &nbsp
+                <a th:href="@{http://localhost:8080/ABC/music/listMusicAdmin(pageNo=${i})}" th:text="${i}">1</a>
+            </span>
+
+    &nbsp&nbsp
+    <span th:if="${page.pages==page.pageNum}">
+                <a onclick="return false" class="btn_FenYe">下一页</a>
+            </span>
+
+    <span th:unless="${page.pages==page.pageNum}">
+                <a th:href="@{http://localhost:8080/ABC/music/listMusicAdmin(pageNo=${page.pageNum+1})}" class="btn_FenYe">下一页</a>
+            </span>
+
+    &nbsp&nbsp
+    <a th:href="@{http://localhost:8080/ABC/music/listMusicAdmin(pageNo=${page.pages})}" class="btn" style="width: 40px">末页</a>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
+</div>
+
+<div style="margin-left: 43%; margin-top: 1%">
+    <form action="http://localhost:8080/ABC/music/listMusicAdmin">
+        跳转至：<input type="text" name="pageNo" size="2" th:value="${page.pageNum}">
+        <input type="submit" value="跳转" class="btn" style="width: 40px">
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员首页</title>
+    <link rel="stylesheet" th:href="@{/css/Type1.css}">
+</head>
+<body style="background-color: #FFF5EE">
+
+<div class="ue1">
+    <div class="ue2">
+        <div class="ue3">
+        </div>
+        <div class="ue4">
+            <ul>
+                <li class="ue6" style="font-size: 2px; color: #EEE5DE">
+                        <b>
+                            当前管理员：<span th:text="${session.loginAdmin.username}"></span>
+                        </b>
+                </li>
+                <li class="add">
+                    <a href="http://localhost:8080/ABC/Welcome.html">&nbsp|&nbsp退出登陆</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="n">
+        <div>
+            <div class="leftbtn">
+                <button class="see" onclick="javascrtpt:window.location.href='http://localhost:8080/ABC/music/listMusicAdmin'"><b>全部曲谱</b></button>
+            </div>
+        </div>
+        <div class="line">
+            <div class="rightbtns">
+                <button class="love" onclick="javascrtpt:window.location.href='http://localhost:8080/ABC/donate.jsp'"><b>全部用户</b></button>
+            </div>
+        </div>
+        <div class="line">
+            <div class="rightbtns">
+                <button class="love" onclick="javascrtpt:window.location.href='http://localhost:8080/ABC/donate.jsp'"><b>发布公告</b></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tell">
+    <div class="title">
+        <b>公告</b>
+    </div>
+    <div class="text1">
+        <h6>&nbsp&nbsp我想写一篇公告，但是文笔有限写不出来。想查一篇认真一点的公告，但是没有网，我其他设备放着视频，所以不想再连电脑。
+            我就只能自己编啦。害，就因为这个主页就三个按钮，显得特别空旷。我就寻思着加点东西。本来想着加个广告栏。但我们是正规团队。
+            所以就写个公告吧。我去看看字数可以了不。</h6>
+        <h6>&nbsp&nbsp好了并不可以，我累了，写不下去了，我还要写多少字啊，会有人看这里吗。有字不就好了，是什么完全不重要。我还把颜色调到了最淡。
+            这家奶茶店的杨枝甘露，不太好喝，有点太甜了。熊猫7茶的杨枝甘露yyds。差不多了，我夹带个私货。我爱百里守约！</h6>
+        <h6>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp橙十字会管理员小马</h6>
+    </div>
+</div>
+
+</body>
+</html>
