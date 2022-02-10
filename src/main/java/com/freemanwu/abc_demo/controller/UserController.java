@@ -2,12 +2,19 @@ package com.freemanwu.abc_demo.controller;
 
 import com.freemanwu.abc_demo.entity.User;
 import com.freemanwu.abc_demo.service.UserService;
+import com.freemanwu.abc_demo.utils.ValidateImageCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("user")
@@ -21,9 +28,30 @@ public class UserController {
      * @return
      */
     @RequestMapping("register")
-    public String register(User user){
-        userService.register(user);
-        return "Welcome";
+    public String register(User user, HttpSession session){
+        String sessionCode = (String) session.getAttribute("code");
+        if (sessionCode.equalsIgnoreCase(sessionCode)){
+            userService.register(user);
+            return "Welcome";
+        }else
+        return "Error";
+    }
+
+    /**
+     * 生成验证码
+     * @param session
+     * @param response
+     * @throws IOException
+     */
+    @GetMapping("code")
+    public void getImage(HttpSession session, HttpServletResponse response) throws IOException {
+        //生成验证码
+        String securityCode = ValidateImageCodeUtils.getSecurityCode();
+        BufferedImage image = ValidateImageCodeUtils.createImage(securityCode);
+        session.setAttribute("code",securityCode);
+        //响应图片
+        ServletOutputStream os = response.getOutputStream();
+        ImageIO.write(image,"png",os);
     }
 
     /**

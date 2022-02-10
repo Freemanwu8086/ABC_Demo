@@ -6,6 +6,17 @@
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 </head>
 <style>
+    .input{
+        float: left;
+        width: 200px;
+        height:30px;
+        border: 1px solid #FFD3B9;
+        border-radius: 5px;
+    }
+    .input:hover{
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, .25);
+        transition: all 0.2s ease-in-out;
+    }
     *{
         -webkit-user-select: none;
     }
@@ -97,7 +108,7 @@
     }
     .find{
         margin-top:50px;
-        margin-left: 300px;
+        margin-left: 100px;
     }
     .forg1{
         color: #FF8C69;
@@ -152,6 +163,20 @@
                         <button type="user-head"  class="input_head">
                             <b>＋</b>
                         </button>
+                    </div>
+                </div>
+
+                <div class="forg3">
+                    <div class="forg_n">
+                        <b>验证码</b>
+                    </div>
+                    <div>
+                        <img id="num" th:src="@{user/code}"/>
+                        <a href="javascript:;"
+                           onclick="document.getElementById('num').src = 'http://localhost:8080/ABC/user/code?'+(new Date()).getTime()">获取新的验证码</a>
+                    </div>
+                    <div style="margin-left: 10%">
+                        <input type="text" class="input" name="code" size="4"/>
                     </div>
                 </div>
 

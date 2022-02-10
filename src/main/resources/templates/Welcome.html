@@ -6,6 +6,27 @@
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 </head>
 <style>
+    .return{
+        color: #CFCFCF;
+        margin-top: -50px;
+        margin-left: 80px;
+    }
+    .input{
+        float: left;
+        width: 200px;
+        height:30px;
+        border: 1px solid #FFD3B9;
+        border-radius: 5px;
+    }
+    .input:hover{
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, .25);
+        transition: all 0.2s ease-in-out;
+    }
+    .forg1{
+        color: #FF8C69;
+        margin-left: 20px;
+        font-size: 20px;
+    }
     *{
         -webkit-user-select: none;
     }
@@ -54,7 +75,8 @@
 
     .forg2{
         margin-top: -30px;
-        margin-left: 400px;
+        margin-left: 150px;
+
     }
     .forg3{
         padding-top: 50px;
@@ -72,7 +94,7 @@
         margin-left: 40px;
     }
     .btn:hover{
-        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, .25);
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.25);
         transition: all 0.2s ease-in-out;
     }
     .btn{
@@ -85,8 +107,72 @@
         border: 1px solid #FF8C69;
     }
     .radio{
-        margin-left: 400px; margin-top: 200px; color: #FFA07A
+        margin-left: 50px;
+        font-size: small;
+        color: #FFA07A;
     }
+     /*html{*/
+     /*    height:100%;*/
+     /*    background-image: linear-gradient(to right, #FFF5EE, #9CBFEE, #9CBFEE, #FFF5EE);*/
+     /*}*/
+
+    /* 核心样式 */
+
+    .card {
+        margin-top: 8%;
+        margin-left: 20%;
+        padding: 10px;
+        box-shadow: rgb(119, 170, 238) 10px 10px 50px;
+
+        width: 900px;
+
+        height: 400px;
+
+        background-color: #FFF;
+
+        border: none;
+
+        border-radius: 6px;
+
+        -webkit-transition: all 250ms cubic-bezier(0.02, 0.01, 0.47, 1);
+
+        transition: all 250ms cubic-bezier(.02, .01, .47, 1);
+
+    }
+
+    .card:hover {
+
+    box-shadow: 0 16px 32px 0 rgba(48, 55, 66, 0.15);
+
+        transform: translate(0,-5px);
+
+        transition-delay: 0s !important;
+
+    }
+
+    .box-shadow {
+
+    -webkit-box-shadow: 0 0.25rem 1rem rgba(48, 55, 66, 0.15);
+
+        box-shadow: 0 4px 16px rgba(48, 55, 66, 0.15);
+
+    }
+
+    /* 非核心样式 */
+
+    .card-header {
+
+    text-align: center;
+
+    }
+
+    .card-body,
+    .card-footer {
+
+    text-align: left;
+
+    }
+
 
 </style>
 <script type="text/javascript">
@@ -99,15 +185,31 @@
             document.form.action = "http://localhost:8080/ABC/admin/adminLogin"
         }
     }
+
+    window.onload = function (){
+        var crl = document.getElementById("control");
+        var show = document.getElementById("register");
+        var user = document.getElementById("user");
+        crl.onclick =function (){
+            show.style.display = "none";
+        }
+        user.onclick = function (){
+            show.style.display = "block";
+        }
+    }
 </script>
 
 
-<body style="background-color: #fff3e9">
-    <form name="form" method="post" style="position: center; font-size: small">
+<body style="background-image: url(http://localhost:8080/ABC/img/Cover.jpeg);">
+<div class="card">
+    <form name="form" method="post" style="position: center;">
+        <div class="forg1">
+            <h1>登陆系统</h1>
+        </div>
         <div class="radio">
             请选择您的登陆身份：
-            <input type="radio" name="m" value="1" checked />用户
-            <input type="radio" name="m" value="2"/>管理员
+            <input type="radio" name="m" value="1" checked id="user" />用户
+            <input type="radio" name="m" value="2" id="control"/>管理员
         </div>
         <div class="forg2" style="position: center">
             <div class="forg3">
@@ -126,16 +228,22 @@
                     <input type="password" name="password" placeholder="请输入您的密码" class="input">
                 </div>
             </div>
-            <div style="margin-top: 30px">
+            <div style="margin-top: 60px;margin-left: 40px">
                 <div class="btn0">
                     <input type="submit" value="登陆" class="btn" onclick="a()">
                 </div>
             </div>
+            <div>
+                <div class="forg1">
+                    <h1>微信公众号</h1>
+                    <img src="/img/QRCode" style="margin-left: 700px">
+                </div>
+            </div>
+            <div class="return" id="register">
+                <a href="UserRegister.html">还没有账号？注册一个！</a>
+            </div>
         </div>
     </form>
-    
-    <div class="return">
-        <a href="UserRegister.html">还没有账号？注册一个！</a>
-    </div>
+</div>
 </body>
 </html>
