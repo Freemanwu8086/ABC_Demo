@@ -355,13 +355,26 @@ body{
     white-space: nowrap;
     background-color: white;
 }
-.fl-table td, .fl-table th {
+.fl-table td,
+.fl-table th {
     text-align: center;
     padding: 8px;
 }
 .fl-table td {
     border-right: 1px solid #f8f8f8;
     font-size: 12px;
+
+    -webkit-transition: all 250ms cubic-bezier(0.02, 0.01, 0.47, 1);
+
+    transition: all 250ms cubic-bezier(.02, .01, .47, 1);
+}
+.fl-table td:hover{
+    box-shadow: 0 16px 32px 0 rgba(48, 55, 66, 0.15);
+
+    transform: translate(0,-2px);
+    background-color: #839fc9;
+
+    transition-delay: 0s !important;
 }
 .fl-table thead th {
     color: #ffffff;
@@ -883,4 +896,10 @@ a {
     border:#CFCFCF 1px;
     border-radius: 5px;
     border: 1px dashed #CFCFCF;
+}
+.deleteBtn{
+    height:25px;
+    border:none;
+    color: #f65a5a;
+    box-shadow: #CFCFCF 3px 3px 3px;
 }

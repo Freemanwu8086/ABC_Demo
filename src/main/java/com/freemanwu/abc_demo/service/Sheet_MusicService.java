@@ -14,5 +14,5 @@ public interface Sheet_MusicService {
     PageInfo<Sheet_Music> findAllMusic(int pageNo);
 
     //按名称模糊查询曲谱（管理员/用户）
-    PageInfo<Sheet_Music> findByMusicName(int pageNo);
+    PageInfo<Sheet_Music> findByMusicName(int pageNo,String music_name);
 }

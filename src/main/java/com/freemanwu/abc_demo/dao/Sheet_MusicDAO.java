@@ -17,5 +17,5 @@ public interface Sheet_MusicDAO {
     List<Sheet_Music> findAllMusic();
 
     //按名称模糊查询曲谱（管理员/用户）
-    List<Sheet_Music> findByMusicName();
+    List<Sheet_Music> findByMusicName(String music_name);
 }

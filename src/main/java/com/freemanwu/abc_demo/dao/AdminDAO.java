@@ -18,7 +18,7 @@ public interface AdminDAO {
     void updateMusicAdmin(Sheet_Music music);
 
     //删除某单一曲谱（管理员）
-    void deleteOneAdmin(Sheet_Music music);
+    void deleteOneAdmin(Integer id);
 
     //批量删除曲谱（管理员）
     void deleteListMusic(Integer[] id);

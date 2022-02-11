@@ -11,7 +11,7 @@
     </select>
 
     <select id="findByMusicName" parameterType="Sheet_Music" resultType="Sheet_Music">
-        select * from Sheet_Music where music_name like CONCAT(CONCAT('%',#{name}),'%');
+        select * from Sheet_Music where music_name like CONCAT(CONCAT('%',#{name}),'%')
     </select>
 
 </mapper>

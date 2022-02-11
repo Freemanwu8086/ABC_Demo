@@ -25,8 +25,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void deleteOneAdmin(Sheet_Music music) {
-        adminDAO.deleteOneAdmin(music);
+    public void deleteOneAdmin(Integer id) {
+        adminDAO.deleteOneAdmin(id);
     }
 
     @Override

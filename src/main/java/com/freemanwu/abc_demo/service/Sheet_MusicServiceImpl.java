@@ -27,10 +27,10 @@ public class Sheet_MusicServiceImpl implements Sheet_MusicService {
     }
 
     @Override
-    public PageInfo<Sheet_Music> findByMusicName(int pageNo) {
-        PageHelper.startPage(pageNo);
-        List<Sheet_Music> list = musicDAO.findByMusicName();
-        PageInfo<Sheet_Music> pageInfo = new PageInfo<>(list, 1);
+    public PageInfo<Sheet_Music> findByMusicName(int pageNo,String music_name) {
+        PageHelper.startPage(pageNo, ConstantUtils.PAGE_SIZE);
+        List<Sheet_Music> list = musicDAO.findByMusicName(music_name);
+        PageInfo<Sheet_Music> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 }

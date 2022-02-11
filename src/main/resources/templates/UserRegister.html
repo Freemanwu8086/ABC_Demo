@@ -157,25 +157,14 @@
                 </div>
                 <div class="forg3">
                     <div class="forg_n">
-                        <b>上传头像</b>
-                    </div>
-                    <div>
-                        <button type="user-head"  class="input_head">
-                            <b>＋</b>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="forg3">
-                    <div class="forg_n">
                         <b>验证码</b>
                     </div>
                     <div>
-                        <img id="num" th:src="@{user/code}"/>
+                        <img id="num" src="http://localhost:8080/ABC/user/code"/>
                         <a href="javascript:;"
                            onclick="document.getElementById('num').src = 'http://localhost:8080/ABC/user/code?'+(new Date()).getTime()">获取新的验证码</a>
                     </div>
-                    <div style="margin-left: 10%">
+                    <div style="margin-left: 9%">
                         <input type="text" class="input" name="code" size="4"/>
                     </div>
                 </div>

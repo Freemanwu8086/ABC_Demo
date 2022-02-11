@@ -29,4 +29,16 @@ public class Sheet_MusicController {
         map.put("page",page);
         return "AdminFindAllMusic";  //转发到你自己的页面
     }
+
+    @RequestMapping("findByMusicName")
+    public String findByMusicName(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                  Map<String,Object> map, Model model,String music_name){
+        PageInfo<Sheet_Music> page = musicService.findByMusicName(pageNum,music_name);
+        List<Sheet_Music> musics = page.getList();
+
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "AdminFuzzyQueryMusic";
+
+    }
 }
