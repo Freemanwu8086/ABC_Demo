@@ -10,9 +10,6 @@
 <div class="ue1">
     <div class="ue2">
         <div class="ue3">
-<!--            <a href="http://localhost:8082/Donation_war/first.jsp">-->
-<!--                <img src="http://localhost:8082/Donation_war/img/logo.png" class="logo">-->
-<!--            </a>-->
         </div>
         <div class="ue4">
             <ul>
@@ -22,9 +19,6 @@
                             当前用户：<span th:text="${session.loginUser.username}"></span>
                         </b>
                     </a>
-                </li>
-                <li>
-<!--                    <a><img src="http://localhost:8082/Donation_war/img/57-My%20Center%202.png" class="img2"></a>-->
                 </li>
                 <li class="add">
                     <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">
@@ -47,7 +41,7 @@
         </div>
         <div class="line">
             <div class="rightbtns">
-                <button class="love" onclick="javascrtpt:window.location.href='http://localhost:8080/ABC/donate.jsp'"><b>新建曲谱</b></button>
+                <button class="love" onclick="javascrtpt:window.location.href='http://localhost:8080/ABC/user/ABCEditor'"><b>新建曲谱</b></button>
             </div>
         </div>
     </div>

@@ -34,7 +34,7 @@
 </div>
 <div style="width: 20%;float: right">
     <form action="http://localhost:8080/ABC/music/findByMusicName" method="post">
-        <input type="text" name="music_name" placeholder="请输入需要模糊查询的曲谱名" class="input">&nbsp
+        <input type="text" name="music_name" placeholder="按曲谱名模糊查询" class="input">&nbsp
         <input type="submit" class="btn" value="查询" style="width: 40px">
     </form>
 </div>
@@ -56,12 +56,12 @@
                 <tbody>
                 <tr th:each="music,musicStat:${musics}">
                     <td><input type="checkbox" th:value="${music.id}" name="box"></td>
-                    <td><span th:text="${music.music_name}"/></td>
-                    <td><span th:text="${music.username}"/></td>
-                    <td><span th:text="${music.beat}"/></td>
-                    <td><span th:text="${music.tone}"/></td>
-                    <td><span th:text="${#dates.format(music.insert_date,'yyyy年MM月dd日')}"/></td>
-                    <td><span th:text="${#dates.format(music.last_update_date,'yyyy年MM月dd日')}"/></td>
+                    <td><span th:text="${music.music_name}"></span></td>
+                    <td><span th:text="${music.username}"></span></td>
+                    <td><span th:text="${music.beat}"></span></td>
+                    <td><span th:text="${music.tone}"></span></td>
+                    <td><span th:text="${#dates.format(music.insert_date,'yyyy年MM月dd日')}"></span></td>
+                    <td><span th:text="${#dates.format(music.last_update_date,'yyyy年MM月dd日')}"></span></td>
                     <td>
                         <form th:action="@{/admin/adminDeleteOne}" method="post">
                             <input type="text" th:value="${music.id}" name="id" style="display: none">
@@ -108,7 +108,7 @@
 </div>
 
 <div style="margin-left: 45%; margin-top: 1%">
-    <form action="http://localhost:8080/ABC/music/listMusicAdmin">
+    <form th:action="@{http://localhost:8080/ABC/music/listMusicAdmin}">
         </span><input type="text" class="input" style="width: 40px" name="pageNo" th:value="${page.pageNum}">页
         <input type="submit" value="跳转" class="btn" style="width: 40px">
     </form>

@@ -23,6 +23,9 @@ public interface UserDAO {
     //个人曲谱查询（用户）
     Sheet_Music findMusicByUserName(Sheet_Music music);
 
+    //删除个人曲谱
+    void deleteOneMusicUser(Integer id);
+
     //个人曲谱修改（用户）
     void updateMusicUser(Sheet_Music music);
 }

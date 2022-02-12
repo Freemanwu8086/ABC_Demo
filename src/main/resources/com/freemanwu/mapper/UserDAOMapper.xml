@@ -22,5 +22,16 @@
         select * from User where username = #{username};
     </select>
 
+<!--查看个人乐谱-->
+    <select id="findMusicByUserName" parameterType="java.lang.String" resultMap="com.freemanwu.abc_demo.entity.Sheet_Music">
+        select * from Sheet_music where username = #{username};
+    </select>
+
+<!--删除个人曲谱-->
+    <delete id="deleteOneMusicUser" parameterType="java.lang.Integer">
+        delete from Sheet_music where id = #{id};
+    </delete>
+
+
 <!--    useCache="true" flushCache="false-->
 </mapper>

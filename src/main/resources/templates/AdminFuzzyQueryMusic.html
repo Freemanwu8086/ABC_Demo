@@ -56,12 +56,12 @@
                 <tbody>
                 <tr th:each="music,musicStat:${musics}">
                     <td><input type="checkbox" th:value="${music.id}" name="box"></td>
-                    <td><span th:text="${music.music_name}"/></td>
-                    <td><span th:text="${music.username}"/></td>
-                    <td><span th:text="${music.beat}"/></td>
-                    <td><span th:text="${music.tone}"/></td>
-                    <td><span th:text="${#dates.format(music.insert_date,'yyyy年MM月dd日')}"/></td>
-                    <td><span th:text="${#dates.format(music.last_update_date,'yyyy年MM月dd日')}"/></td>
+                    <td><span th:text="${music.music_name}"></span></td>
+                    <td><span th:text="${music.username}"></span></td>
+                    <td><span th:text="${music.beat}"></span></td>
+                    <td><span th:text="${music.tone}"></span></td>
+                    <td><span th:text="${#dates.format(music.insert_date,'yyyy年MM月dd日')}"></span></td>
+                    <td><span th:text="${#dates.format(music.last_update_date,'yyyy年MM月dd日')}"></span></td>
                     <td>
                         <form th:action="@{/admin/adminDeleteOne}" method="post">
                             <input type="text" th:value="${music.id}" name="id" style="display: none">
@@ -77,19 +77,19 @@
     <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
     &nbsp&nbsp&nbsp
     <!--            首页作为第一页不可点击-->
-    <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=1)}" class="btn" style="width: 40px">首页</a>
+    <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=1,music_name=${session.music_name})}" class="btn" style="width: 40px">首页</a>
     &nbsp&nbsp
     <span th:if="${page.pageNum==1}">
                 <a onclick="return false" class="btn_FenYe">上一页</a>
             </span>
     <span th:unless="${page.pageNum==1}">
-                <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${page.pageNum - 1})}" class="btn_FenYe">上一页</a>
+                <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${page.pageNum - 1},music_name=${session.music_name})}" class="btn_FenYe">上一页</a>
             </span>
     &nbsp&nbsp
 
     <span th:each="i:${#numbers.sequence(1,page.pages)}">
         &nbsp
-                <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${i})}" th:text="${i}">1</a>
+                <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${i},music_name=${session.music_name})}" th:text="${i}">1</a>
             </span>
 
     &nbsp&nbsp
@@ -98,20 +98,13 @@
             </span>
 
     <span th:unless="${page.pages==page.pageNum}">
-                <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${page.pageNum+1})}" class="btn_FenYe">下一页</a>
+                <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${page.pageNum+1},music_name=${session.music_name})}" class="btn_FenYe">下一页</a>
             </span>
 
     &nbsp&nbsp
-    <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${page.pages})}" class="btn" style="width: 40px">末页</a>
+    <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${page.pages},music_name=${session.music_name})}" class="btn" style="width: 40px">末页</a>
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
-</div>
-
-<div style="margin-left: 45%; margin-top: 1%">
-    <form action="http://localhost:8080/ABC/music/findByMusicName">
-        </span><input type="text" class="input" style="width: 40px" name="pageNo" th:value="${page.pageNum}">页
-        <input type="submit" value="跳转" class="btn" style="width: 40px">
-    </form>
 </div>
 
 <script th:src="@{/js/jquery-3.4.1.js}"></script>

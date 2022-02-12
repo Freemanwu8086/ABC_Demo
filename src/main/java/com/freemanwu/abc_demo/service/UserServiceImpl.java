@@ -32,6 +32,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteOneMusicUser(Integer id) {
+        userDAO.deleteOneMusicUser(id);
+    }
+
+    @Override
     public Sheet_Music findMusicByUserName(Sheet_Music music) {
         return userDAO.findMusicByUserName(music);
     }
