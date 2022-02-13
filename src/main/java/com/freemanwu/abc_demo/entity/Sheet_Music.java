@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
-
 import java.sql.Date;
 
 @Data
@@ -21,5 +19,7 @@ public class Sheet_Music {
     private String location;
     private Date insert_date;
     private Date last_update_date;
+    private String state;
+    private String abc;
     private Integer id;
 }

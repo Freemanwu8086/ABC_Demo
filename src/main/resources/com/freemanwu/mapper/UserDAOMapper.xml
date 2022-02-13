@@ -23,7 +23,7 @@
     </select>
 
 <!--查看个人乐谱-->
-    <select id="findMusicByUserName" parameterType="java.lang.String" resultMap="com.freemanwu.abc_demo.entity.Sheet_Music">
+    <select id="findMusicByUserName" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
         select * from Sheet_music where username = #{username};
     </select>
 

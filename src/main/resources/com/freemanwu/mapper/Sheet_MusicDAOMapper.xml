@@ -2,8 +2,8 @@
 <mapper namespace="com.freemanwu.abc_demo.dao.Sheet_MusicDAO">
 
     <insert id="save" parameterType="Sheet_Music">
-        insert into Sheet_Music (music_name, beat, tone, username, location, insert_date)
-            values (#{music_name},#{beat},#{tone},#{username},#{location},now());
+        insert into Sheet_Music (music_name, beat, tone, username, state, abc, insert_date)
+            values (#{music_name},#{beat},#{tone},#{username},'待审核',#{abc},now());
     </insert>
 
     <select id="findAllMusic" parameterType="Sheet_Music" resultType="Sheet_Music">

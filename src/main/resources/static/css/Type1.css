@@ -335,7 +335,6 @@ a{
 body{
     font-family: Helvetica;
     -webkit-font-smoothing: antialiased;
-    background: rgb(71, 147, 227);
 }
 
 /* Table Styles */
@@ -861,7 +860,6 @@ a {
 }
 .btn0{
     float:left;
-    padding-right: 200px;
     margin-left: 40px;
 }
 .btn:hover{

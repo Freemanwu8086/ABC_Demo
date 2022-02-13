@@ -3,7 +3,6 @@ package com.freemanwu.abc_demo.controller;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.service.Sheet_MusicService;
 import com.github.pagehelper.PageInfo;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +18,17 @@ import java.util.Map;
 public class Sheet_MusicController {
     @Autowired
     private Sheet_MusicService musicService;
+
+    /**
+     * 新建曲谱
+     * @param music
+     * @return
+     */
+    @RequestMapping("save")
+    public String saveMusic(Sheet_Music music){
+        musicService.save(music);
+        return "UserFirst";
+    }
 
     /**
      * 管理员查询所有乐谱
@@ -54,7 +63,7 @@ public class Sheet_MusicController {
 
         model.addAttribute("musics",musics);
         map.put("page",page);
-        return "UserFindAllMusic";
+        return "UserFirst";
     }
 
     /**
