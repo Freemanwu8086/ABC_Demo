@@ -56,7 +56,11 @@
                 <tbody>
                 <tr th:each="music,musicStat:${musics}">
                     <td><input type="checkbox" th:value="${music.id}" name="box"></td>
-                    <td><span th:text="${music.music_name}"></span></td>
+                    <td>
+                        <a th:href="@{http://localhost:8080/ABC/music/AdminFindMusicById(id=${music.id})}">
+                            <span style="color: black" th:text="${music.music_name}"></span>
+                        </a>
+                    </td>
                     <td><span th:text="${music.username}"></span></td>
                     <td><span th:text="${music.beat}"></span></td>
                     <td><span th:text="${music.tone}"></span></td>

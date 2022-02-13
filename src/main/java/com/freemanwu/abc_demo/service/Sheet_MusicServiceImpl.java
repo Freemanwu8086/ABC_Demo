@@ -27,6 +27,11 @@ public class Sheet_MusicServiceImpl implements Sheet_MusicService {
     }
 
     @Override
+    public Sheet_Music findMusicById(Integer id) {
+        return musicDAO.findMusicById(id);
+    }
+
+    @Override
     public PageInfo<Sheet_Music> findByMusicName(int pageNo,String music_name) {
         PageHelper.startPage(pageNo, ConstantUtils.PAGE_SIZE);
         List<Sheet_Music> list = musicDAO.findByMusicName(music_name);

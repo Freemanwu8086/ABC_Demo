@@ -895,9 +895,17 @@ a {
     border-radius: 5px;
     border: 1px dashed #CFCFCF;
 }
-.deleteBtn{
-    height:25px;
-    border:none;
+.deleteBtn {
+    height: 25px;
+    border: none;
     color: #f65a5a;
+    box-shadow: #CFCFCF 3px 3px 3px;
+}
+.print{
+    float: right;margin-bottom: 8%;margin-right: 42%
+}
+.audio{
+    color: #FFA07A;
+    border: none;
     box-shadow: #CFCFCF 3px 3px 3px;
 }

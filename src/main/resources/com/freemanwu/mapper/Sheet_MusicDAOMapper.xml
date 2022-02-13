@@ -14,4 +14,8 @@
         select * from Sheet_Music where music_name like CONCAT(CONCAT('%',#{name}),'%')
     </select>
 
+    <select id="findMusicById" parameterType="java.lang.Integer" resultType="Sheet_music">
+        select * from Sheet_music where id = #{id};
+    </select>
+
 </mapper>

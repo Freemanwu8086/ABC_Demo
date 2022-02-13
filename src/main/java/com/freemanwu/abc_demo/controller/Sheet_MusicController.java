@@ -63,7 +63,7 @@ public class Sheet_MusicController {
 
         model.addAttribute("musics",musics);
         map.put("page",page);
-        return "UserFirst";
+        return "UserFindAllMusic";
     }
 
     /**
@@ -86,7 +86,16 @@ public class Sheet_MusicController {
         return "AdminFuzzyQueryMusic";
     }
 
-    @RequestMapping("userFindByMusicName")
+    /**
+     * 用户查询个人曲谱
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param music_name
+     * @param session
+     * @return
+     */
+    @RequestMapping("UserFindByMusicName")
     public String userFindByMusicName(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
                                       Map<String,Object> map, Model model, String music_name, HttpSession session){
         PageInfo<Sheet_Music> page = musicService.findByMusicName(pageNum,music_name);
@@ -95,5 +104,31 @@ public class Sheet_MusicController {
         model.addAttribute("musics",musics);
         map.put("page",page);
         return "UserFuzzyQueryMusic";
+    }
+
+    /**
+     * 管理员展示单个乐谱（按id）
+     * @param model
+     * @param id
+     * @return
+     */
+    @RequestMapping("AdminFindMusicById")
+    public String findMusicById(Model model,Integer id){
+        Sheet_Music music = musicService.findMusicById(id);
+        model.addAttribute("music",music);
+        return "AdminShowOneMusic";
+    }
+
+    /**
+     * 用户展示单个乐谱（按id）
+     * @param model
+     * @param id
+     * @return
+     */
+    @RequestMapping("UserFindMusicById")
+    public String UserFindMusicById(Model model, Integer id){
+        Sheet_Music music = musicService.findMusicById(id);
+        model.addAttribute("music",music);
+        return "UserShowOneMusic";
     }
 }
