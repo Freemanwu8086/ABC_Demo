@@ -2,8 +2,8 @@
 <mapper namespace="com.freemanwu.abc_demo.dao.UserDAO">
 <!--注册-->
     <insert id="register" parameterType="User">
-        insert into User (username, password, phoneNUmber, birthday)
-         values (#{username}, #{password}, #{phoneNumber}, #{birthday});
+        insert into User (username, password, phoneNUmber, birthday, enroll_date)
+         values (#{username}, #{password}, #{phoneNumber}, #{birthday}, now());
     </insert>
 
 <!--登陆-->
@@ -22,16 +22,15 @@
         select * from User where username = #{username};
     </select>
 
-<!--查看个人乐谱-->
-    <select id="findMusicByUserName" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
-        select * from Sheet_music where username = #{username};
-    </select>
-
-<!--删除个人曲谱-->
-    <delete id="deleteOneMusicUser" parameterType="java.lang.Integer">
-        delete from Sheet_music where id = #{id};
+    <delete id="deleteOneUser" parameterType="java.lang.Integer">
+        delete from Sheet_music where id = #{id}
     </delete>
 
-
-<!--    useCache="true" flushCache="false-->
+    <!--批量删除乐谱-->
+    <delete id="deleteListMusic" parameterType="java.lang.Integer">
+        delete from Sheet_Music where id in
+        <foreach collection="array" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
 </mapper>

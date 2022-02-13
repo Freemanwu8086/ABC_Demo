@@ -17,6 +17,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteOneUser(Integer id) {
+        userDAO.deleteOneUser(id);
+    }
+
+    @Override
     public User findByNameAndPassword(User user) {
         return userDAO.findByNameAndPassword(user);
     }
@@ -32,15 +37,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteOneMusicUser(Integer id) {
-        userDAO.deleteOneMusicUser(id);
+    public void deleteListMusic(Integer[] id) {
+        userDAO.deleteListMusic(id);
     }
 
     @Override
-    public Sheet_Music findMusicByUserName(Sheet_Music music) {
-        return userDAO.findMusicByUserName(music);
+    public void deleteOneMusicUser(Integer id) {
+        userDAO.deleteOneMusicUser(id);
     }
-
     @Override
     public void updateMusicUser(Sheet_Music music) {
         userDAO.updateMusicUser(music);

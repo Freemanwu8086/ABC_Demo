@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="content-type" content="text/html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--    <link rel="icon" href="favicon.ico" type="image/x-icon"/>-->
+    <title>ABC管理员乐谱修改</title>
+
+    <link rel="stylesheet" th:href="@{/css/examples-styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/Type1.css}">
+
+    <script th:src="@{/js/abcjs-basic.js}" type="text/javascript"></script>
+    <link th:href="@{/css/abcjs-audio.css}" media="all" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        function Sure() {
+            var gnl = confirm("确定要提交?");
+            if (gnl == true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+
+</head>
+<body style="background-color: #FFF5EE">
+<div class="ue1">
+    <div class="ue2">
+        <div style="float: left;height: 50px;width: 20%;margin-left: 45%">
+            <b style="font-size: 25px;color: #FF8C69">
+                <strong>修改用户</strong>
+            </b>
+        </div>
+        <div class="ue4">
+            <ul>
+                <li class="ue6">
+                        <b>
+                            当前管理员：<span th:text="${session.loginAdmin.username}"></span>
+                        </b>
+                    </a>
+                </li>
+                <li class="add">
+                    <a href="http://localhost:8080/ABC/Welcome.html">退出登陆</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<form th:action="@{/admin/updateUser2}" method="post" onsubmit="return Sure()">
+    <div style="margin-left: 10%;margin-top: 3%">
+        <div class="forg3">
+            <div class="forg_n">
+                <b>用户名</b>
+            </div>
+            <div>
+                <input type="text" name="username" th:value="${user.username}" class="input">
+                <input type="text" name="id" th:value="${user.id}" style="display: none">
+            </div>
+        </div>
+
+        <div class="forg3">
+            <div class="forg_n">
+                <b>密&nbsp&nbsp&nbsp码</b>
+            </div>
+            <div>
+                <input type="text" name="password" th:value="${user.password}" class="input">
+            </div>
+        </div>
+
+        <div class="forg3">
+            <div class="forg_n">
+                <b>电&nbsp&nbsp&nbsp话</b>
+            </div>
+            <div>
+                <input type="text" name="phoneNumber" th:value="${user.phoneNumber}" class="input">
+            </div>
+        </div>
+
+        <div class="forg3">
+            <div class="forg_n">
+                <b>生&nbsp&nbsp&nbsp日</b>
+            </div>
+            <div>
+                <input type="date" name="birthday" th:value="${user.birthday}" class="input">
+            </div>
+        </div>
+        <div class="forg3">
+            <div class="btn0" style="margin-bottom: 3%;margin-left: 33%;">
+                <input type="submit" value="更新" class="btn">
+            </div>
+        </div>
+    </div>
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员之用户模糊查询</title>
+    <link rel="stylesheet" th:href="@{/css/Type1.css}">
+</head>
+<body style="background-color: #FFF5EE">
+
+<div class="ue1">
+    <div class="ue2">
+        <div style="float: left;height: 50px;width: 20%;margin-left: 45%">
+            <b style="font-size: 40px;color: #FF8C69">
+                <strong>模糊查询</strong>
+            </b>
+        </div>
+        <div class="ue4">
+            <ul>
+                <li class="ue6" style="font-size: 2px; color: #EEE5DE">
+                    <b>
+                        当前管理员：<span th:text="${session.loginAdmin.username}"></span>
+                    </b>
+                </li>
+                <li class="add">
+                    <a href="http://localhost:8080/ABC/Welcome.html">&nbsp|&nbsp退出登陆</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div style="width: 20%;float: right;margin-top: 2%;margin-bottom: 1%" >
+    <form action="http://localhost:8080/ABC/admin/findUsersByUserName" method="post">
+        <input type="text" name="username" placeholder="按用户名模糊查询" class="input">&nbsp
+        <input type="submit" class="btn" value="查询" style="width: 40px">
+    </form>
+</div>
+
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+        <tr>
+            <th>用户名</th>
+            <th>密码</th>
+            <th>电话号码</th>
+            <th>生日</th>
+            <th>注册时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+                <tbody>
+                <tr th:each="user,musicStat:${users}">
+                    <td><span th:text="${user.username}"></span></td>
+                    <td><span th:text="${user.password}"></span></td>
+                    <td><span th:text="${user.phoneNumber}"></span></td>
+                    <td><span th:text="${#dates.format(user.birthday,'yyyy年MM月dd日')}"></span></td>
+                    <td><span th:text="${#dates.format(user.enroll_date,'yyyy年MM月dd日')}"></span></td>
+                    <td>
+                        <form th:action="@{/admin/adminDeleteOneUser}" method="post" style="width: 50%;float: left">
+                            <input type="text" th:value="${user.id}" name="id" style="display: none">
+                            <input type="submit" value="删除" class="deleteBtn">
+                        </form>
+                        <form th:action="@{/admin/updateUser1}" method="post" style="width: 50%;">
+                            <input type="text" th:value="${user.id}" name="id" style="display: none">
+                            <input type="submit" value="更新" class="updateBtn">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+    </table>
+</div>
+<div th:if="${page.pages>0}" style="margin-left: 35%">
+    <!--当前页-->
+    <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
+    &nbsp&nbsp&nbsp
+    <!--            首页作为第一页不可点击-->
+    <a th:href="@{http://localhost:8080/ABC/admin/listUsers(pageNo=1,username=${session.username})}" class="btn" style="width: 40px">首页</a>
+    &nbsp&nbsp
+    <span th:if="${page.pageNum==1}">
+                <a onclick="return false" class="btn_FenYe">上一页</a>
+            </span>
+    <span th:unless="${page.pageNum==1}">
+                <a th:href="@{http://localhost:8080/ABC/admin/listUsers(pageNo=${page.pageNum - 1},username=${session.username})}" class="btn_FenYe">上一页</a>
+            </span>
+    &nbsp&nbsp
+
+    <span th:each="i:${#numbers.sequence(1,page.pages)}">
+        &nbsp
+                <a th:href="@{http://localhost:8080/ABC/admin/listUsers(pageNo=${i},username=${session.username})}" th:text="${i}">1</a>
+            </span>
+
+    &nbsp&nbsp
+    <span th:if="${page.pages==page.pageNum}">
+                <a onclick="return false" class="btn_FenYe">下一页</a>
+            </span>
+
+    <span th:unless="${page.pages==page.pageNum}">
+                <a th:href="@{http://localhost:8080/ABC/admin/listUsers(pageNo=${page.pageNum+1},username=${session.username})}" class="btn_FenYe">下一页</a>
+            </span>
+
+    &nbsp&nbsp
+    <a th:href="@{http://localhost:8080/ABC/admin/listUsers(pageNo=${page.pages},username=${session.username})}" class="btn" style="width: 40px">末页</a>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
+</div>
+</body>
+</html>

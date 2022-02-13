@@ -9,15 +9,12 @@
 <div class="ue1">
     <div class="ue2">
         <div class="ue3">
-<!--            <a href="http://localhost:8082/Donation_war/first.jsp">-->
-<!--                <img src="http://localhost:8082/Donation_war/img/logo.png" class="logo">-->
-<!--            </a>-->
         </div>
         <div class="ue4">
             <ul>
                 <li class="ue6">
                     <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">
-                        <b>当前用户:<span th:text="${session.loginUser.username}"></span></b>
+                        <b>当前用户：<span th:text="${session.loginUser.username}"></span></b>
                     </a>
                 </li>
                 <li class="add">
@@ -39,16 +36,13 @@
 
 <div class="under">
     <div class="left">
-<!--        <div class="img1">-->
-<!--            <img src="http://localhost:8082/Donation_war/img/57-My%20Center%202.png">-->
-<!--        </div>-->
         <div class="ul0">
             <ul>
                 <li>
                     <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">—我的信息—</a>
                 </li>
                 <li>
-                    <a href="http://localhost:8082/Donation_war/event/findByName?name=${loginUser.username}">—我的捐赠—</a>
+                    <a th:href="@{http://localhost:8080/ABC/music/listPersonalMusic}">—我的曲谱—</a>
                 </li>
                 <li>
                     <a th:href="@{http://localhost:8080/ABC/user/update1(username=${session.loginUser.username})}" style="color: #FF8C69">—更改信息—</a>

@@ -50,22 +50,32 @@
             <th>定调</th>
             <th>创建时间</th>
             <th>最后修改时间</th>
+            <th>状态</th>
             <th>操作</th>
         </tr>
         </thead>
                 <tbody>
                 <tr th:each="music,musicStat:${musics}">
                     <td><input type="checkbox" th:value="${music.id}" name="box"></td>
-                    <td><span th:text="${music.music_name}"></span></td>
+                    <td>
+                        <a th:href="@{http://localhost:8080/ABC/music/AdminFindMusicById(id=${music.id})}">
+                            <span style="color: black" th:text="${music.music_name}"></span>
+                        </a>
+                    </td>
                     <td><span th:text="${music.username}"></span></td>
                     <td><span th:text="${music.beat}"></span></td>
                     <td><span th:text="${music.tone}"></span></td>
                     <td><span th:text="${#dates.format(music.insert_date,'yyyy年MM月dd日')}"></span></td>
                     <td><span th:text="${#dates.format(music.last_update_date,'yyyy年MM月dd日')}"></span></td>
+                    <td><span th:text="${music.state}"></span></td>
                     <td>
-                        <form th:action="@{/admin/adminDeleteOne}" method="post">
+                        <form th:action="@{/admin/adminDeleteOne}" method="post" style="width: 50%;float: left">
                             <input type="text" th:value="${music.id}" name="id" style="display: none">
                             <input type="submit" value="删除" class="deleteBtn">
+                        </form>
+                        <form th:action="@{/music/updateMusicAdmin1}" method="post" style="width: 50%;">
+                            <input type="text" th:value="${music.id}" name="id" style="display: none">
+                            <input type="submit" value="更新" class="updateBtn">
                         </form>
                     </td>
                 </tr>

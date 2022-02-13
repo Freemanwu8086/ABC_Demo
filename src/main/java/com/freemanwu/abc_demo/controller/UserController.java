@@ -64,8 +64,10 @@ public class UserController {
     @RequestMapping("findByNameAndPassword")
     public String findByNameAndPassword(User user, HttpSession session, Model model){
        User loginUser = userService.findByNameAndPassword(user);
+       String username = loginUser.getUsername();
        if (loginUser != null){
            session.setAttribute("loginUser",loginUser);
+           session.setAttribute("username",username);
 //           model.addAttribute("User",loginUser);
            return "UserFirst";
        }else
@@ -117,4 +119,15 @@ public class UserController {
         return "SaveABCSheet";
     }
 
+    @RequestMapping("deleteOneUser")
+    public String deleteOneUser(Integer id){
+        userService.deleteOneUser(id);
+        return "redirect:/music/listPersonalMusic";
+    }
+
+    @RequestMapping("deleteByIds")
+    public String deleteByIds(Integer[] id){
+        userService.deleteListMusic(id);
+        return "redirect:/music/listPersonalMusic";
+    }
 }

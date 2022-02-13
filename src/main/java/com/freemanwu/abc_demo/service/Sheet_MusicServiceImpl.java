@@ -27,6 +27,45 @@ public class Sheet_MusicServiceImpl implements Sheet_MusicService {
     }
 
     @Override
+    public Sheet_Music findMusicById(Integer id) {
+        return musicDAO.findMusicById(id);
+    }
+
+    @Override
+    public PageInfo<Sheet_Music> findAllMusicUser(int pageNo) {
+        PageHelper.startPage(pageNo, ConstantUtils.PAGE_SIZE);
+        List<Sheet_Music> list = musicDAO.findAllMusicUser();
+        PageInfo<Sheet_Music> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public void updateMusicAdmin(Sheet_Music music) {
+        musicDAO.updateMusicAdmin(music);
+    }
+
+    @Override
+    public PageInfo<Sheet_Music> findByMusicUserName(int pageNo,String username) {
+        PageHelper.startPage(pageNo, ConstantUtils.PAGE_SIZE);
+        List<Sheet_Music> list = musicDAO.findByMusicUserName(username);
+        PageInfo<Sheet_Music> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public void updateMusicUser(Sheet_Music music) {
+        musicDAO.updateMusicUser(music);
+    }
+
+    @Override
+    public PageInfo<Sheet_Music> findByMusicNameUser(int pageNo, String music_name) {
+        PageHelper.startPage(pageNo, ConstantUtils.PAGE_SIZE);
+        List<Sheet_Music> list = musicDAO.findByMusicNameUser(music_name);
+        PageInfo<Sheet_Music> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @Override
     public PageInfo<Sheet_Music> findByMusicName(int pageNo,String music_name) {
         PageHelper.startPage(pageNo, ConstantUtils.PAGE_SIZE);
         List<Sheet_Music> list = musicDAO.findByMusicName(music_name);

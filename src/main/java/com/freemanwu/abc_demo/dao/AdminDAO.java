@@ -26,9 +26,18 @@ public interface AdminDAO {
     //展示所有用户（管理员）
     List<User> findAllUser();
 
+    //按id查找某用户
+    User findUserById(Integer id);
+
     //修改某一用户信息（管理员）
     void updateUser(User user);
 
     //删除某一用户（管理员）
     void deleteOneUser(User user);
+
+    //模糊查询用户
+    List<User> findUsersByUserName(String username);
+
+    //全站通知
+    void WholeSiteAnnouncement(String FirstPageAnnounce);
 }

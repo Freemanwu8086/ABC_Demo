@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--    <link rel="icon" href="favicon.ico" type="image/x-icon"/>-->
-    <title>ABC Editor</title>
+    <title>ABC管理员乐谱修改</title>
 
     <link rel="stylesheet" th:href="@{/css/examples-styles.css}"/>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
@@ -14,7 +14,6 @@
     <link th:href="@{/css/abcjs-audio.css}" media="all" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
-
         function Sure() {
             var gnl = confirm("确定要提交?");
             if (gnl == true) {
@@ -57,23 +56,18 @@
 <body style="background-color: #FFF5EE">
 <div class="ue1">
     <div class="ue2">
-        <div style="float: left;height: 50px;width: 20%;margin-left: 45%;margin-bottom: -3%">
+        <div style="float: left;height: 50px;width: 20%;margin-left: 45%">
             <b style="font-size: 25px;color: #FF8C69">
-                <strong>新建曲谱</strong>
+                <strong>修改曲谱</strong>
             </b>
         </div>
         <div class="ue4">
             <ul>
                 <li class="ue6">
-                    <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">
                         <b>
-                            当前用户：<span th:text="${session.loginUser.username}"></span>
+                            当前管理员：<span th:text="${session.loginAdmin.username}"></span>
                         </b>
                     </a>
-                </li>
-                <li class="add">
-                    <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">
-                        主页&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
                     <a href="http://localhost:8080/ABC/Welcome.html">退出登陆</a>
@@ -82,15 +76,16 @@
         </div>
     </div>
 </div>
-
-<form th:action="@{/music/save}" method="post" onsubmit="return Sure()">
+<form th:action="@{/music/updateMusicAdmin2}" method="post" onsubmit="return Sure()">
     <div style="margin-left: 10%;margin-top: 3%">
         <div class="forg3">
             <div class="forg_n">
                 <b>曲谱名</b>
             </div>
             <div>
-                <input type="text" name="music_name" placeholder="请输入您的曲谱名" class="input">
+                <input type="text" name="music_name" th:value="${music.music_name}" class="input">
+                <input type="text" name="id" th:value="${music.id}" style="display: none">
+<!--                <input type="text" name="username" th:value="${music.username}" style="display: none">-->
             </div>
         </div>
 
@@ -99,7 +94,7 @@
                 <b>节&nbsp&nbsp&nbsp拍</b>
             </div>
             <div>
-                <input type="text" name="beat" placeholder="请输入曲谱的节拍" class="input">
+                <input type="text" name="beat" th:value="${music.beat}" class="input">
             </div>
         </div>
 
@@ -108,11 +103,32 @@
                 <b>定&nbsp&nbsp&nbsp调</b>
             </div>
             <div>
-                <input type="text" name="tone" placeholder="请输入曲谱的定调" class="input">
-                <input type="text" name="username" th:value="${session.loginUser.username}" class="input" style="display: none">
+                <input type="text" name="tone" th:value="${music.tone}" class="input">
             </div>
         </div>
-<!--        -->
+
+<!--        <div class="forg3">-->
+<!--            <div class="forg_n">-->
+<!--                <b>通&nbsp&nbsp&nbsp告</b>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <input type="text" name="FirstPageAnnounce" placeholder="给用户的通告（选填）" class="input">-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="forg3">
+            <div class="forg_n">
+                <b>状&nbsp&nbsp&nbsp态</b>
+            </div>
+            <div>
+                <select name="state" class="shortSelect">
+                    <option value = "待审核" th:selected="${{music.state}} eq '待审核'" >待审核</option>
+                    <option value = "通过" th:selected="${{music.state}} eq '通过'">通过</option>
+                    <option value = "请修改" th:selected="${{music.state}} eq '请修改'">请修改</option>
+                </select>
+            </div>
+        </div>
+
         <div class="forg3">
             <div class="forg_n">
                 <b>ABC乐谱</b>
@@ -122,7 +138,7 @@
                             spellcheck="false"
                                   style="float: left;
                                 border: 1px solid #FFD3B9;
-                                border-radius: 5px;"></textarea>
+                                border-radius: 5px;" th:text="${music.abc}"></textarea>
             </div>
         </div>
         <div class="forg3">
@@ -136,14 +152,10 @@
     </div>
     <div class="forg3">
         <div class="btn0" style="margin-bottom: 3%;margin-left: 33%;">
-            <input type="submit" value="确定" class="btn">
+            <input type="submit" value="更新" class="btn">
         </div>
     </div>
 </form>
-
-    <div class="print">
-        <button onclick="window.print()" class="btn" >保存乐谱</button>
-    </div>
 
 
 </body>

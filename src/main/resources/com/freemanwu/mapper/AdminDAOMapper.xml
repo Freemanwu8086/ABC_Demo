@@ -15,8 +15,29 @@
             #{ids}
         </foreach>
     </delete>
-
-    <update id="updateMusicAdmin" parameterType="com.freemanwu.abc_demo.entity.Sheet_Music">
-        update Sheet_Music set
+<!--    查询所有用户-->
+    <select id="findAllUser" parameterType="com.freemanwu.abc_demo.entity.User" resultType="com.freemanwu.abc_demo.entity.User">
+        select * from User
+    </select>
+<!--    删除单个用户-->
+    <delete id="deleteOneUser" parameterType="java.lang.Integer">
+        delete from User where id = #{id};
+    </delete>
+<!--    按id查找某个用户-->
+    <select id="findUserById" parameterType="java.lang.Integer" resultType="com.freemanwu.abc_demo.entity.User">
+        select * from User where id = #{id}
+    </select>
+<!--    修改用户信息-->
+    <update id="updateUser" parameterType="com.freemanwu.abc_demo.entity.User">
+        update User set username = #{username}, password = #{password}, phoneNumber = #{phoneNumber}, birthday = #{birthday}
+                    where id = #{id};
+    </update>
+<!--    模糊查询用户-->
+    <select id="findUsersByUserName" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.User">
+        select * from User where username like CONCAT(CONCAT('%',#{username}),'%')
+    </select>
+<!--    全站通知-->
+    <update id="WholeSiteAnnouncement" parameterType="java.lang.String">
+        update User set FirstPageAnnounce = ${FirstPageAnnounce}
     </update>
 </mapper>

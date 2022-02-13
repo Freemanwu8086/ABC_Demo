@@ -3,6 +3,7 @@ package com.freemanwu.abc_demo.service;
 import com.freemanwu.abc_demo.entity.Admin;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -20,11 +21,20 @@ public interface AdminService {
     void deleteListMusic(Integer[] id);
     //——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
     //展示所有用户（管理员）
-    List<User> findAllUser();
+    PageInfo<User> findAllUser(int pageNo);
 
     //修改某一用户信息（管理员）
     void updateUser(User user);
 
+    //按id查找某用户
+    User findUserById(Integer id);
+
     //删除某一用户（管理员）
     void deleteOneUser(User user);
+
+    //模糊查询用户
+    PageInfo<User> findUsersByUserName(int pageNo,String username);
+
+    //全站通知
+    void WholeSiteAnnouncement(String FirstPageAnnounce);
 }

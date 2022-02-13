@@ -783,8 +783,8 @@ a{
     line-height: 40px;
 }
 .right{
-    width: 800px;
-    margin-left: 100px;
+    width: 1000px;
+
 }
 .forg1{
     color: #FF8C69;
@@ -895,9 +895,33 @@ a {
     border-radius: 5px;
     border: 1px dashed #CFCFCF;
 }
-.deleteBtn{
-    height:25px;
-    border:none;
+.deleteBtn {
+    height: 25px;
+    border: none;
     color: #f65a5a;
     box-shadow: #CFCFCF 3px 3px 3px;
+}
+.updateBtn{
+    height: 25px;
+    border: none;
+    color: #5aa0ff;
+    box-shadow: #CFCFCF 3px 3px 3px;
+}
+.print{
+    float: right;margin-bottom: 8%;margin-right: 42%
+}
+.audio{
+    color: #FFA07A;
+    border: none;
+    box-shadow: #CFCFCF 3px 3px 3px;
+}
+.shortSelect{
+    background:#fafdfe;
+    height:28px;
+    width:140px;
+    line-height:28px;
+    border: none;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
 }
