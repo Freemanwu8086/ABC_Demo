@@ -37,6 +37,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void forgetPassword(User user) {
+        userDAO.forgetPassword(user);
+    }
+
+    @Override
     public void update(User user) {
         userDAO.update(user);
     }

@@ -11,7 +11,7 @@
         select * from User where username = #{username} and password = #{password};
     </select>
 
-<!--忘记密码-->
+<!--用户更新信息-->
     <update id="update" parameterType="User">
         update User set phoneNumber = #{phoneNumber}, birthday = #{birthday}
         where username = #{username};
@@ -46,4 +46,8 @@
         select * from Sheet_Music where beat = #{beat} and tone = #{tone} and music_name like CONCAT(CONCAT('%',#{music_name}),'%')
                                     and state = '通过'
     </select>
+
+    <update id="forgetPassword" parameterType="User">
+        update User set password = #{password} where username = #{username}
+    </update>
 </mapper>

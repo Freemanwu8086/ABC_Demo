@@ -3,6 +3,7 @@ package com.freemanwu.abc_demo.controller;
 import com.freemanwu.abc_demo.entity.Announce;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
+import com.freemanwu.abc_demo.service.AdminService;
 import com.freemanwu.abc_demo.service.AnnounceService;
 import com.freemanwu.abc_demo.service.UserService;
 import com.freemanwu.abc_demo.utils.ValidateImageCodeUtils;
@@ -30,6 +31,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private AnnounceService announceService;
+    @Autowired
+    private AdminService adminService;
 
     /**
      * 用户注册
@@ -205,6 +208,12 @@ public class UserController {
         model.addAttribute("musics",musics);
         map.put("page",page);
         return "UserFindMusicCombined";
+    }
+
+    @RequestMapping("forgetPassword")
+    public String forgetPassword1(User user){
+        userService.forgetPassword(user);
+        return "Welcome";
     }
 
 }

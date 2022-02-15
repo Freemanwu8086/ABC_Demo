@@ -29,4 +29,7 @@ public interface UserService {
 
     //组合查询
     PageInfo<Sheet_Music> CombinedFindMusic(int pageNo, Sheet_Music music);
+
+    //忘记密码
+    void forgetPassword(User user);
 }

@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" th:href="@{/css/Type1.css}">
+    <title>ABC曲谱系统</title>
 </head>
 <style>
     .return{
@@ -194,6 +193,7 @@
 
 <body style="background-image: url(http://localhost:8080/ABC/img/Cover.jpeg);">
 <div class="card">
+    <form name="form" method="post">
     <div class="left">
         <div class="forg1">
             <h1>登陆系统</h1>
@@ -226,15 +226,17 @@
         </div>
         <div id="register">
             <div class="forg3" style="margin-top: 35px;margin-left: 140px">
-                <a href="UserRegister.html" class="return">还没有账号？注册一个！</a>
+                <a href="http://localhost:8080/ABC/UserRegister.html" class="return">还没有账号？注册一个！</a>
             </div>
             <div class="forg3" style="margin-left: 155px;">
-                <a href="UserForget.html" class="return">忘记密码？</a>
+                <a href="http://localhost:8080/ABC/UserForgetPassword.html" class="return">忘记密码？</a>
             </div>
         </div>
     </div>
-    <div class="middle">
+    </form>
 
+
+    <div class="middle">
     </div>
 
     <div class="right">

@@ -45,4 +45,7 @@ public interface UserDAO {
 
     //组合查询
     List<Sheet_Music> CombinedFindMusic(Sheet_Music music);
+
+    //忘记密码
+    void forgetPassword(User user);
 }
