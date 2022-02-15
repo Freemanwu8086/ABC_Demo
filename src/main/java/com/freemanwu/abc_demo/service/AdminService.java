@@ -1,6 +1,7 @@
 package com.freemanwu.abc_demo.service;
 
 import com.freemanwu.abc_demo.entity.Admin;
+import com.freemanwu.abc_demo.entity.Announce;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
 import com.github.pagehelper.PageInfo;
@@ -36,7 +37,10 @@ public interface AdminService {
     PageInfo<User> findUsersByUserName(int pageNo,String username);
 
     //全站通知
-    void WholeSiteAnnouncement(String FirstPageAnnounce);
+    void WholeSiteAnnounce(Announce announce);
+
+    //个人曲谱通知
+    void musicAnnounce(User user);
 
     //按节拍查询曲谱
     PageInfo<Sheet_Music> findMusicByBeat(int pageNo ,String beat);

@@ -36,10 +36,15 @@
     <select id="findUsersByUserName" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.User">
         select * from User where username like CONCAT(CONCAT('%',#{username}),'%')
     </select>
-<!--    全站通知-->
-    <update id="WholeSiteAnnouncement" parameterType="java.lang.String">
-        update User set FirstPageAnnounce = ${FirstPageAnnounce}
+<!--用户乐谱通知-->
+    <update id="musicAnnounce" parameterType="com.freemanwu.abc_demo.entity.User">
+        update User set MusicAnnounce = #{MusicAnnounce} where username = #{username};
     </update>
+<!--    全站通知-->
+    <update id="WholeSiteAnnounce" parameterType="java.lang.String">
+        update Announce set announce = #{announce}, update_date = now() where id = 1;
+    </update>
+
 <!---->
     <select id="findMusicByBeat" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
         select * from Sheet_Music where beat = #{beat}

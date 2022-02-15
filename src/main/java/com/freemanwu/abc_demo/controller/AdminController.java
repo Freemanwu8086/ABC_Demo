@@ -1,9 +1,11 @@
 package com.freemanwu.abc_demo.controller;
 
 import com.freemanwu.abc_demo.entity.Admin;
+import com.freemanwu.abc_demo.entity.Announce;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
 import com.freemanwu.abc_demo.service.AdminService;
+import com.freemanwu.abc_demo.service.AnnounceService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private AnnounceService announceService;
 
     /**
      * 管理员登陆
@@ -28,9 +32,11 @@ public class AdminController {
      * @return
      */
     @RequestMapping("adminLogin")
-    public String AdminLogin(Admin admin, HttpSession session){
+    public String AdminLogin(Admin admin, HttpSession session, Announce announce, Model model){
         Admin loginAdmin = adminService.AdminLogin(admin);
         if (loginAdmin != null){
+            Announce anna= announceService.showAnnounce(announce);
+            model.addAttribute("announce",anna);
             session.setAttribute("loginAdmin",loginAdmin);
             return "AdminFirst";
         }else
@@ -163,6 +169,19 @@ public class AdminController {
         return "AdminFindMusicCombined";
     }
 
+
+    @RequestMapping("newAnnounce")
+    public String newAnnounce(Announce announce,Model model){
+        Announce anno = announceService.showAnnounce(announce);
+        model.addAttribute("announce",anno);
+        return "AdminUpdateAnnounce";
+    }
+
+    @RequestMapping("WholeSiteAnnounce")
+    public String WholeSiteAnnounce(Announce announce){
+        adminService.WholeSiteAnnounce(announce);
+        return "AdminFirst";
+    }
 
 
 

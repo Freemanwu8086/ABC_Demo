@@ -17,5 +17,6 @@ public class User  {
     private String phoneNumber;
     private Date birthday;
     private Integer id;
+    private String MusicAnnounce;
     private Date enroll_date;
 }

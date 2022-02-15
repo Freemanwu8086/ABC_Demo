@@ -1,7 +1,9 @@
 package com.freemanwu.abc_demo.controller;
 
+import com.freemanwu.abc_demo.entity.Announce;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
+import com.freemanwu.abc_demo.service.AnnounceService;
 import com.freemanwu.abc_demo.service.UserService;
 import com.freemanwu.abc_demo.utils.ValidateImageCodeUtils;
 import com.github.pagehelper.PageInfo;
@@ -26,6 +28,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private AnnounceService announceService;
 
     /**
      * 用户注册
@@ -67,12 +71,14 @@ public class UserController {
      * @return
      */
     @RequestMapping("findByNameAndPassword")
-    public String findByNameAndPassword(User user, HttpSession session, Model model){
+    public String findByNameAndPassword(User user, Announce announce, HttpSession session, Model model){
        User loginUser = userService.findByNameAndPassword(user);
        String username = loginUser.getUsername();
        if (loginUser != null){
            session.setAttribute("loginUser",loginUser);
            session.setAttribute("username",username);
+           Announce anna = announceService.showAnnounce(announce);
+           model.addAttribute("announce",anna);
 //           model.addAttribute("User",loginUser);
            return "UserFirst";
        }else

@@ -2,6 +2,7 @@ package com.freemanwu.abc_demo.service;
 
 import com.freemanwu.abc_demo.dao.AdminDAO;
 import com.freemanwu.abc_demo.entity.Admin;
+import com.freemanwu.abc_demo.entity.Announce;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
 import com.freemanwu.abc_demo.utils.ConstantUtils;
@@ -38,8 +39,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void WholeSiteAnnouncement(String FirstPageAnnounce) {
-        adminDAO.WholeSiteAnnouncement(FirstPageAnnounce);
+    public void musicAnnounce(User user) {
+        adminDAO.musicAnnounce(user);
+    }
+
+    @Override
+    public void WholeSiteAnnounce(Announce announce) {
+        adminDAO.WholeSiteAnnounce(announce);
     }
 
     @Override

@@ -9,7 +9,7 @@
     .return{
         color: #CFCFCF;
         margin-top: -50px;
-        margin-left: 80px;
+        margin-left: 30px;
     }
     .input{
         float: left;
@@ -26,6 +26,7 @@
         color: #FF8C69;
         margin-left: 20px;
         font-size: 20px;
+        width: 60%;
     }
     *{
         -webkit-user-select: none;
@@ -79,7 +80,8 @@
 
     }
     .forg3{
-        padding-top: 50px;
+        padding-top: 20px;
+        margin-left: 60px;
     }
     .forg_n{
         width: 100px;
@@ -110,13 +112,8 @@
         margin-left: 50px;
         font-size: small;
         color: #FFA07A;
-    }
-     /*html{*/
-     /*    height:100%;*/
-     /*    background-image: linear-gradient(to right, #FFF5EE, #9CBFEE, #9CBFEE, #FFF5EE);*/
-     /*}*/
 
-    /* 核心样式 */
+    }
 
     .card {
         margin-top: 8%;
@@ -149,6 +146,23 @@
         transition-delay: 0s !important;
 
     }
+    .left{
+        float: left;
+        width: 49%;
+        height: 400px;
+    }
+    .right{
+        float: right;
+        width: 49%;
+        height: 400px;
+    }
+    .middle{
+        float: left;
+        width: 1px;
+        height: 250px;
+        background-color: #5aa0ff;
+        margin-top: 75px;
+    }
 
 
 </style>
@@ -167,6 +181,7 @@
         var crl = document.getElementById("control");
         var show = document.getElementById("register");
         var user = document.getElementById("user");
+        var forget = document.getElementById("forget");
         crl.onclick =function (){
             show.style.display = "none";
         }
@@ -179,7 +194,7 @@
 
 <body style="background-image: url(http://localhost:8080/ABC/img/Cover.jpeg);">
 <div class="card">
-    <form name="form" method="post" style="position: center;">
+    <div class="left">
         <div class="forg1">
             <h1>登陆系统</h1>
         </div>
@@ -188,39 +203,51 @@
             <input type="radio" name="m" value="1" checked id="user" />用户
             <input type="radio" name="m" value="2" id="control"/>管理员
         </div>
-        <div class="forg2" style="position: center">
-            <div class="forg3">
-                <div class="forg_n">
-                    <b>用户名</b>
-                </div>
-                <div>
-                    <input type="text" name="username" placeholder="请输入您的用户名" class="input">
-                </div>
-            </div>
-            <div class="forg3">
-                <div class="forg_n">
-                    <b>密码</b>
-                </div>
-                <div>
-                    <input type="password" name="password" placeholder="请输入您的密码" class="input">
-                </div>
-            </div>
-            <div style="margin-top: 60px;margin-left: 40px">
-                <div class="btn0">
-                    <input type="submit" value="登陆" class="btn" onclick="a()">
-                </div>
+        <div class="forg3">
+            <div class="forg_n">
+                <b>用户名</b>
             </div>
             <div>
-                <div class="forg1">
-                    <h1>微信公众号</h1>
-                    <img src="/img/QRCode" style="margin-left: 700px">
-                </div>
-            </div>
-            <div class="return" id="register">
-                <a href="UserRegister.html">还没有账号？注册一个！</a>
+                <input type="text" name="username" placeholder="请输入您的用户名" class="input">
             </div>
         </div>
-    </form>
+        <div class="forg3" style="margin-top: 35px">
+            <div class="forg_n">
+                <b>密码</b>
+            </div>
+            <div>
+                <input type="password" name="password" placeholder="请输入您的密码" class="input">
+            </div>
+        </div>
+        <div class="forg3" style="margin-top: 35px;margin-left: 140px">
+            <div class="btn0">
+                <input type="submit" value="登陆" class="btn" onclick="a()">
+            </div>
+        </div>
+        <div id="register">
+            <div class="forg3" style="margin-top: 35px;margin-left: 140px">
+                <a href="UserRegister.html" class="return">还没有账号？注册一个！</a>
+            </div>
+            <div class="forg3" style="margin-left: 155px;">
+                <a href="UserForget.html" class="return">忘记密码？</a>
+            </div>
+        </div>
+    </div>
+    <div class="middle">
+
+    </div>
+
+    <div class="right">
+        <div class="forg1">
+            <h1>微信公众号</h1>
+        </div>
+        <div class="forg1" style="margin-left: 100px">
+            <img src="http://localhost:8080/ABC/img/QRcode.jpeg">
+        </div>
+    </div>
+
+
+
 </div>
 </body>
 </html>

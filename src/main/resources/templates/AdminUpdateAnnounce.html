@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="content-type" content="text/html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--    <link rel="icon" href="favicon.ico" type="image/x-icon"/>-->
+    <title>管理员发布公告</title>
+    <link rel="stylesheet" th:href="@{/css/Type1.css}">
+
+    <script type="text/javascript">
+        function Sure() {
+            var gnl = confirm("确定要提交?");
+            if (gnl == true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+
+</head>
+<body style="background-color: #FFF5EE">
+<div class="ue1">
+    <div class="ue2">
+        <div style="float: left;height: 50px;width: 20%;margin-left: 45%">
+            <b style="font-size: 25px;color: #FF8C69">
+                <strong>发布公告</strong>
+            </b>
+        </div>
+        <div class="ue4">
+            <ul>
+                <li class="ue6">
+                        <b>
+                            当前管理员：<span th:text="${session.loginAdmin.username}"></span>
+                        </b>
+                    </a>
+                </li>
+                <li class="add">
+                    <a href="http://localhost:8080/ABC/Welcome.html">退出登陆</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<form th:action="@{/admin/WholeSiteAnnounce}" method="post" onsubmit="return Sure()">
+    <div style="margin-left: 10%;margin-top: 3%">
+
+        <div class="forg3">
+            <div class="forg_n">
+                <b>公 告</b>
+            </div>
+            <div>
+                <textarea  name="announce" cols="80" rows="15"
+                            spellcheck="false"
+                                  style="float: left;
+                                border: 1px solid #FFD3B9;
+                                border-radius: 5px;" th:text="${announce.announce}"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="forg3">
+        <div class="btn0" style="margin-bottom: 3%;margin-left: 33%;">
+            <input type="submit" value="发布" class="btn">
+        </div>
+    </div>
+</form>
+
+
+</body>
+</html>

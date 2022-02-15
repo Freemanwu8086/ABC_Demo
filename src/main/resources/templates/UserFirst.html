@@ -36,12 +36,12 @@
     <div class="n">
         <div>
             <div class="leftbtn">
-                <button class="see" onclick="javascrtpt:window.location.href='http://localhost:8080/ABC/music/listMusicUser'"><b>全部曲谱</b></button>
+                <button class="see" onclick="window.location.href='http://localhost:8080/ABC/music/listMusicUser'"><b>全部曲谱</b></button>
             </div>
         </div>
         <div class="line">
             <div class="rightbtns">
-                <button class="love" onclick="javascrtpt:window.location.href='http://localhost:8080/ABC/user/ABCEditor'"><b>新建曲谱</b></button>
+                <button class="love" onclick="window.location.href='http://localhost:8080/ABC/user/ABCEditor'"><b>新建曲谱</b></button>
             </div>
         </div>
     </div>
@@ -51,12 +51,14 @@
         <b>公告</b>
     </div>
     <div class="text1">
-        <h6>&nbsp&nbsp我想写一篇公告，但是文笔有限写不出来。想查一篇认真一点的公告，但是没有网，我其他设备放着视频，所以不想再连电脑。
-            我就只能自己编啦。害，就因为这个主页就三个按钮，显得特别空旷。我就寻思着加点东西。本来想着加个广告栏。但我们是正规团队。
-            所以就写个公告吧。我去看看字数可以了不。</h6>
-        <h6>&nbsp&nbsp好了并不可以，我累了，写不下去了，我还要写多少字啊，会有人看这里吗。有字不就好了，是什么完全不重要。我还把颜色调到了最淡。
-            这家奶茶店的杨枝甘露，不太好喝，有点太甜了。熊猫7茶的杨枝甘露yyds。差不多了，我夹带个私货。我爱百里守约！</h6>
-        <h6>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp橙十字会管理员小马</h6>
+        <textarea name="announce" cols="20" rows="8" th:text="${announce.announce}"  style="border: none;color: #ff8f3d;
+        font-size: 5px;
+        font-family: 'Adobe 宋体 Std L';
+        font-weight: 400; resize: none" readonly></textarea>
+
+        <h6 th:text="${#dates.format(announce.update_date,'yyyy年MM月dd日')}"></h6>
+        <h6 th:text="${session.loginUser.musicAnnounce}" style="color: #5aa0ff"></h6>
+        <h6>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspABC曲谱学习网</h6>
     </div>
 </div>
 </body>

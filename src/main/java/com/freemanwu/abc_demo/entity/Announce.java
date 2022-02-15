@@ -5,11 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.sql.Date;
+
+/**
+ * @author searchingwu
+ * @Description
+ * @create 2022-02-15 15:14
+ */
 @Data
 @AllArgsConstructor
 @ToString
 @NoArgsConstructor
-public class Admin {
-    private String username;
-    private String password;
+public class Announce {
+    private String announce;
+    private Date update_date;
+    private Integer id;
 }

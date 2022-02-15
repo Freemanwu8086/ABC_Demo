@@ -1,6 +1,8 @@
 package com.freemanwu.abc_demo.controller;
 
 import com.freemanwu.abc_demo.entity.Sheet_Music;
+import com.freemanwu.abc_demo.entity.User;
+import com.freemanwu.abc_demo.service.AdminService;
 import com.freemanwu.abc_demo.service.Sheet_MusicService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import java.util.Map;
 public class Sheet_MusicController {
     @Autowired
     private Sheet_MusicService musicService;
+    @Autowired
+    private AdminService adminService;
 
     /**
      * 新建曲谱
@@ -141,8 +145,9 @@ public class Sheet_MusicController {
         return "AdminUpdateMusic";
     }
     @RequestMapping("updateMusicAdmin2")
-    public String updateMusicAdmin2(Sheet_Music music){
+    public String updateMusicAdmin2(Sheet_Music music, User user){
         musicService.updateMusicAdmin(music);
+        adminService.musicAnnounce(user);
         return "redirect:/music/listMusicAdmin";
     }
 

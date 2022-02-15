@@ -1,6 +1,7 @@
 package com.freemanwu.abc_demo.dao;
 
 import com.freemanwu.abc_demo.entity.Admin;
+import com.freemanwu.abc_demo.entity.Announce;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
 import org.apache.ibatis.annotations.CacheNamespace;
@@ -39,7 +40,10 @@ public interface AdminDAO {
     List<User> findUsersByUserName(String username);
 
     //全站通知
-    void WholeSiteAnnouncement(String FirstPageAnnounce);
+    void WholeSiteAnnounce(Announce announce);
+
+    //个人曲谱通知
+    void musicAnnounce(User user);
 
     //按节拍查询曲谱
     List<Sheet_Music> findMusicByBeat(String beat);
