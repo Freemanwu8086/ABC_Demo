@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>管理员之模糊查询</title>
+    <title>管理员之乐谱全展示</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 </head>
 <body style="background-color: #FFF5EE">
@@ -11,7 +11,7 @@
     <div class="ue2">
         <div style="float: left;height: 50px;width: 20%;margin-left: 45%">
             <b style="font-size: 40px;color: #FF8C69">
-                <strong>模糊查询</strong>
+                <strong>组合查询</strong>
             </b>
         </div>
         <div class="ue4">
@@ -32,25 +32,13 @@
 <div style="width:5%;height:5%; margin-left: 5%;margin-bottom: -3%;margin-top: 4%;">
     <input class="deleteBtn" type="submit" value="删除选中的所有信息" style="border-radius:20px" onclick="del()" id="deleteAll">
 </div>
-<div id="easyQuery" class="QueryWindow">
-    <div style="width: 25%;float: right">
-        <form action="http://localhost:8080/ABC/music/findByMusicName" method="post">
-            <input type="text" name="music_name" placeholder="按曲谱名模糊查询" class="input">&nbsp
-            <input type="submit" class="btn" value="查询" style="width: 40px">
-        </form>
-    </div>
-    <div style="width: 25%;float: right">
-        <form action="http://localhost:8080/ABC/admin/findMusicByBeat" method="post">
-            <input type="text" name="beat" placeholder="按节拍查询" class="input">&nbsp
-            <input type="submit" class="btn" value="查询" style="width: 40px">
-        </form>
-    </div>
-    <div style="width: 25%;float: right">
-        <form action="http://localhost:8080/ABC/admin/findMusicByTone" method="post">
-            <input type="text" name="tone" placeholder="按定调查询" class="input">&nbsp
-            <input type="submit" class="btn" value="查询" style="width: 40px">
-        </form>
-    </div>
+<div id="CombinedQuery" class="QueryWindow">
+    <form action="http://localhost:8080/ABC/admin/CombinedFindMusic" method="post">
+        <input type="submit" class="btn" value="组合" style="width: 80px;float: right;">
+        <input type="text" name="music_name" placeholder="请输入乐谱名称，可模糊" class="input" style="float: right;">
+        <input type="text" name="beat" placeholder="请输入节拍，如'4/4'" class="input" style="float: right;">
+        <input type="text" name="tone" placeholder="请输入定调，如'Amin'" class="input" style="float: right;">
+    </form>
 </div>
 
 <div class="table-wrapper">
@@ -105,19 +93,22 @@
     <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
     &nbsp&nbsp&nbsp
     <!--            首页作为第一页不可点击-->
-    <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=1,music_name=${session.music_name})}" class="btn" style="width: 40px">首页</a>
+    <a th:href="@{http://localhost:8080/ABC/admin/CombinedFindMusic(pageNo=1,beat=${session.beat2},
+    tone=${session.tone2},music_name=${session.music_name2})}" class="btn" style="width: 40px">首页</a>
     &nbsp&nbsp
     <span th:if="${page.pageNum==1}">
                 <a onclick="return false" class="btn_FenYe">上一页</a>
             </span>
     <span th:unless="${page.pageNum==1}">
-                <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${page.pageNum - 1},music_name=${session.music_name})}" class="btn_FenYe">上一页</a>
+                <a th:href="@{http://localhost:8080/ABC/admin/CombinedFindMusic(pageNo=${page.pageNum - 1},beat=${session.beat2},
+    tone=${session.tone2},music_name=${session.music_name2})}" class="btn_FenYe">上一页</a>
             </span>
     &nbsp&nbsp
 
     <span th:each="i:${#numbers.sequence(1,page.pages)}">
         &nbsp
-                <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${i},music_name=${session.music_name})}" th:text="${i}">1</a>
+                <a th:href="@{http://localhost:8080/ABC/admin/CombinedFindMusic(pageNo=${i},beat=${session.beat2},
+    tone=${session.tone2},music_name=${session.music_name2})}" th:text="${i}">1</a>
             </span>
 
     &nbsp&nbsp
@@ -126,11 +117,13 @@
             </span>
 
     <span th:unless="${page.pages==page.pageNum}">
-                <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${page.pageNum+1},music_name=${session.music_name})}" class="btn_FenYe">下一页</a>
+                <a th:href="@{http://localhost:8080/ABC/admin/CombinedFindMusic(pageNo=${page.pageNum+1},beat=${session.beat2},
+    tone=${session.tone2},music_name=${session.music_name2})}" class="btn_FenYe">下一页</a>
             </span>
 
     &nbsp&nbsp
-    <a th:href="@{http://localhost:8080/ABC/music/findByMusicName(pageNo=${page.pages},music_name=${session.music_name})}" class="btn" style="width: 40px">末页</a>
+    <a th:href="@{http://localhost:8080/ABC/admin/CombinedFindMusic(pageNo=${page.pages},beat=${session.beat2},
+    tone=${session.tone2},music_name=${session.music_name2})}" class="btn" style="width: 40px">末页</a>
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
 </div>

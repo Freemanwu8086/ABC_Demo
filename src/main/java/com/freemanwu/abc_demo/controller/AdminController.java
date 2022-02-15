@@ -98,6 +98,70 @@ public class AdminController {
         return "AdminFuzzyQueryUser";
     }
 
+    /**
+     * 管理员按节拍查询
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param beat
+     * @param session
+     * @return
+     */
+    @RequestMapping("findMusicByBeat")
+    public String findMusicByBeat(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                  Map<String,Object> map, Model model, String beat, HttpSession session){
+        PageInfo<Sheet_Music> page = adminService.findMusicByBeat(pageNum,beat);
+        List<Sheet_Music> musics = page.getList();
+        session.setAttribute("beat",beat);
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "AdminFindMusicByBeat";
+    }
+
+    /**
+     * 管理员按定调查询
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param tone
+     * @param session
+     * @return
+     */
+    @RequestMapping("findMusicByTone")
+    public String findMusicByTone(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                  Map<String,Object> map, Model model, String tone, HttpSession session){
+        PageInfo<Sheet_Music> page = adminService.findMusicByTone(pageNum,tone);
+        List<Sheet_Music> musics = page.getList();
+        session.setAttribute("tone",tone);
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "AdminFindMusicByTone";
+    }
+
+    /**
+     * 管理员组合查询曲谱
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param music
+     * @param session
+     * @return
+     */
+    @RequestMapping("CombinedFindMusic")
+    public String CombinedFindMusic(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                    Map<String,Object> map, Model model, Sheet_Music music, HttpSession session){
+        PageInfo<Sheet_Music> page = adminService.CombinedFindMusic(pageNum,music);
+        String beat2 = music.getBeat();
+        String tone2 = music.getTone();
+        String music_name2 = music.getMusic_name();
+        List<Sheet_Music> musics = page.getList();
+        session.setAttribute("beat2",beat2);
+        session.setAttribute("tone2",tone2);
+        session.setAttribute("music_name2",music_name2);
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "AdminFindMusicCombined";
+    }
 
 
 

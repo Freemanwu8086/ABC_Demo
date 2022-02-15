@@ -160,7 +160,6 @@ public class Sheet_MusicController {
         String username = (String) request.getSession().getAttribute("username");
         PageInfo<Sheet_Music> page = musicService.findByMusicUserName(pageNum,username);
         List<Sheet_Music> musics = page.getList();
-
         model.addAttribute("musics",musics);
         map.put("page",page);
         return "UserPersonalMusic";

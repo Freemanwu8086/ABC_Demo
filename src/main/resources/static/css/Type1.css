@@ -928,3 +928,13 @@ a {
 .QueryWindow{
     float: right;margin-top: 10px;width: 70%;margin-right: 5%
 }
+/*待审核*/
+.unDone{
+    color: #c2c300;
+}
+.reDo{
+    color: #c31a03;
+}
+.Done{
+    color: #34c37d;
+}

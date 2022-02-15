@@ -42,7 +42,7 @@ public interface AdminService {
     PageInfo<Sheet_Music> findMusicByBeat(int pageNo ,String beat);
 
     //按定调查询曲谱
-    PageInfo<Sheet_Music> findMusicByTone(int pageNo,String Tone);
+    PageInfo<Sheet_Music> findMusicByTone(int pageNo,String tone);
 
     //组合查询
     PageInfo<Sheet_Music> CombinedFindMusic(int pageNo,Sheet_Music music);

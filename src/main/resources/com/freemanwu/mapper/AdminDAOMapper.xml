@@ -40,4 +40,16 @@
     <update id="WholeSiteAnnouncement" parameterType="java.lang.String">
         update User set FirstPageAnnounce = ${FirstPageAnnounce}
     </update>
+<!---->
+    <select id="findMusicByBeat" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
+        select * from Sheet_Music where beat = #{beat}
+    </select>
+
+    <select id="findMusicByTone" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
+        select * from Sheet_Music where tone = #{tone}
+    </select>
+
+    <select id="CombinedFindMusic" parameterType="com.freemanwu.abc_demo.entity.Sheet_Music" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
+        select * from Sheet_Music where beat = #{beat} and tone = #{tone} and music_name like CONCAT(CONCAT('%',#{music_name}),'%')
+    </select>
 </mapper>

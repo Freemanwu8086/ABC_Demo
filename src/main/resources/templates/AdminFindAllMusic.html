@@ -5,6 +5,28 @@
     <title>管理员之乐谱全展示</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 </head>
+<script type="text/javascript">
+    window.onload = function (){
+        var easy = document.getElementById("easy");
+        var combined = document.getElementById("combined");
+        var easyQuery = document.getElementById("easyQuery");
+        var combinedQuery = document.getElementById("CombinedQuery")
+
+        if (easy.checked==true){
+            easyQuery.style.display = "block";
+            combinedQuery.style.display = "none";
+        }
+        easy.onclick = function (){
+            easyQuery.style.display = "block";
+            combinedQuery.style.display = "none";
+        }
+        combined.onclick = function (){
+            easyQuery.style.display = "none";
+            combinedQuery.style.display = "block";
+        }
+    }
+
+</script>
 <body style="background-color: #FFF5EE">
 
 <div class="ue1">
@@ -29,14 +51,41 @@
     </div>
 </div>
 
+<div style="float: left; width: 25%;color: #FFA07A;margin-top: 1%">
+    <input type="radio" name="m" value="1" checked id="easy" />简单查询
+    <input type="radio" name="m" value="2" id="combined"/>组合查询
+</div>
+
+<div id="easyQuery" class="QueryWindow">
+    <div style="width: 25%;float: right">
+        <form action="http://localhost:8080/ABC/music/findByMusicName" method="post">
+            <input type="text" name="music_name" placeholder="按曲谱名模糊查询" class="input">&nbsp
+            <input type="submit" class="btn" value="查询" style="width: 40px">
+        </form>
+    </div>
+    <div style="width: 25%;float: right">
+        <form action="http://localhost:8080/ABC/admin/findMusicByBeat" method="post">
+            <input type="text" name="beat" placeholder="按节拍查询" class="input">&nbsp
+            <input type="submit" class="btn" value="查询" style="width: 40px">
+        </form>
+    </div>
+    <div style="width: 25%;float: right">
+        <form action="http://localhost:8080/ABC/admin/findMusicByTone" method="post">
+            <input type="text" name="tone" placeholder="按定调查询" class="input">&nbsp
+            <input type="submit" class="btn" value="查询" style="width: 40px">
+        </form>
+    </div>
+</div>
+<div id="CombinedQuery" class="QueryWindow">
+    <form action="http://localhost:8080/ABC/admin/CombinedFindMusic" method="post">
+        <input type="submit" class="btn" value="组合" style="width: 80px;float: right;">
+        <input type="text" name="music_name" placeholder="请输入乐谱名称，可模糊" class="input" style="float: right;">
+        <input type="text" name="beat" placeholder="请输入节拍，如'4/4'" class="input" style="float: right;">
+        <input type="text" name="tone" placeholder="请输入定调，如'Amin'" class="input" style="float: right;">
+    </form>
+</div>
 <div style="width:5%;height:5%; margin-left: 5%;margin-bottom: -3%;margin-top: 4%;">
     <input class="deleteBtn" type="submit" value="删除选中的所有信息" style="border-radius:20px" onclick="del()" id="deleteAll">
-</div>
-<div style="width: 20%;float: right">
-    <form action="http://localhost:8080/ABC/music/findByMusicName" method="post">
-        <input type="text" name="music_name" placeholder="按曲谱名模糊查询" class="input">&nbsp
-        <input type="submit" class="btn" value="查询" style="width: 40px">
-    </form>
 </div>
 
 <div class="table-wrapper">
@@ -67,7 +116,11 @@
                     <td><span th:text="${music.tone}"></span></td>
                     <td><span th:text="${#dates.format(music.insert_date,'yyyy年MM月dd日')}"></span></td>
                     <td><span th:text="${#dates.format(music.last_update_date,'yyyy年MM月dd日')}"></span></td>
-                    <td><span th:text="${music.state}"></span></td>
+                    <td>
+                        <span th:if="${music.state} eq '待审核'" th:text="待审核" style="color: #0014c3"></span>
+                        <span th:if="${music.state} eq '通过'" th:text="通过" style="color: rgba(7,89,2,0.58)"></span>
+                        <span th:if="${music.state} eq '请修改'" th:text="请修改" style="color: #ef1d1d"></span>
+                    </td>
                     <td>
                         <form th:action="@{/admin/adminDeleteOne}" method="post" style="width: 50%;float: left">
                             <input type="text" th:value="${music.id}" name="id" style="display: none">

@@ -45,7 +45,7 @@ public interface AdminDAO {
     List<Sheet_Music> findMusicByBeat(String beat);
 
     //按定调查询曲谱
-    List<Sheet_Music> findMusicByTone(String Tone);
+    List<Sheet_Music> findMusicByTone(String tone);
 
     //组合查询
     List<Sheet_Music> CombinedFindMusic(Sheet_Music music);

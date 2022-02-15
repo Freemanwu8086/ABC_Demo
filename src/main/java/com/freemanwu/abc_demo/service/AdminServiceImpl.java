@@ -75,16 +75,25 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public PageInfo<Sheet_Music> findMusicByBeat(int pageNo, String beat) {
-        return null;
+        PageHelper.startPage(pageNo, ConstantUtils.PAGE_SIZE);
+        List<Sheet_Music> list = adminDAO.findMusicByBeat(beat);
+        PageInfo<Sheet_Music> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
-    public PageInfo<Sheet_Music> findMusicByTone(int pageNo, String Tone) {
-        return null;
+    public PageInfo<Sheet_Music> findMusicByTone(int pageNo, String tone) {
+        PageHelper.startPage(pageNo, ConstantUtils.PAGE_SIZE);
+        List<Sheet_Music> list = adminDAO.findMusicByTone(tone);
+        PageInfo<Sheet_Music> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
     public PageInfo<Sheet_Music> CombinedFindMusic(int pageNo, Sheet_Music music) {
-        return null;
+        PageHelper.startPage(pageNo, ConstantUtils.PAGE_SIZE);
+        List<Sheet_Music> list = adminDAO.CombinedFindMusic(music);
+        PageInfo<Sheet_Music> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }
