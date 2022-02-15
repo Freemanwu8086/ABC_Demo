@@ -5,6 +5,27 @@
     <title>用户之模糊查询</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 </head>
+<script type="text/javascript">
+    window.onload = function (){
+        var easy = document.getElementById("easy");
+        var combined = document.getElementById("combined");
+        var easyQuery = document.getElementById("easyQuery");
+        var combinedQuery = document.getElementById("CombinedQuery")
+
+        if (easy.checked==true){
+            easyQuery.style.display = "block";
+            combinedQuery.style.display = "none";
+        }
+        easy.onclick = function (){
+            easyQuery.style.display = "block";
+            combinedQuery.style.display = "none";
+        }
+        combined.onclick = function (){
+            easyQuery.style.display = "none";
+            combinedQuery.style.display = "block";
+        }
+    }
+</script>
 <body style="background-color: #FFF5EE">
 
 <div class="ue1">
@@ -35,10 +56,37 @@
     </div>
 </div>
 
-<div style="width: 20%;float: right;margin-top: 10px">
-    <form action="http://localhost:8080/ABC/music/UserFindByMusicName" method="post">
-        <input type="text" name="music_name" placeholder="请输入需要模糊查询的曲谱名" class="input">&nbsp
-        <input type="submit" class="btn" value="查询" style="width: 40px">
+<div style="float: left; width: 25%;color: #FFA07A;">
+    <input type="radio" name="m" value="1" checked id="easy" />简单查询
+    <input type="radio" name="m" value="2" id="combined"/>组合查询
+</div>
+
+<div id="easyQuery" class="QueryWindow">
+    <div style="width: 25%;float: right">
+        <form action="http://localhost:8080/ABC/music/UserFindByMusicName" method="post">
+            <input type="text" name="music_name" placeholder="按曲谱名模糊查询" class="input">&nbsp
+            <input type="submit" class="btn" value="查询" style="width: 40px">
+        </form>
+    </div>
+    <div style="width: 25%;float: right">
+        <form action="http://localhost:8080/ABC/user/findMusicByBeat" method="post">
+            <input type="text" name="beat" placeholder="按节拍查询" class="input">&nbsp
+            <input type="submit" class="btn" value="查询" style="width: 40px">
+        </form>
+    </div>
+    <div style="width: 25%;float: right">
+        <form action="http://localhost:8080/ABC/user/findMusicByTone" method="post">
+            <input type="text" name="tone" placeholder="按定调查询" class="input">&nbsp
+            <input type="submit" class="btn" value="查询" style="width: 40px">
+        </form>
+    </div>
+</div>
+<div id="CombinedQuery" class="QueryWindow">
+    <form action="http://localhost:8080/ABC/user/CombinedFindMusic" method="post">
+        <input type="submit" class="btn" value="组合" style="width: 80px;float: right;">
+        <input type="text" name="music_name" placeholder="请输入乐谱名称，可模糊" class="input" style="float: right;">
+        <input type="text" name="beat" placeholder="请输入节拍，如'4/4'" class="input" style="float: right;">
+        <input type="text" name="tone" placeholder="请输入定调，如'Amin'" class="input" style="float: right;">
     </form>
 </div>
 

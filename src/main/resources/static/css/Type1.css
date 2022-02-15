@@ -925,3 +925,6 @@ a {
     -webkit-border-radius:2px;
     border-radius:2px;
 }
+.QueryWindow{
+    float: right;margin-top: 10px;width: 70%;margin-right: 5%
+}

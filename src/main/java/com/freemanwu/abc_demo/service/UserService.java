@@ -2,6 +2,7 @@ package com.freemanwu.abc_demo.service;
 
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
+import com.github.pagehelper.PageInfo;
 
 public interface UserService {
     void register(User user);
@@ -19,4 +20,13 @@ public interface UserService {
     void deleteOneUser(Integer id);
     //批量删除曲谱（用户）
     void deleteListMusic(Integer[] id);
+
+    //按节拍查询曲谱
+    PageInfo<Sheet_Music> findMusicByBeat(int pageNo, String beat);
+
+    //按定调查询曲谱
+    PageInfo<Sheet_Music> findMusicByTone(int pageNo, String tone);
+
+    //组合查询
+    PageInfo<Sheet_Music> CombinedFindMusic(int pageNo, Sheet_Music music);
 }

@@ -1,13 +1,16 @@
 package com.freemanwu.abc_demo.controller;
 
+import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
 import com.freemanwu.abc_demo.service.UserService;
 import com.freemanwu.abc_demo.utils.ValidateImageCodeUtils;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -15,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("user")
@@ -130,4 +135,70 @@ public class UserController {
         userService.deleteListMusic(id);
         return "redirect:/music/listPersonalMusic";
     }
+
+    /**
+     * 用户按节拍查询
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param beat
+     * @param session
+     * @return
+     */
+    @RequestMapping("findMusicByBeat")
+    public String findMusicByBeat(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                  Map<String,Object> map, Model model, String beat, HttpSession session){
+        PageInfo<Sheet_Music> page = userService.findMusicByBeat(pageNum,beat);
+        List<Sheet_Music> musics = page.getList();
+        session.setAttribute("beat",beat);
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "UserFindMusicByBeat";
+    }
+
+    /**
+     * 用户按定调查询
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param tone
+     * @param session
+     * @return
+     */
+    @RequestMapping("findMusicByTone")
+    public String findMusicByTone(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                  Map<String,Object> map, Model model, String tone, HttpSession session){
+        PageInfo<Sheet_Music> page = userService.findMusicByTone(pageNum,tone);
+        List<Sheet_Music> musics = page.getList();
+        session.setAttribute("tone",tone);
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "UserFindMusicByTone";
+    }
+
+    /**
+     * 用户组合查询曲谱
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param music
+     * @param session
+     * @return
+     */
+    @RequestMapping("CombinedFindMusic")
+    public String CombinedFindMusic(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                  Map<String,Object> map, Model model, Sheet_Music music, HttpSession session){
+        PageInfo<Sheet_Music> page = userService.CombinedFindMusic(pageNum,music);
+        String beat1 = music.getBeat();
+        String tone1 = music.getTone();
+        String music_name1 = music.getMusic_name();
+        List<Sheet_Music> musics = page.getList();
+        session.setAttribute("beat1",beat1);
+        session.setAttribute("tone1",tone1);
+        session.setAttribute("music_name1",music_name1);
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "UserFindMusicCombined";
+    }
+
 }

@@ -72,4 +72,19 @@ public class AdminServiceImpl implements AdminService {
     public void deleteOneUser(User user) {
         adminDAO.deleteOneUser(user);
     }
+
+    @Override
+    public PageInfo<Sheet_Music> findMusicByBeat(int pageNo, String beat) {
+        return null;
+    }
+
+    @Override
+    public PageInfo<Sheet_Music> findMusicByTone(int pageNo, String Tone) {
+        return null;
+    }
+
+    @Override
+    public PageInfo<Sheet_Music> CombinedFindMusic(int pageNo, Sheet_Music music) {
+        return null;
+    }
 }

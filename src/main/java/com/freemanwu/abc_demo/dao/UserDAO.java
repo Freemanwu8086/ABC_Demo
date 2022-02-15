@@ -5,6 +5,8 @@ import com.freemanwu.abc_demo.entity.User;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @CacheNamespace
 @Mapper
 public interface UserDAO {
@@ -34,4 +36,13 @@ public interface UserDAO {
 
     //批量删除曲谱（用户）
     void deleteListMusic(Integer[] id);
+
+    //按节拍查询曲谱
+    List<Sheet_Music> findMusicByBeat(String beat);
+
+    //按定调查询曲谱
+    List<Sheet_Music> findMusicByTone(String tone);
+
+    //组合查询
+    List<Sheet_Music> CombinedFindMusic(Sheet_Music music);
 }

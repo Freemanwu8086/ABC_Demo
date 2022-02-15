@@ -89,7 +89,7 @@ public class Sheet_MusicController {
     }
 
     /**
-     * 用户查询个人曲谱
+     * 用户按乐曲名模糊查询曲谱
      * @param pageNum
      * @param map
      * @param model
@@ -146,6 +146,14 @@ public class Sheet_MusicController {
         return "redirect:/music/listMusicAdmin";
     }
 
+    /**
+     * 用户查询个人曲谱
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param request
+     * @return
+     */
     @RequestMapping("listPersonalMusic")
     public String findByMusicUserName(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
                                       Map<String,Object> map, Model model, HttpServletRequest request){

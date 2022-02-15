@@ -37,4 +37,13 @@ public interface AdminService {
 
     //全站通知
     void WholeSiteAnnouncement(String FirstPageAnnounce);
+
+    //按节拍查询曲谱
+    PageInfo<Sheet_Music> findMusicByBeat(int pageNo ,String beat);
+
+    //按定调查询曲谱
+    PageInfo<Sheet_Music> findMusicByTone(int pageNo,String Tone);
+
+    //组合查询
+    PageInfo<Sheet_Music> CombinedFindMusic(int pageNo,Sheet_Music music);
 }
