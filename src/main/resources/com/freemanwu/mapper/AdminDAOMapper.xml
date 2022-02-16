@@ -41,9 +41,9 @@
         update User set MusicAnnounce = #{MusicAnnounce} where username = #{username};
     </update>
 <!--    全站通知-->
-    <update id="WholeSiteAnnounce" parameterType="java.lang.String">
-        update Announce set announce = #{announce}, update_date = now() where id = 1;
-    </update>
+    <insert id="WholeSiteAnnounce" parameterType="java.lang.String">
+        insert into Announce (announce, update_date) values (#{announce}, now());
+    </insert>
 
 <!---->
     <select id="findMusicByBeat" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">

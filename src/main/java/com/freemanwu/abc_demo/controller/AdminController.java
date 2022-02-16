@@ -171,9 +171,7 @@ public class AdminController {
 
 
     @RequestMapping("newAnnounce")
-    public String newAnnounce(Announce announce,Model model){
-        Announce anno = announceService.showAnnounce(announce);
-        model.addAttribute("announce",anno);
+    public String newAnnounce(){
         return "AdminUpdateAnnounce";
     }
 
@@ -182,7 +180,4 @@ public class AdminController {
         adminService.WholeSiteAnnounce(announce);
         return "AdminFirst";
     }
-
-
-
 }

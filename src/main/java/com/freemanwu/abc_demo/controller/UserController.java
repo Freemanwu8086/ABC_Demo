@@ -106,8 +106,10 @@ public class UserController {
      * @return
      */
     @RequestMapping("First_Redirect")
-    public String First_Redirect(User user,Model model){
+    public String First_Redirect(User user,Model model, Announce announce){
         User UserInfo = userService.findByName(user);
+        Announce anna = announceService.showAnnounce(announce);
+        model.addAttribute("announce",anna);
         model.addAttribute("Model_User_Info",UserInfo);
         return "UserFirst";
     }
