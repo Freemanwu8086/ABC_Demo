@@ -67,6 +67,14 @@ public class AdminController {
 
 
 //对用户操作
+
+    /**
+     * 展示全部用户
+     * @param pageNum
+     * @param map
+     * @param model
+     * @return
+     */
     @RequestMapping("listUsers")
     public String ListUsers(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
                                Map<String,Object> map, Model model){
@@ -77,11 +85,24 @@ public class AdminController {
         map.put("page",page);
         return "AdminFindAllUser";
     }
+
+    /**
+     * 删除一个用户
+     * @param user
+     * @return
+     */
     @RequestMapping("adminDeleteOneUser")
     public String adminDeleteOneUser(User user){
         adminService.deleteOneUser(user);
         return "redirect:/admin/listUsers";
     }
+
+    /**
+     * 更改用户信息
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping("updateUser1")
     public String updateUser1(Integer id,Model model){
         User user = adminService.findUserById(id);
@@ -93,6 +114,16 @@ public class AdminController {
         adminService.updateUser(user);
         return "redirect:/admin/listUsers";
     }
+
+    /**
+     * 按用户名模糊查询用户
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param username
+     * @param session
+     * @return
+     */
     @RequestMapping("findUsersByUserName")
     public String findUsersByUserName(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
                                       Map<String,Object> map, Model model, String username, HttpSession session){

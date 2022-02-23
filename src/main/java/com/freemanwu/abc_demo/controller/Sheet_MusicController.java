@@ -6,7 +6,6 @@ import com.freemanwu.abc_demo.service.AdminService;
 import com.freemanwu.abc_demo.service.Sheet_MusicService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -170,6 +169,12 @@ public class Sheet_MusicController {
         return "UserPersonalMusic";
     }
 
+    /**
+     * 用户更改自己个人乐谱
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping("updateMusicUser1")
     public String updateMusicUser1(Model model, Integer id){
         Sheet_Music music = musicService.findMusicById(id);

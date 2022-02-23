@@ -10,5 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface AnnounceDAO {
+    //首页展示公告
     Announce showAnnounce(Announce announce);
 }

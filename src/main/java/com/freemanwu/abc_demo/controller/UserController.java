@@ -115,6 +115,13 @@ public class UserController {
     }
 
     //用户信息更新
+
+    /**
+     * 用户更改个人信息
+     * @param user
+     * @param model
+     * @return
+     */
     @RequestMapping("update1")
     public String update1(User user, Model model){
         User UserInfo = userService.findByName(user);
@@ -130,17 +137,31 @@ public class UserController {
         return "UserHomePage";
     }
 
+    /**
+     * 用户新建乐谱
+     * @return
+     */
     @RequestMapping("ABCEditor")
     public String ABCEditor(){
         return "SaveABCSheet";
     }
 
+    /**
+     * 用户删除个人乐谱
+     * @param id
+     * @return
+     */
     @RequestMapping("deleteOneUser")
     public String deleteOneUser(Integer id){
         userService.deleteOneUser(id);
         return "redirect:/music/listPersonalMusic";
     }
 
+    /**
+     * 用户批量删除个人乐谱
+     * @param id
+     * @return
+     */
     @RequestMapping("deleteByIds")
     public String deleteByIds(Integer[] id){
         userService.deleteListMusic(id);
