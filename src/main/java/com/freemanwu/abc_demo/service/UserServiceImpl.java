@@ -138,4 +138,14 @@ public class UserServiceImpl implements UserService {
     public String totalBeatOf14() {
         return userDAO.totalBeatOf14();
     }
+
+    @Override
+    public void deleteAccount(String username) {
+        userDAO.deleteAccount(username);
+    }
+
+    @Override
+    public void UnNamedMusic(String username) {
+        userDAO.UnNamedMusic(username);
+    }
 }

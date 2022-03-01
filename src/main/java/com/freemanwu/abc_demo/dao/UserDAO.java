@@ -82,4 +82,8 @@ public interface UserDAO {
 
     //统计3/4拍总数
     String totalBeatOf14();
+
+    //注销账号
+    void deleteAccount(String username);
+    void UnNamedMusic(String username);
 }

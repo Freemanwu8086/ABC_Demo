@@ -267,4 +267,17 @@ public class UserController {
         beatList[3] = userService.totalBeatOf14();
         return beatList;
     }
+
+    @RequestMapping("deleteAccount1")
+    public String deleteJump(){
+        return "UserDeleteAccount";
+    }
+    @RequestMapping("deleteAccount2")
+    public String deleteAccount(String username){
+        userService.deleteAccount(username);
+        userService.UnNamedMusic(username);
+        return "Welcome";
+    }
+
+
 }

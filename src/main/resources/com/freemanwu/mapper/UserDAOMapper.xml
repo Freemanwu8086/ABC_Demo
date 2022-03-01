@@ -87,4 +87,10 @@
         select count(*) from Sheet_Music where beat = '1/4' and state = '通过'
     </select>
 
+    <delete id="deleteAccount" parameterType="java.lang.String">
+        delete from User where username = #{username};
+    </delete>
+    <update id="UnNamedMusic" parameterType="java.lang.String">
+        update Sheet_Music set username = '用户已注销' where username = #{username}
+    </update>
 </mapper>
