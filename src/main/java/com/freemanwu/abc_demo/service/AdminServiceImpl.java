@@ -102,4 +102,59 @@ public class AdminServiceImpl implements AdminService {
         PageInfo<Sheet_Music> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
+
+    @Override
+    public Integer totalNumberOfA() {
+        return adminDAO.totalNumberOfA();
+    }
+
+    @Override
+    public Integer totalNumberOfB() {
+        return adminDAO.totalNumberOfB();
+    }
+
+    @Override
+    public Integer totalNumberOfC() {
+        return adminDAO.totalNumberOfC();
+    }
+
+    @Override
+    public Integer totalNumberOfD() {
+        return adminDAO.totalNumberOfD();
+    }
+
+    @Override
+    public Integer totalNumberOfE() {
+        return adminDAO.totalNumberOfE();
+    }
+
+    @Override
+    public Integer totalNumberOfF() {
+        return adminDAO.totalNumberOfF();
+    }
+
+    @Override
+    public Integer totalNumberOfG() {
+        return adminDAO.totalNumberOfG();
+    }
+
+    @Override
+    public String totalBeatOf44() {
+        return adminDAO.totalBeatOf44();
+    }
+
+    @Override
+    public String totalBeatOf34() {
+        return adminDAO.totalBeatOf34();
+    }
+
+    @Override
+    public String totalBeatOf24() {
+        return adminDAO.totalBeatOf24();
+    }
+
+    @Override
+    public String totalBeatOf14() {
+        return adminDAO.totalBeatOf14();
+    }
 }

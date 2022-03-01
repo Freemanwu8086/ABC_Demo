@@ -50,4 +50,41 @@
     <update id="forgetPassword" parameterType="User">
         update User set password = #{password} where username = #{username}
     </update>
+
+    <!--  饼状图数据-->
+    <select id="totalNumberOfA" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'A' and state = '通过'
+    </select>
+    <select id="totalNumberOfB" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'B' and state = '通过'
+    </select>
+    <select id="totalNumberOfC" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'C' and state = '通过'
+    </select>
+    <select id="totalNumberOfD" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'D' and state = '通过'
+    </select>
+    <select id="totalNumberOfE" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'E' and state = '通过'
+    </select>
+    <select id="totalNumberOfF" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'F' and state = '通过'
+    </select>
+    <select id="totalNumberOfG" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'G' and state = '通过'
+    </select>
+
+    <select id="totalBeatOf44" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '4/4' and state = '通过'
+    </select>
+    <select id="totalBeatOf34" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '3/4' and state = '通过'
+    </select>
+    <select id="totalBeatOf24" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '2/4' and state = '通过'
+    </select>
+    <select id="totalBeatOf14" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '1/4' and state = '通过'
+    </select>
+
 </mapper>

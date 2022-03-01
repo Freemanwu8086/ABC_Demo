@@ -51,12 +51,12 @@
         <b>公告</b>
     </div>
     <div class="text1">
-        <textarea name="announce" cols="20" rows="8" th:text="${announce.announce}"  style="border: none;color: #ff8f3d;
+        <textarea name="announce" cols="20" rows="8" th:text="${session.announce.announce}"  style="border: none;color: #ff8f3d;
         font-size: 5px;
         font-family: 'Adobe 宋体 Std L';
         font-weight: 400; resize: none" readonly></textarea>
 
-        <h6 th:text="${#dates.format(announce.update_date,'yyyy年MM月dd日')}"></h6>
+        <h6 th:text="${#dates.format(session.announce.update_date,'yyyy年MM月dd日')}"></h6>
         <h6 th:text="${session.loginUser.musicAnnounce}" style="color: #5aa0ff"></h6>
         <h6>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspABC曲谱学习网</h6>
     </div>

@@ -50,4 +50,37 @@ public interface AdminService {
 
     //组合查询
     PageInfo<Sheet_Music> CombinedFindMusic(int pageNo,Sheet_Music music);
+
+    //统计A调总数
+    Integer totalNumberOfA();
+
+    //统计B调总数
+    Integer totalNumberOfB();
+
+    //统计C调总数
+    Integer totalNumberOfC();
+
+    //统计D调总数
+    Integer totalNumberOfD();
+
+    //统计E调总数
+    Integer totalNumberOfE();
+
+    //统计F调总数
+    Integer totalNumberOfF();
+
+    //统计G调总数
+    Integer totalNumberOfG();
+
+    //统计4/4拍总数
+    String totalBeatOf44();
+
+    //统计3/4拍总数
+    String totalBeatOf34();
+
+    //统计2/4拍总数
+    String totalBeatOf24();
+
+    //统计3/4拍总数
+    String totalBeatOf14();
 }

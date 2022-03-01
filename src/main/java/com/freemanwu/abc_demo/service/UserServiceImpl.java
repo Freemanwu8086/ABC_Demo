@@ -83,4 +83,59 @@ public class UserServiceImpl implements UserService {
         PageInfo<Sheet_Music> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
+
+    @Override
+    public Integer totalNumberOfA() {
+        return userDAO.totalNumberOfA();
+    }
+
+    @Override
+    public Integer totalNumberOfB() {
+        return userDAO.totalNumberOfB();
+    }
+
+    @Override
+    public Integer totalNumberOfC() {
+        return userDAO.totalNumberOfC();
+    }
+
+    @Override
+    public Integer totalNumberOfD() {
+        return userDAO.totalNumberOfD();
+    }
+
+    @Override
+    public Integer totalNumberOfE() {
+        return userDAO.totalNumberOfE();
+    }
+
+    @Override
+    public Integer totalNumberOfF() {
+        return userDAO.totalNumberOfF();
+    }
+
+    @Override
+    public Integer totalNumberOfG() {
+        return userDAO.totalNumberOfG();
+    }
+
+    @Override
+    public String totalBeatOf44() {
+        return userDAO.totalBeatOf44();
+    }
+
+    @Override
+    public String totalBeatOf34() {
+        return userDAO.totalBeatOf34();
+    }
+
+    @Override
+    public String totalBeatOf24() {
+        return userDAO.totalBeatOf24();
+    }
+
+    @Override
+    public String totalBeatOf14() {
+        return userDAO.totalBeatOf14();
+    }
 }

@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -81,7 +82,8 @@ public class UserController {
            session.setAttribute("loginUser",loginUser);
            session.setAttribute("username",username);
            Announce anna = announceService.showAnnounce(announce);
-           model.addAttribute("announce",anna);
+//           model.addAttribute("announce",anna);
+           session.setAttribute("announce",anna);
 //           model.addAttribute("User",loginUser);
            return "UserFirst";
        }else
@@ -239,4 +241,30 @@ public class UserController {
         return "Welcome";
     }
 
+    @RequestMapping("numbers")
+    @ResponseBody
+    public Integer[] numbers(Model model){
+        Integer[] numberList = new Integer[7];
+        numberList[0] = userService.totalNumberOfA();
+        numberList[1] = userService.totalNumberOfB();
+        numberList[2] = userService.totalNumberOfC();
+        numberList[3] = userService.totalNumberOfD();
+        numberList[4] = userService.totalNumberOfE();
+        numberList[5] = userService.totalNumberOfF();
+        numberList[6] = userService.totalNumberOfG();
+
+        model.addAttribute("numberList",numberList);
+        return numberList;
+    }
+
+    @RequestMapping("beatsNumbers")
+    @ResponseBody
+    public String[] beatNumbers(){
+        String[] beatList = new String[4];
+        beatList[0] = userService.totalBeatOf44();
+        beatList[1] = userService.totalBeatOf34();
+        beatList[2] = userService.totalBeatOf24();
+        beatList[3] = userService.totalBeatOf14();
+        return beatList;
+    }
 }

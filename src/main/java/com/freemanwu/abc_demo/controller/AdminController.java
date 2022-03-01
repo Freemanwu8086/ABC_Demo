@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -210,5 +211,32 @@ public class AdminController {
     public String WholeSiteAnnounce(Announce announce){
         adminService.WholeSiteAnnounce(announce);
         return "AdminFirst";
+    }
+
+    @RequestMapping("numbers")
+    @ResponseBody
+    public Integer[] numbers(Model model){
+        Integer[] numberList = new Integer[7];
+        numberList[0] = adminService.totalNumberOfA();
+        numberList[1] = adminService.totalNumberOfB();
+        numberList[2] = adminService.totalNumberOfC();
+        numberList[3] = adminService.totalNumberOfD();
+        numberList[4] = adminService.totalNumberOfE();
+        numberList[5] = adminService.totalNumberOfF();
+        numberList[6] = adminService.totalNumberOfG();
+
+        model.addAttribute("numberList",numberList);
+        return numberList;
+    }
+
+    @RequestMapping("beatsNumbers")
+    @ResponseBody
+    public String[] beatNumbers(){
+        String[] beatList = new String[4];
+        beatList[0] = adminService.totalBeatOf44();
+        beatList[1] = adminService.totalBeatOf34();
+        beatList[2] = adminService.totalBeatOf24();
+        beatList[3] = adminService.totalBeatOf14();
+        return beatList;
     }
 }

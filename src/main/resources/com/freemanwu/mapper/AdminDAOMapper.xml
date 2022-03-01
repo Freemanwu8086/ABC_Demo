@@ -57,4 +57,39 @@
     <select id="CombinedFindMusic" parameterType="com.freemanwu.abc_demo.entity.Sheet_Music" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
         select * from Sheet_Music where beat = #{beat} and tone = #{tone} and music_name like CONCAT(CONCAT('%',#{music_name}),'%')
     </select>
+<!--  饼状图数据-->
+    <select id="totalNumberOfA" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'A'
+    </select>
+    <select id="totalNumberOfB" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'B'
+    </select>
+    <select id="totalNumberOfC" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'C'
+    </select>
+    <select id="totalNumberOfD" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'D'
+    </select>
+    <select id="totalNumberOfE" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'E'
+    </select>
+    <select id="totalNumberOfF" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'F'
+    </select>
+    <select id="totalNumberOfG" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'G'
+    </select>
+
+    <select id="totalBeatOf44" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '4/4'
+    </select>
+    <select id="totalBeatOf34" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '3/4'
+    </select>
+    <select id="totalBeatOf24" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '2/4'
+    </select>
+    <select id="totalBeatOf14" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '1/4'
+    </select>
 </mapper>
