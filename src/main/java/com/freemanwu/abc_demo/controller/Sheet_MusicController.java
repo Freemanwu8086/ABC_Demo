@@ -42,7 +42,7 @@ public class Sheet_MusicController {
      * @param model
      * @return
      */
-    @RequestMapping("/listMusicAdmin")
+    @RequestMapping("listMusicAdmin")
     public String getListAdmin(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
                           Map<String,Object> map, Model model){
         PageInfo<Sheet_Music> page = musicService.findAllMusic(pageNum);
@@ -51,6 +51,17 @@ public class Sheet_MusicController {
         model.addAttribute("musics",musics);
         map.put("page",page);
         return "AdminFindAllMusic";  //转发到你自己的页面
+    }
+
+    @RequestMapping("findByStates")
+    public String getListByStateAdmin(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                      Map<String,Object> map, Model model,String state,HttpSession session){
+        PageInfo<Sheet_Music> page = musicService.findMusicByState(pageNum,state);
+        List<Sheet_Music> musics = page.getList();
+        session.setAttribute("state",state);
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "AdminFindMusicByState";
     }
 
     /**

@@ -4,16 +4,6 @@
     <meta charset="UTF-8">
     <title>管理员之乐谱全展示</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
-    <style>
-        #pieTone {
-            width: 400px;
-            height: 400px;
-        }
-        #pieBeat{
-            width: 400px;
-            height: 400px;
-        }
-    </style>
 </head>
 <script type="text/javascript">
     window.onload = function (){
@@ -43,7 +33,7 @@
     <div class="ue2">
         <div style="float: left;height: 50px;width: 20%;margin-left: 45%">
             <b style="font-size: 40px;color: #FF8C69">
-                <strong>全部曲谱</strong>
+                <strong>状态分类</strong>
             </b>
         </div>
         <div class="ue4">
@@ -111,10 +101,10 @@
             <th>最后修改时间</th>
             <th>
                 <select onchange="window.location=this.value;" style="border: none">
-                    <option value="http://localhost:8080/ABC/music/listMusicAdmin">全部状态</option>
-                    <option value="http://localhost:8080/ABC/music/findByStates?state=通过">通过</option>
-                    <option value="http://localhost:8080/ABC/music/findByStates?state=待审核">待审核</option>
-                    <option value="http://localhost:8080/ABC/music/findByStates?state=请修改">请修改</option>
+                    <option th:selected="${session.state} eq '全部状态'" value="http://localhost:8080/ABC/music/listMusicAdmin">全部状态</option>
+                    <option th:selected="${session.state} eq '通过'" value="http://localhost:8080/ABC/music/findByStates?state=通过">通过</option>
+                    <option th:selected="${session.state} eq '待审核'" value="http://localhost:8080/ABC/music/findByStates?state=待审核">待审核</option>
+                    <option th:selected="${session.state} eq '请修改'" value="http://localhost:8080/ABC/music/findByStates?state=请修改">请修改</option>
                 </select>
             </th>
             <th>操作</th>
@@ -160,19 +150,19 @@
     <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
     &nbsp&nbsp&nbsp
     <!--            首页作为第一页不可点击-->
-    <a th:href="@{http://localhost:8080/ABC/music/listMusicAdmin(pageNo=1)}" class="btn" style="width: 40px">首页</a>
+    <a th:href="@{http://localhost:8080/ABC/music/findByStates(pageNo=1,state=${session.state})}" class="btn" style="width: 40px">首页</a>
     &nbsp&nbsp
     <span th:if="${page.pageNum==1}">
                 <a onclick="return false" class="btn_FenYe">上一页</a>
             </span>
     <span th:unless="${page.pageNum==1}">
-                <a th:href="@{http://localhost:8080/ABC/music/listMusicAdmin(pageNo=${page.pageNum - 1})}" class="btn_FenYe">上一页</a>
+                <a th:href="@{http://localhost:8080/ABC/music/findByStates(pageNo=${page.pageNum - 1},state=${session.state})}" class="btn_FenYe">上一页</a>
             </span>
     &nbsp&nbsp
 
     <span th:each="i:${#numbers.sequence(1,page.pages)}">
         &nbsp
-                <a th:href="@{http://localhost:8080/ABC/music/listMusicAdmin(pageNo=${i})}" th:text="${i}">1</a>
+                <a th:href="@{http://localhost:8080/ABC/music/findByStates(pageNo=${i},state=${session.state})}" th:text="${i}">1</a>
             </span>
 
     &nbsp&nbsp
@@ -181,213 +171,13 @@
             </span>
 
     <span th:unless="${page.pages==page.pageNum}">
-                <a th:href="@{http://localhost:8080/ABC/music/listMusicAdmin(pageNo=${page.pageNum+1})}" class="btn_FenYe">下一页</a>
+                <a th:href="@{http://localhost:8080/ABC/music/findByStates(pageNo=${page.pageNum+1},state=${session.state})}" class="btn_FenYe">下一页</a>
             </span>
 
     &nbsp&nbsp
-    <a th:href="@{http://localhost:8080/ABC/music/listMusicAdmin(pageNo=${page.pages})}" class="btn" style="width: 40px">末页</a>
+    <a th:href="@{http://localhost:8080/ABC/music/findByStates(pageNo=${page.pages},state=${session.state})}" class="btn" style="width: 40px">末页</a>
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
-</div>
-
-<div style="margin-left: 45%; margin-top: 1%">
-    <form th:action="@{http://localhost:8080/ABC/music/listMusicAdmin}">
-        </span><input type="text" class="input" style="width: 40px" name="pageNo" th:value="${page.pageNum}">页
-        <input type="submit" value="跳转" class="btn" style="width: 40px">
-    </form>
-</div>
-
-<div style="width: 50%; float: left">
-<!--按节拍-->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.js"></script>
-<script type="text/javascript" src="http://localhost:8080/ABC/js/jquery-3.4.1.js"></script>
-<div id="pieBeat" style="margin-left: 40%"></div>
-<script>
-    // 饼状图
-    // 基于准备好的dom，初始化echarts实例
-    var pieBeat = echarts.init(document.getElementById('pieBeat'));
-    // 指定图表的配置项和数据
-    pieBeatOption = {
-        // 标题
-        title: {
-            text: '按节拍分类',
-            subtext: '所有曲谱',
-            left: 'center'
-        },
-        // 图例
-
-        tooltip: {
-            show: true,
-            trigger: "item",
-            backgroundColor: "#fff3e9",
-            // {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
-            formatter: "{a}：{b}<br/>{c}个({d}%)"
-        },
-
-        // 不同区域的颜色
-        // color: ['#4992ff', '#7cffb2', '#fddd60','#ff6e76','#58d9f9','#05c091','#ff8a45','#8d48e3'],
-        series: [
-            {
-                name: '节拍',
-                type: 'pie',
-                // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
-                radius: '50%',
-                // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
-                center: ['50%', '50%'],
-                data: [
-
-                ],
-                itemStyle: {
-                    // 显示图例
-                    normal: {
-                        label: {
-                            show: true
-                        },
-                        labelLine: {
-                            show: true
-                        }
-                    },
-                    emphasis: {
-                        // 图形阴影的模糊大小
-                        shadowBlur: 10,
-                        // 阴影水平方向上的偏移距离
-                        shadowOffsetX: 0,
-                        // 阴影颜色
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }
-        ]
-    };
-    pieBeat.setOption(pieBeatOption);
-
-    // 异步加载数据
-    $.post('http://localhost:8080/ABC/admin/beatsNumbers').done(function(beatList) {
-        // 填入数据
-        pieBeat.setOption({
-            series: [
-                {
-                    // 根据名字对应到相应的系列
-                    data: [
-                        {
-                            value: beatList[0],name: '4/4拍',
-                        },
-                        {
-                            value: beatList[1],name: '3/4拍'
-                        },
-                        {
-                            value: beatList[2],name: '2/4拍'
-                        },
-                        {
-                            value: beatList[3],name: '1/4拍'
-                        },
-
-                    ],
-                }
-            ]
-        });
-    });
-</script>
-</div>
-<!--按定调数量统计图-->
-<div style="width: 50%; float: right">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.js"></script>
-<script type="text/javascript" src="http://localhost:8080/ABC/js/jquery-3.4.1.js"></script>
-<div id="pieTone" style="float: right; margin-right: 40%"></div>
-<script>
-    // 饼状图
-    // 基于准备好的dom，初始化echarts实例
-    var pieTone = echarts.init(document.getElementById('pieTone'));
-    // 指定图表的配置项和数据
-    pieToneOption = {
-        // 标题
-        title: {
-            text: '按定调分类',
-            subtext: '所有曲谱',
-            left: 'center'
-        },
-        // 图例
-
-        tooltip: {
-            show: true,
-            trigger: "item",
-            backgroundColor: "#fff3e9",
-            // {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
-            formatter: "{a}：{b}<br/>{c}个({d}%)"
-        },
-
-        // 不同区域的颜色
-        // color: ['#4992ff', '#7cffb2', '#fddd60','#ff6e76','#58d9f9','#05c091','#ff8a45','#8d48e3'],
-        series: [
-            {
-                name: '定调',
-                type: 'pie',
-                // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
-                radius: '50%',
-                // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
-                center: ['50%', '50%'],
-                data: [
-
-                ],
-                itemStyle: {
-                    // 显示图例
-                    normal: {
-                        label: {
-                            show: true
-                        },
-                        labelLine: {
-                            show: true
-                        }
-                    },
-                    emphasis: {
-                        // 图形阴影的模糊大小
-                        shadowBlur: 10,
-                        // 阴影水平方向上的偏移距离
-                        shadowOffsetX: 0,
-                        // 阴影颜色
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }
-        ]
-    };
-    pieTone.setOption(pieToneOption);
-
-    // 异步加载数据
-    $.post('http://localhost:8080/ABC/admin/numbers').done(function(numberList) {
-        // 填入数据
-        pieTone.setOption({
-            series: [
-                {
-                    // 根据名字对应到相应的系列
-                    data: [
-                        {
-                            value: numberList[0],name: 'A调',
-                        },
-                        {
-                            value: numberList[1],name: 'B调'
-                        },
-                        {
-                            value: numberList[2],name: 'C调'
-                        },
-                        {
-                            value: numberList[3],name: 'D调'
-                        },
-                        {
-                            value: numberList[4],name: 'E调'
-                        },
-                        {
-                            value: numberList[5],name: 'F调'
-                        },
-                        {
-                            value: numberList[6],name: 'G调'
-                        },
-                    ],
-                }
-            ]
-        });
-    });
-</script>
 </div>
 
 <script th:src="@{/js/jquery-3.4.1.js}"></script>

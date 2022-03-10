@@ -16,6 +16,9 @@ public interface Sheet_MusicDAO {
     //展示所有曲谱（管理员）
     List<Sheet_Music> findAllMusic();
 
+    //管理员按曲谱状态查询
+    List<Sheet_Music> findMusicByState(String state);
+
     //按名称模糊查询曲谱（管理员）
     List<Sheet_Music> findByMusicName(String music_name);
 

@@ -11,6 +11,10 @@
         select * from Sheet_Music
     </select>
 
+    <select id="findMusicByState" parameterType="java.lang.String" resultType="Sheet_Music">
+        select * from Sheet_Music where state = #{state}
+    </select>
+
     <select id="findByMusicName" parameterType="Sheet_Music" resultType="Sheet_Music">
         select * from Sheet_Music where music_name like CONCAT(CONCAT('%',#{music_name}),'%')
     </select>
