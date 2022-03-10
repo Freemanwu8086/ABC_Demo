@@ -189,10 +189,12 @@
         <input type="submit" value="跳转" class="btn" style="width: 40px">
     </form>
 </div>
+
+<div style="width: 50%; float: left">
 <!--按节拍-->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.js"></script>
 <script type="text/javascript" src="http://localhost:8080/ABC/js/jquery-3.4.1.js"></script>
-<div id="pieBeat" style="margin-top: 1%; margin-left: 25%"></div>
+<div id="pieBeat" style="margin-left: 40%"></div>
 <script>
     // 饼状图
     // 基于准备好的dom，初始化echarts实例
@@ -279,10 +281,12 @@
         });
     });
 </script>
+</div>
 <!--按定调数量统计图-->
+<div style="width: 50%; float: right">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.js"></script>
 <script type="text/javascript" src="http://localhost:8080/ABC/js/jquery-3.4.1.js"></script>
-<div id="pieTone" style="float: right;margin-top: -27%; margin-right: 25%"></div>
+<div id="pieTone" style="float: right; margin-right: 40%"></div>
 <script>
     // 饼状图
     // 基于准备好的dom，初始化echarts实例
@@ -377,6 +381,7 @@
         });
     });
 </script>
+</div>
 
 <script th:src="@{/js/jquery-3.4.1.js}"></script>
 <script type="text/javascript">
@@ -434,5 +439,6 @@
         }
     }
 </script>
+
 </body>
 </html>
