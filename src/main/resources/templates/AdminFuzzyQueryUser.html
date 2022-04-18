@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>管理员之用户模糊查询</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
+    <link rel="icon" href="/img/favicon.ico"/>
 </head>
 <body style="background-color: #FFF5EE">
 
@@ -22,7 +23,7 @@
                     </b>
                 </li>
                 <li class="add">
-                    <a href="http://localhost:8080/ABC/Welcome.html">&nbsp|&nbsp退出登陆</a>
+                    <a href="/index.html">&nbsp|&nbsp退出登陆</a>
                 </li>
             </ul>
         </div>
@@ -30,7 +31,7 @@
 </div>
 
 <div style="width: 20%;float: right;margin-top: 2%;margin-bottom: 1%" >
-    <form action="http://localhost:8080/ABC/admin/findUsersByUserName" method="post">
+    <form action="/admin/findUsersByUserName" method="post" th:target="_blank">
         <input type="text" name="username" placeholder="按用户名模糊查询" class="input">&nbsp
         <input type="submit" class="btn" value="查询" style="width: 40px">
     </form>
@@ -74,19 +75,19 @@
     <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
     &nbsp&nbsp&nbsp
     <!--            首页作为第一页不可点击-->
-    <a th:href="@{http://localhost:8080/ABC/admin/listUsers(pageNo=1,username=${session.username})}" class="btn" style="width: 40px">首页</a>
+    <a th:href="@{/admin/listUsers(pageNo=1,username=${session.username})}" class="btn" style="width: 40px">首页</a>
     &nbsp&nbsp
     <span th:if="${page.pageNum==1}">
                 <a onclick="return false" class="btn_FenYe">上一页</a>
             </span>
     <span th:unless="${page.pageNum==1}">
-                <a th:href="@{http://localhost:8080/ABC/admin/listUsers(pageNo=${page.pageNum - 1},username=${session.username})}" class="btn_FenYe">上一页</a>
+                <a th:href="@{/admin/listUsers(pageNo=${page.pageNum - 1},username=${session.username})}" class="btn_FenYe">上一页</a>
             </span>
     &nbsp&nbsp
 
     <span th:each="i:${#numbers.sequence(1,page.pages)}">
         &nbsp
-                <a th:href="@{http://localhost:8080/ABC/admin/listUsers(pageNo=${i},username=${session.username})}" th:text="${i}">1</a>
+                <a th:href="@{/admin/listUsers(pageNo=${i},username=${session.username})}" th:text="${i}">1</a>
             </span>
 
     &nbsp&nbsp
@@ -95,11 +96,11 @@
             </span>
 
     <span th:unless="${page.pages==page.pageNum}">
-                <a th:href="@{http://localhost:8080/ABC/admin/listUsers(pageNo=${page.pageNum+1},username=${session.username})}" class="btn_FenYe">下一页</a>
+                <a th:href="@{/admin/listUsers(pageNo=${page.pageNum+1},username=${session.username})}" class="btn_FenYe">下一页</a>
             </span>
 
     &nbsp&nbsp
-    <a th:href="@{http://localhost:8080/ABC/admin/listUsers(pageNo=${page.pages},username=${session.username})}" class="btn" style="width: 40px">末页</a>
+    <a th:href="@{/admin/listUsers(pageNo=${page.pages},username=${session.username})}" class="btn" style="width: 40px">末页</a>
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
 </div>

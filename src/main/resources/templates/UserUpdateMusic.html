@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="content-type" content="text/html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--    <link rel="icon" href="favicon.ico" type="image/x-icon"/>-->
+    <link rel="icon" href="/img/favicon.ico"/>
     <title>ABC管理员乐谱修改</title>
 
     <link rel="stylesheet" th:href="@{/css/examples-styles.css}"/>
@@ -15,7 +15,7 @@
 
     <script type="text/javascript">
         function Sure() {
-            var gnl = confirm("确定要提交?");
+            var gnl = confirm("更改后需待管理员重新审批，确定更改?");
             if (gnl == true) {
                 return true;
             } else {
@@ -64,18 +64,18 @@
         <div class="ue4">
             <ul>
                 <li class="ue6">
-                    <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">
+                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
                         <b>
                             当前用户：<span th:text="${session.loginUser.username}"></span>
                         </b>
                     </a>
                 </li>
                 <li class="add">
-                    <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">
+                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
                         主页&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a href="http://localhost:8080/ABC/Welcome.html">退出登陆</a>
+                    <a href="/index.html">退出登陆</a>
                 </li>
             </ul>
         </div>
@@ -99,7 +99,14 @@
                 <b>节&nbsp&nbsp&nbsp拍</b>
             </div>
             <div>
-                <input type="text" name="beat" th:value="${music.beat}" class="input">
+                <select name="beat" class="shortSelect">
+                    <option value = "1/4" th:selected="${{music.beat}} eq '1/4'">1/4</option>
+                    <option value = "2/4" th:selected="${{music.beat}} eq '2/4'">2/4</option>
+                    <option value = "3/4" th:selected="${{music.beat}} eq '3/4'">3/4</option>
+                    <option value = "4/4" th:selected="${{music.beat}} eq '4/4'">4/4</option>
+                    <option value = "3/8" th:selected="${{music.beat}} eq '3/8'">3/8</option>
+                    <option value = "6/8" th:selected="${{music.beat}} eq '6/8'">6/8</option>
+                </select>
             </div>
         </div>
 
@@ -108,7 +115,29 @@
                 <b>定&nbsp&nbsp&nbsp调</b>
             </div>
             <div>
-                <input type="text" name="tone" th:value="${music.tone}" class="input">
+                <select name="tone" class="shortSelect">
+                    <option value = "C" th:selected="${{music.tone}} eq 'C'">C</option>
+                    <option value = "#C" th:selected="${{music.tone}} eq '#C'">#C</option>
+                    <option value = "bC" th:selected="${{music.tone}} eq 'bC'">bC</option>
+                    <option value = "D" th:selected="${{music.tone}} eq 'D'">D</option>
+                    <option value = "#D" th:selected="${{music.tone}} eq '#D'">#D</option>
+                    <option value = "bD" th:selected="${{music.tone}} eq 'bD'">bD</option>
+                    <option value = "E" th:selected="${{music.tone}} eq 'E'">E</option>
+                    <option value = "#E" th:selected="${{music.tone}} eq '#E'">#E</option>
+                    <option value = "bE" th:selected="${{music.tone}} eq 'bE'">bE</option>
+                    <option value = "F" th:selected="${{music.tone}} eq 'F'">F</option>
+                    <option value = "#F" th:selected="${{music.tone}} eq '#F'">#F</option>
+                    <option value = "bF" th:selected="${{music.tone}} eq 'bF'">bF</option>
+                    <option value = "G" th:selected="${{music.tone}} eq 'G'">G</option>
+                    <option value = "#G" th:selected="${{music.tone}} eq '#G'">#G</option>
+                    <option value = "bG" th:selected="${{music.tone}} eq 'bG'">bG</option>
+                    <option value = "A" th:selected="${{music.tone}} eq 'A'">A</option>
+                    <option value = "#A" th:selected="${{music.tone}} eq '#A'">#A</option>
+                    <option value = "bA" th:selected="${{music.tone}} eq 'bA'">bA</option>
+                    <option value = "B" th:selected="${{music.tone}} eq 'B'">B</option>
+                    <option value = "#B" th:selected="${{music.tone}} eq '#B'">#B</option>
+                    <option value = "bB" th:selected="${{music.tone}} eq 'bB'">bB</option>
+                </select>
             </div>
         </div>
 
@@ -127,6 +156,18 @@
         <div class="forg3">
             <div id="warnings"></div>
             <div id="audio" class="audio"></div>
+        </div>
+        <div class="forg3">
+            <div class="forg_n">
+                <b>乐谱简介</b>
+            </div>
+            <div>
+                <textarea name="introduction" cols="80" rows="15"
+                          spellcheck="false"
+                          style="float: left;
+                                border: 1px solid #FFD3B9;
+                                border-radius: 5px;" th:text="${music.introduction}"></textarea>
+            </div>
         </div>
     </div>
 

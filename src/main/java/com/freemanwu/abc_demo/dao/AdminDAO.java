@@ -56,24 +56,38 @@ public interface AdminDAO {
 
     //统计A调总数
     Integer totalNumberOfA();
+    Integer totalNumberOfUpA();
+    Integer totalNumberOfbA();
 
     //统计B调总数
     Integer totalNumberOfB();
+    Integer totalNumberOfUpB();
+    Integer totalNumberOfbB();
 
     //统计C调总数
     Integer totalNumberOfC();
+    Integer totalNumberOfUpC();
+    Integer totalNumberOfbC();
 
     //统计D调总数
     Integer totalNumberOfD();
+    Integer totalNumberOfUpD();
+    Integer totalNumberOfbD();
 
     //统计E调总数
     Integer totalNumberOfE();
+    Integer totalNumberOfUpE();
+    Integer totalNumberOfbE();
 
     //统计F调总数
     Integer totalNumberOfF();
+    Integer totalNumberOfUpF();
+    Integer totalNumberOfbF();
 
     //统计G调总数
     Integer totalNumberOfG();
+    Integer totalNumberOfUpG();
+    Integer totalNumberOfbG();
 
     //统计4/4拍总数
     String totalBeatOf44();
@@ -86,4 +100,10 @@ public interface AdminDAO {
 
     //统计3/4拍总数
     String totalBeatOf14();
+
+    //统计3/8拍总数
+    String totalBeatOf38();
+
+    //统计6/8拍总数
+    String totalBeatOf68();
 }

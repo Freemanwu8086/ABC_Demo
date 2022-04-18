@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>用户之乐谱全展示</title>
+    <title>游客之乐谱全展示</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 
     <link rel="icon" href="/img/favicon.ico"/>
@@ -18,15 +18,6 @@
     </style>
 </head>
 <script type="text/javascript">
-
-    function Sure() {
-        var gnl = confirm("确定要收藏?");
-        if (gnl == true) {
-            return true;
-        } else {
-            return false;
-        }
-    }
     window.onload = function (){
         var easy = document.getElementById("easy");
         var combined = document.getElementById("combined");
@@ -59,19 +50,12 @@
         </div>
         <div class="ue4">
             <ul>
-                <li class="ue6">
-                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
-                        <b>
-                            当前用户：<span th:text="${session.loginUser.username}"></span>
-                        </b>
-                    </a>
+                <li class="add">
+                    <a th:href="@{/UserRegister.html}">
+                        注册账号&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
-                        主页&nbsp&nbsp丨</a>
-                </li>
-                <li class="add">
-                    <a href="/index.html">退出登陆</a>
+                    <a href="/index.html">回到登陆页面</a>
                 </li>
             </ul>
         </div>
@@ -85,13 +69,13 @@
 
 <div id="easyQuery" class="QueryWindow">
     <div style="width: 25%;float: right">
-        <form action="/music/UserFindByMusicName" method="post" th:target="_blank">
+        <form action="/music/TouristFindByMusicName" method="post" th:target="_blank">
             <input type="text" name="music_name" placeholder="按曲谱名模糊查询" class="input">&nbsp
             <input type="submit" class="btn" value="查询" style="width: 40px">
         </form>
     </div>
     <div style="width: 25%;float: right">
-        <form action="/user/findMusicByBeat" method="post" th:target="_blank">
+        <form action="/music/findMusicByBeat" method="post" th:target="_blank">
             <select name="beat" class="shortSelect">
                 <option selected>按节拍查询</option>
                 <option>---------</option>
@@ -106,7 +90,7 @@
         </form>
     </div>
     <div style="width: 25%;float: right">
-        <form action="/user/findMusicByTone" method="post" th:target="_blank">
+        <form action="/music/findMusicByTone" method="post" th:target="_blank">
             <select name="tone" class="shortSelect">
                 <option selected>按定调查询</option>
                 <option>---------</option>
@@ -137,7 +121,7 @@
     </div>
 </div>
 <div id="CombinedQuery" class="QueryWindow">
-    <form action="/user/CombinedFindMusic" method="post" th:target="_blank">
+    <form action="/music/CombinedFindMusic" method="post" th:target="_blank">
         <input type="submit" class="btn" value="组合" style="width: 80px;float: right;">
         <input type="text" name="music_name" placeholder="请输入乐谱名称，可模糊" class="input" style="float: right;">
         <select name="beat" class="shortSelect" style="float: right">
@@ -147,8 +131,8 @@
             <option value = "2/4">2/4</option>
             <option value = "3/4">3/4</option>
             <option value = "4/4">4/4</option>
-            <option value = "3/8">3/4</option>
-            <option value = "6/8">3/4</option>
+            <option value = "3/8">3/8</option>
+            <option value = "6/8">6/8</option>
         </select>
         <select name="tone" class="shortSelect" style="float: right">
             <option selected>定调选择</option>
@@ -188,13 +172,12 @@
             <th>定调</th>
             <th>创建时间</th>
             <th>最后修改时间</th>
-            <th>收藏</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="music,musicStat:${musics}">
             <td>
-                <a th:href="@{/music/UserFindMusicById(id=${music.id})}" th:target="_blank">
+                <a th:href="@{/music/TouristFindMusicById(id=${music.id})}" th:target="_blank">
                     <span style="color: black" th:text="${music.music_name}"></span>
                 </a>
             </td>
@@ -206,13 +189,6 @@
             <td><span th:text="${music.tone}"></span></td>
             <td><span th:text="${#dates.format(music.insert_date,'yyyy年MM月dd日')}"></span></td>
             <td><span th:text="${#dates.format(music.last_update_date,'yyyy年MM月dd日')}"></span></td>
-            <td>
-                <form th:action="@{/user/favorite}" method="post" onsubmit="return Sure()">
-                    <input type="text" th:value="${music.id}" name="music_id" style="display: none">
-                    <input type="text" th:value="${session.loginUser.username}" name="username" style="display: none">
-                    <input type="submit" value="收藏" class="updateBtn">
-                </form>
-            </td>
         </tr>
         </tbody>
     </table>
@@ -222,19 +198,19 @@
     <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
     &nbsp&nbsp&nbsp
     <!--            首页作为第一页不可点击-->
-    <a th:href="@{/music/listMusicUser(pageNo=1)}" class="btn" style="width: 40px">首页</a>
+    <a th:href="@{/music/tourist(pageNo=1)}" class="btn" style="width: 40px">首页</a>
     &nbsp&nbsp
     <span th:if="${page.pageNum==1}">
                 <a onclick="return false" class="btn_FenYe">上一页</a>
             </span>
     <span th:unless="${page.pageNum==1}">
-                <a th:href="@{/music/listMusicUser(pageNo=${page.pageNum - 1})}" class="btn_FenYe">上一页</a>
+                <a th:href="@{/music/tourist(pageNo=${page.pageNum - 1})}" class="btn_FenYe">上一页</a>
             </span>
     &nbsp&nbsp
 
     <span th:each="i:${#numbers.sequence(1,page.pages)}">
         &nbsp
-                <a th:href="@{/music/listMusicUser(pageNo=${i})}" th:text="${i}">1</a>
+                <a th:href="@{/music/tourist(pageNo=${i})}" th:text="${i}">1</a>
             </span>
 
     &nbsp&nbsp
@@ -243,17 +219,17 @@
             </span>
 
     <span th:unless="${page.pages==page.pageNum}">
-                <a th:href="@{/music/listMusicUser(pageNo=${page.pageNum+1})}" class="btn_FenYe">下一页</a>
+                <a th:href="@{/music/tourist(pageNo=${page.pageNum+1})}" class="btn_FenYe">下一页</a>
             </span>
 
     &nbsp&nbsp
-    <a th:href="@{/music/listMusicUser(pageNo=${page.pages})}" class="btn" style="width: 40px">末页</a>
+    <a th:href="@{/music/tourist(pageNo=${page.pages})}" class="btn" style="width: 40px">末页</a>
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
 </div>
 
 <div style="margin-left: 45%; margin-top: 1%">
-    <form th:action="@{/music/listMusicUser}">
+    <form th:action="@{/music/tourist}">
         </span><input type="text" class="input" style="width: 40px" name="pageNo" th:value="${page.pageNum}">页
         <input type="submit" value="跳转" class="btn" style="width: 40px">
     </form>

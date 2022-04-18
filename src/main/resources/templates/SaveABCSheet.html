@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--    <link rel="icon" href="favicon.ico" type="image/x-icon"/>-->
     <title>ABC Editor</title>
+    <link rel="icon" href="\/img/favicon.ico"/>
 
     <link rel="stylesheet" th:href="@{/css/examples-styles.css}"/>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
@@ -23,8 +24,10 @@
                 return false;
             }
         }
+        var abcjsEditor;
+
         window.onload = function () {
-            new ABCJS.Editor("abc", {
+            abcjsEditor = new ABCJS.Editor("abc", {
                 canvas_id: "canvas",
                 generate_warnings: true,
                 warnings_id: "warnings",
@@ -35,10 +38,40 @@
                 abcjsParams: {
                     responsive: "resize",
                     oneSvgPerLine: true
-                }
+                },
+                selectionChangeCallback: selectionChangeCallback
             });
+            document.getElementById("midi").addEventListener("click", downloadMidi);
         };
+        function clickListener(abcElem, tuneNumber, classes, analysis, drag, mouseEvent) {
+            var lastClicked = abcElem.midiPitches;
+            if (!lastClicked)
+                return;
+
+            ABCJS.synth.playEvent(lastClicked, abcElem.midiGraceNotePitches, abcjsEditor.millisecondsPerMeasure()).then(function (response) {
+                console.log("note played");
+            }).catch(function (error) {
+                console.log("error playing note", error);
+            });
+        }
+
+        function selectionChangeCallback(start, end) {
+            if (abcjsEditor) {
+                var el = abcjsEditor.tunes[0].getElementFromChar(start);
+                console.log(el);
+            }
+        }
+
+        function downloadMidi() {
+            var abc = document.getElementById("abc").value;
+            var a = document.getElementById("midi-download");
+            var midi = ABCJS.synth.getMidiFile(abc, { midiOutputType: "encoded" })
+            a.setAttribute("href", midi)
+            a.click();
+        }
+
     </script>
+
     <style>
         @media print {
             div.forg3,div.ue1,div.print {
@@ -65,18 +98,18 @@
         <div class="ue4">
             <ul>
                 <li class="ue6">
-                    <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">
+                    <a th:href="@{\/user/findByName(username=${session.loginUser.username})}">
                         <b>
                             当前用户：<span th:text="${session.loginUser.username}"></span>
                         </b>
                     </a>
                 </li>
                 <li class="add">
-                    <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">
+                    <a th:href="@{\/user/findByName(username=${session.loginUser.username})}">
                         主页&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a href="http://localhost:8080/ABC/Welcome.html">退出登陆</a>
+                    <a href="/index.html">退出登陆</a>
                 </li>
             </ul>
         </div>
@@ -99,7 +132,16 @@
                 <b>节&nbsp&nbsp&nbsp拍</b>
             </div>
             <div>
-                <input type="text" name="beat" placeholder="请输入曲谱的节拍" class="input">
+                <select name="beat" class="shortSelect">
+                    <option selected>请选择节拍</option>
+                    <option>---------</option>
+                    <option value = "1/4">1/4</option>
+                    <option value = "2/4">2/4</option>
+                    <option value = "3/4">3/4</option>
+                    <option value = "4/4">4/4</option>
+                    <option value = "3/8">3/8</option>
+                    <option value = "6/8">6/8</option>
+                </select>
             </div>
         </div>
 
@@ -108,7 +150,31 @@
                 <b>定&nbsp&nbsp&nbsp调</b>
             </div>
             <div>
-                <input type="text" name="tone" placeholder="请输入曲谱的定调" class="input">
+                <select name="tone" class="shortSelect">
+                    <option selected>请选择定调</option>
+                    <option>---------</option>
+                    <option value = "C">C</option>
+                    <option value = "#C">#C</option>
+                    <option value = "bC">bC</option>
+                    <option value = "D">D</option>
+                    <option value = "#D">#D</option>
+                    <option value = "bD">bD</option>
+                    <option value = "E">E</option>
+                    <option value = "#E">#E</option>
+                    <option value = "bE">bE</option>
+                    <option value = "F">F</option>
+                    <option value = "#F">#F</option>
+                    <option value = "bF">bF</option>
+                    <option value = "G">G</option>
+                    <option value = "#G">#G</option>
+                    <option value = "bG">bG</option>
+                    <option value = "A">A</option>
+                    <option value = "#A">#A</option>
+                    <option value = "bA">bA</option>
+                    <option value = "B">B</option>
+                    <option value = "#B">#B</option>
+                    <option value = "bB">bB</option>
+                </select>
                 <input type="text" name="username" th:value="${session.loginUser.username}" class="input" style="display: none">
             </div>
         </div>
@@ -129,21 +195,35 @@
             <div id="warnings"></div>
             <div id="audio" class="audio"></div>
         </div>
+        <div class="forg3">
+            <div class="forg_n">
+                <b>乐谱简介</b>
+            </div>
+            <div>
+                <textarea name="introduction" cols="80" rows="15"
+                          spellcheck="false"
+                          style="float: left;
+                                border: 1px solid #FFD3B9;
+                                border-radius: 5px;"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="forg3">
+        <div class="btn0" style="margin-bottom: 3%;margin-left: 10%;margin-top: 3%">
+            <input type="submit" value="上传乐谱" class="btn">
+        </div>
     </div>
 
     <div>
         <div id="canvas" class="visible-background"></div>
     </div>
-    <div class="forg3">
-        <div class="btn0" style="margin-bottom: 3%;margin-left: 33%;">
-            <input type="submit" value="确定" class="btn">
-        </div>
-    </div>
 </form>
 
-    <div class="print">
-        <button onclick="window.print()" class="btn" >保存乐谱</button>
-    </div>
+<div class="print">
+    <button onclick="window.print()" class="btn">保存五线谱</button>
+    <button id="midi" class="btn">下载MIDI文件</button>
+    <a id="midi-download" download="样本.mid" style="display: none"></a>
+</div>
 
 
 </body>

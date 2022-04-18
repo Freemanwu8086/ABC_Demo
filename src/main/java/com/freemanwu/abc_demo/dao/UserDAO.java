@@ -1,9 +1,11 @@
 package com.freemanwu.abc_demo.dao;
 
+import com.freemanwu.abc_demo.entity.Favorite;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -52,24 +54,38 @@ public interface UserDAO {
 
     //统计A调总数
     Integer totalNumberOfA();
+    Integer totalNumberOfUpA();
+    Integer totalNumberOfbA();
 
     //统计B调总数
     Integer totalNumberOfB();
+    Integer totalNumberOfUpB();
+    Integer totalNumberOfbB();
 
     //统计C调总数
     Integer totalNumberOfC();
+    Integer totalNumberOfUpC();
+    Integer totalNumberOfbC();
 
     //统计D调总数
     Integer totalNumberOfD();
+    Integer totalNumberOfUpD();
+    Integer totalNumberOfbD();
 
     //统计E调总数
     Integer totalNumberOfE();
+    Integer totalNumberOfUpE();
+    Integer totalNumberOfbE();
 
     //统计F调总数
     Integer totalNumberOfF();
+    Integer totalNumberOfUpF();
+    Integer totalNumberOfbF();
 
     //统计G调总数
     Integer totalNumberOfG();
+    Integer totalNumberOfUpG();
+    Integer totalNumberOfbG();
 
     //统计4/4拍总数
     String totalBeatOf44();
@@ -83,7 +99,28 @@ public interface UserDAO {
     //统计3/4拍总数
     String totalBeatOf14();
 
+    //统计3/8拍总数
+    String totalBeatOf38();
+
+    //统计6/8拍总数
+    String totalBeatOf68();
+
     //注销账号
     void deleteAccount(String username);
     void UnNamedMusic(String username);
+
+    //查重用户名
+    Integer checkUserName(String username);
+
+    //收藏曲谱
+    void insertFavorite(Favorite favorite);
+
+    //查看收藏曲谱
+    List<Sheet_Music> showFavorite(String username);
+
+    //删除单个收藏
+    void deleteOneCollection(Integer music_id, String username);
+
+    //批量删除收藏
+    void deleteListCollection(@Param(value = "music_id")Integer[] music_id,  @Param(value = "username")String username);
 }

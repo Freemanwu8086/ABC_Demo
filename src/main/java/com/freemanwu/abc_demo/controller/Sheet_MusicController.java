@@ -1,9 +1,12 @@
 package com.freemanwu.abc_demo.controller;
 
+import com.freemanwu.abc_demo.entity.Comment;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
 import com.freemanwu.abc_demo.service.AdminService;
+import com.freemanwu.abc_demo.service.CommentService;
 import com.freemanwu.abc_demo.service.Sheet_MusicService;
+import com.freemanwu.abc_demo.service.UserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,10 @@ public class Sheet_MusicController {
     private Sheet_MusicService musicService;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private CommentService commentService;
 
     /**
      * 新建曲谱
@@ -53,6 +60,15 @@ public class Sheet_MusicController {
         return "AdminFindAllMusic";  //转发到你自己的页面
     }
 
+    /**
+     * 按状态查询
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param state
+     * @param session
+     * @return
+     */
     @RequestMapping("findByStates")
     public String getListByStateAdmin(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
                                       Map<String,Object> map, Model model,String state,HttpSession session){
@@ -80,6 +96,126 @@ public class Sheet_MusicController {
         model.addAttribute("musics",musics);
         map.put("page",page);
         return "UserFindAllMusic";
+    }
+
+    /**
+     * 游客模式
+     * @param pageNum
+     * @param map
+     * @param model
+     * @return
+     */
+    @RequestMapping("tourist")
+    public String touristFindAllMusic(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                      Map<String,Object> map, Model model){
+        PageInfo<Sheet_Music> page = musicService.findAllMusicUser(pageNum);
+        List<Sheet_Music> musics = page.getList();
+
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "TouristFindAllMusic";
+    }
+    /**
+     * 有何按节拍查询
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param beat
+     * @param session
+     * @return
+     */
+    @RequestMapping("findMusicByBeat")
+    public String findMusicByBeat(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                  Map<String,Object> map, Model model, String beat, HttpSession session){
+        PageInfo<Sheet_Music> page = userService.findMusicByBeat(pageNum,beat);
+        List<Sheet_Music> musics = page.getList();
+        session.setAttribute("beat",beat);
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "TouristFindMusicByBeat";
+    }
+
+    /**
+     * 游客按定调查询
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param tone
+     * @param session
+     * @return
+     */
+    @RequestMapping("findMusicByTone")
+    public String findMusicByTone(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                  Map<String,Object> map, Model model, String tone, HttpSession session){
+        PageInfo<Sheet_Music> page = userService.findMusicByTone(pageNum,tone);
+        List<Sheet_Music> musics = page.getList();
+        session.setAttribute("tone",tone);
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "TouristFindMusicByTone";
+    }
+
+    /**
+     * 游客组合查询曲谱
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param music
+     * @param session
+     * @return
+     */
+    @RequestMapping("CombinedFindMusic")
+    public String CombinedFindMusic(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                    Map<String,Object> map, Model model, Sheet_Music music, HttpSession session){
+        PageInfo<Sheet_Music> page = userService.CombinedFindMusic(pageNum,music);
+        String beat1 = music.getBeat();
+        String tone1 = music.getTone();
+        String music_name1 = music.getMusic_name();
+        List<Sheet_Music> musics = page.getList();
+        session.setAttribute("beat1",beat1);
+        session.setAttribute("tone1",tone1);
+        session.setAttribute("music_name1",music_name1);
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "TouristFindMusicCombined";
+    }
+
+    /**
+     * 游客查询单一曲谱
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping("TouristFindMusicById")
+    public String touristFindMusicById(Integer id, Model model,@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                       Map<String,Object> map, HttpServletRequest request){
+        Sheet_Music music = musicService.findMusicById(id);
+        PageInfo<Comment> page = commentService.findAllComments(pageNum,id);
+        List<Comment> comments = page.getList();
+        model.addAttribute("music",music);
+        model.addAttribute("comments",comments);
+        map.put("page",page);
+        return "TouristShowOneMusic";
+    }
+
+    /**
+     * 游客模糊查询
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param music_name
+     * @param session
+     * @return
+     */
+    @RequestMapping("TouristFindByMusicName")
+    public String touristFindByMusicName(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                      Map<String,Object> map, Model model, String music_name, HttpSession session){
+        PageInfo<Sheet_Music> page = musicService.findByMusicNameUser(pageNum,music_name);
+        List<Sheet_Music> musics = page.getList();
+        session.setAttribute("music_name",music_name);
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "TouristFuzzyQueryMusic";
     }
 
     /**
@@ -129,9 +265,15 @@ public class Sheet_MusicController {
      * @return
      */
     @RequestMapping("AdminFindMusicById")
-    public String findMusicById(Model model,Integer id){
+    public String findMusicById(Model model,Integer id,@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                Map<String,Object> map, HttpServletRequest request, HttpSession session){
         Sheet_Music music = musicService.findMusicById(id);
+        PageInfo<Comment> page = commentService.findAllComments(pageNum,id);
+        List<Comment> comments = page.getList();
+        session.setAttribute("music_id",id);
         model.addAttribute("music",music);
+        model.addAttribute("comments",comments);
+        map.put("page",page);
         return "AdminShowOneMusic";
     }
 
@@ -142,9 +284,14 @@ public class Sheet_MusicController {
      * @return
      */
     @RequestMapping("UserFindMusicById")
-    public String UserFindMusicById(Model model, Integer id){
+    public String UserFindMusicById(Model model, Integer id,@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                    Map<String,Object> map, HttpServletRequest request,HttpSession session){
         Sheet_Music music = musicService.findMusicById(id);
+        PageInfo<Comment> page = commentService.findAllComments(pageNum,id);
+        List<Comment> comments = page.getList();
         model.addAttribute("music",music);
+        model.addAttribute("comments",comments);
+        map.put("page",page);
         return "UserShowOneMusic";
     }
 
@@ -196,6 +343,20 @@ public class Sheet_MusicController {
     public String updateMusicUser2(Sheet_Music music){
         musicService.updateMusicUser(music);
         return "redirect:/music/listPersonalMusic";
+    }
+
+    @RequestMapping("saveComment")
+    public String saveComment(Comment comment,Model model,@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                              Map<String,Object> map, HttpServletRequest request){
+        commentService.saveComment(comment);
+        Integer id = comment.getMusic_id();
+        Sheet_Music music = musicService.findMusicById(id);
+        PageInfo<Comment> page = commentService.findAllComments(pageNum,id);
+        List<Comment> comments = page.getList();
+        model.addAttribute("music",music);
+        model.addAttribute("comments",comments);
+        map.put("page",page);
+        return "UserShowOneMusic";
     }
 
 }

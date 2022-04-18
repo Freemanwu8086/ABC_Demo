@@ -29,7 +29,8 @@
     </select>
 <!--    修改用户信息-->
     <update id="updateUser" parameterType="com.freemanwu.abc_demo.entity.User">
-        update User set username = #{username}, password = #{password}, phoneNumber = #{phoneNumber}, birthday = #{birthday}
+        update User set username = #{username}, password = #{password}, phoneNumber = #{phoneNumber}, birthday = #{birthday},
+                        comment_mark = #{comment_mark}, MusicAnnounce = #{MusicAnnounce}
                     where id = #{id};
     </update>
 <!--    模糊查询用户-->
@@ -61,23 +62,65 @@
     <select id="totalNumberOfA" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'A'
     </select>
+    <select id="totalNumberOfUpA" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#A'
+    </select>
+    <select id="totalNumberOfbA" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bA'
+    </select>
     <select id="totalNumberOfB" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'B'
+    </select>
+    <select id="totalNumberOfUpB" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#B'
+    </select>
+    <select id="totalNumberOfbB" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bB'
     </select>
     <select id="totalNumberOfC" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'C'
     </select>
+    <select id="totalNumberOfUpC" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#C'
+    </select>
+    <select id="totalNumberOfbC" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bC'
+    </select>
     <select id="totalNumberOfD" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'D'
+    </select>
+    <select id="totalNumberOfUpD" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#D'
+    </select>
+    <select id="totalNumberOfbD" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bD'
     </select>
     <select id="totalNumberOfE" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'E'
     </select>
+    <select id="totalNumberOfUpE" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#E'
+    </select>
+    <select id="totalNumberOfbE" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bE'
+    </select>
     <select id="totalNumberOfF" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'F'
     </select>
+    <select id="totalNumberOfUpF" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#F'
+    </select>
+    <select id="totalNumberOfbF" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bF'
+    </select>
     <select id="totalNumberOfG" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'G'
+    </select>
+    <select id="totalNumberOfUpG" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#G'
+    </select>
+    <select id="totalNumberOfbG" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bG'
     </select>
 
     <select id="totalBeatOf44" resultType="java.lang.String">
@@ -91,5 +134,11 @@
     </select>
     <select id="totalBeatOf14" resultType="java.lang.String">
         select count(*) from Sheet_Music where beat = '1/4'
+    </select>
+    <select id="totalBeatOf38" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '3/8'
+    </select>
+    <select id="totalBeatOf68" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '6/8'
     </select>
 </mapper>

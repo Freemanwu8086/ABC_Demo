@@ -1,12 +1,14 @@
 package com.freemanwu.abc_demo.controller;
 
 import com.freemanwu.abc_demo.entity.Announce;
+import com.freemanwu.abc_demo.entity.Favorite;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
 import com.freemanwu.abc_demo.service.AdminService;
 import com.freemanwu.abc_demo.service.AnnounceService;
 import com.freemanwu.abc_demo.service.UserService;
 import com.freemanwu.abc_demo.utils.ValidateImageCodeUtils;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
@@ -41,13 +44,25 @@ public class UserController {
      * @return
      */
     @RequestMapping("register")
-    public String register(User user, HttpSession session){
+    public String register(User user, HttpSession session, String code){
         String sessionCode = (String) session.getAttribute("code");
-        if (sessionCode.equalsIgnoreCase(sessionCode)){
+        if (sessionCode.equalsIgnoreCase(code)){
             userService.register(user);
-            return "Welcome";
+            return "index";
         }else
-        return "Error";
+        return "error";
+    }
+
+    /**
+     * 查验用户名是否可用
+     * @param username
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("checkUserName")
+    public Integer checkUserName(String username){
+        Integer number = userService.checkUserName(username);
+        return number;
     }
 
     /**
@@ -87,7 +102,7 @@ public class UserController {
 //           model.addAttribute("User",loginUser);
            return "UserFirst";
        }else
-           return "Error";
+           return "error";
     }
 
     /**
@@ -238,65 +253,128 @@ public class UserController {
     /**
      * 忘记密码
      * @param user
+     * @param session
+     * @param code
      * @return
      */
     @RequestMapping("forgetPassword")
-    public String forgetPassword1(User user){
-        userService.forgetPassword(user);
-        return "Welcome";
+    public String forgetPassword1(User user, HttpSession session, String code){
+        String sessionCode = (String) session.getAttribute("code");
+        if (sessionCode.equalsIgnoreCase(code)){
+            userService.forgetPassword(user);
+            return "index";
+        }else
+            return "error";
     }
 
     /**
-     * 用户按定调分类饼状图
+     * 用户曲谱按定调分类饼状图
      * @param model
      * @return
      */
     @RequestMapping("numbers")
     @ResponseBody
     public Integer[] numbers(Model model){
-        Integer[] numberList = new Integer[7];
+        Integer[] numberList = new Integer[21];
         numberList[0] = userService.totalNumberOfA();
-        numberList[1] = userService.totalNumberOfB();
-        numberList[2] = userService.totalNumberOfC();
-        numberList[3] = userService.totalNumberOfD();
-        numberList[4] = userService.totalNumberOfE();
-        numberList[5] = userService.totalNumberOfF();
-        numberList[6] = userService.totalNumberOfG();
+        numberList[1] = userService.totalNumberOfUpA();
+        numberList[2] = userService.totalNumberOfbA();
+
+        numberList[3] = userService.totalNumberOfB();
+        numberList[4] = userService.totalNumberOfUpB();
+        numberList[5] = userService.totalNumberOfbB();
+
+        numberList[6] = userService.totalNumberOfC();
+        numberList[7] = userService.totalNumberOfUpC();
+        numberList[8] = userService.totalNumberOfbC();
+
+
+        numberList[9] = userService.totalNumberOfD();
+        numberList[10] = userService.totalNumberOfUpD();
+        numberList[11] = userService.totalNumberOfbD();
+
+        numberList[12] = userService.totalNumberOfE();
+        numberList[13] = userService.totalNumberOfUpE();
+        numberList[14] = userService.totalNumberOfbE();
+
+        numberList[15] = userService.totalNumberOfF();
+        numberList[16] = userService.totalNumberOfUpF();
+        numberList[17] = userService.totalNumberOfbF();
+
+        numberList[18] = userService.totalNumberOfG();
+        numberList[19] = userService.totalNumberOfUpG();
+        numberList[20] = userService.totalNumberOfbG();
 
         model.addAttribute("numberList",numberList);
         return numberList;
     }
 
     /**
-     * 用户按节拍分类饼状图
+     * 用户曲谱按节拍分类饼状图
      * @return
      */
     @RequestMapping("beatsNumbers")
     @ResponseBody
     public String[] beatNumbers(){
-        String[] beatList = new String[4];
+        String[] beatList = new String[6];
         beatList[0] = userService.totalBeatOf44();
         beatList[1] = userService.totalBeatOf34();
         beatList[2] = userService.totalBeatOf24();
         beatList[3] = userService.totalBeatOf14();
+        beatList[4] = userService.totalBeatOf38();
+        beatList[5] = userService.totalBeatOf68();
         return beatList;
     }
 
     /**
-     * 用户注销
+     * 用户注销账号
      * @return
      */
     @RequestMapping("deleteAccount1")
     public String deleteJump(){
         return "UserDeleteAccount";
     }
-
     @RequestMapping("deleteAccount2")
     public String deleteAccount(String username){
         userService.deleteAccount(username);
         userService.UnNamedMusic(username);
-        return "Welcome";
+        return "index";
     }
 
+    @RequestMapping("favorite")
+    public String insertFavorite(Favorite favorite){
+        try {
+            userService.insertFavorite(favorite);
+            return "redirect:/music/listMusicUser";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "AlreadyHave";
+        }
+    }
 
+    @RequestMapping("showFavorite")
+    public String showFavorite(@RequestParam(value = "pageNo", defaultValue = "1") int pageNum,
+                               Map<String, Object> map, Model model, HttpServletRequest request){
+        String username = (String) request.getSession().getAttribute("username");
+
+        PageInfo<Sheet_Music> page = userService.showFavorite(username, pageNum);
+        List<Sheet_Music> musics = page.getList();
+        model.addAttribute("musics",musics);
+        map.put("page",page);
+        return "UserFavoriteMusic";
+    }
+
+    @RequestMapping("deleteOneCollection")
+    public String deleteOneCollection(Integer music_id, HttpServletRequest request){
+        String username = (String) request.getSession().getAttribute("username");
+        userService.deleteOneCollection(music_id, username);
+        return "redirect:/user/showFavorite";
+    }
+
+    @RequestMapping("deleteCollectionsByIds")
+    public String deleteCollectionsByIds(Integer[] music_id, HttpServletRequest request){
+        String username = (String) request.getSession().getAttribute("username");
+        userService.deleteListCollection(music_id, username);
+        return "redirect:/user/showFavorite";
+    }
 }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>管理员之乐谱全展示</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
+    <link rel="icon" href="/img/favicon.ico"/>
 </head>
 <body style="background-color: #FFF5EE">
 
@@ -22,7 +23,7 @@
                     </b>
                 </li>
                 <li class="add">
-                    <a href="http://localhost:8080/ABC/Welcome.html">&nbsp|&nbsp退出登陆</a>
+                    <a href="/index.html">&nbsp|&nbsp退出登陆</a>
                 </li>
             </ul>
         </div>
@@ -35,20 +36,53 @@
 
 <div id="easyQuery" class="QueryWindow">
     <div style="width: 25%;float: right">
-        <form action="http://localhost:8080/ABC/music/findByMusicName" method="post">
+        <form action="http://localhost:8080/music/findByMusicName" method="post">
             <input type="text" name="music_name" placeholder="按曲谱名模糊查询" class="input">&nbsp
             <input type="submit" class="btn" value="查询" style="width: 40px">
         </form>
     </div>
-    <div style="width: 25%;float: right">
-        <form action="http://localhost:8080/ABC/admin/findMusicByBeat" method="post">
-            <input type="text" name="beat" placeholder="按节拍查询" class="input">&nbsp
+    <div style="width: 20%;float: right">
+        <form action="http://localhost:8080/admin/findMusicByBeat" method="post">
+            <select name="beat" class="shortSelect">
+                <option selected>按节拍查询</option>
+                <option>---------</option>
+                <option value = "1/4">1/4</option>
+                <option value = "2/4">2/4</option>
+                <option value = "3/4">3/4</option>
+                <option value = "4/4">4/4</option>
+                <option value = "3/8">3/8</option>
+                <option value = "6/8">6/8</option>
+            </select>&nbsp
             <input type="submit" class="btn" value="查询" style="width: 40px">
         </form>
     </div>
-    <div style="width: 25%;float: right">
-        <form action="http://localhost:8080/ABC/admin/findMusicByTone" method="post">
-            <input type="text" name="tone" placeholder="按定调查询" class="input">&nbsp
+    <div style="width: 20%;float: right">
+        <form action="http://localhost:8080/admin/findMusicByTone" method="post">
+            <select name="tone" class="shortSelect">
+                <option selected>按定调查询</option>
+                <option>---------</option>
+                <option value = "C">C</option>
+                <option value = "#C">#C</option>
+                <option value = "bC">bC</option>
+                <option value = "D">D</option>
+                <option value = "#D">#D</option>
+                <option value = "bD">bD</option>
+                <option value = "E">E</option>
+                <option value = "#E">#E</option>
+                <option value = "bE">bE</option>
+                <option value = "F">F</option>
+                <option value = "#F">#F</option>
+                <option value = "bF">bF</option>
+                <option value = "G">G</option>
+                <option value = "#G">#G</option>
+                <option value = "bG">bG</option>
+                <option value = "A">A</option>
+                <option value = "#A">#A</option>
+                <option value = "bA">bA</option>
+                <option value = "B">B</option>
+                <option value = "#B">#B</option>
+                <option value = "bB">bB</option>
+            </select>&nbsp
             <input type="submit" class="btn" value="查询" style="width: 40px">
         </form>
     </div>
@@ -73,7 +107,7 @@
                 <tr th:each="music,musicStat:${musics}">
                     <td><input type="checkbox" th:value="${music.id}" name="box"></td>
                     <td>
-                        <a th:href="@{http://localhost:8080/ABC/music/AdminFindMusicById(id=${music.id})}">
+                        <a th:href="@{/music/AdminFindMusicById(id=${music.id})}" th:target="_blank">
                             <span style="color: black" th:text="${music.music_name}"></span>
                         </a>
                     </td>
@@ -109,19 +143,19 @@
     <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
     &nbsp&nbsp&nbsp
     <!--            首页作为第一页不可点击-->
-    <a th:href="@{http://localhost:8080/ABC/admin/findMusicByTone(pageNo=1,tone=${session.tone})}" class="btn" style="width: 40px">首页</a>
+    <a th:href="@{/admin/findMusicByTone(pageNo=1,tone=${session.tone})}" class="btn" style="width: 40px">首页</a>
     &nbsp&nbsp
     <span th:if="${page.pageNum==1}">
                 <a onclick="return false" class="btn_FenYe">上一页</a>
             </span>
     <span th:unless="${page.pageNum==1}">
-                <a th:href="@{http://localhost:8080/ABC/admin/findMusicByTone(pageNo=${page.pageNum - 1},tone=${session.tone})}" class="btn_FenYe">上一页</a>
+                <a th:href="@{/admin/findMusicByTone(pageNo=${page.pageNum - 1},tone=${session.tone})}" class="btn_FenYe">上一页</a>
             </span>
     &nbsp&nbsp
 
     <span th:each="i:${#numbers.sequence(1,page.pages)}">
         &nbsp
-                <a th:href="@{http://localhost:8080/ABC/admin/findMusicByTone(pageNo=${i},tone=${session.tone})}" th:text="${i}">1</a>
+                <a th:href="@{/admin/findMusicByTone(pageNo=${i},tone=${session.tone})}" th:text="${i}">1</a>
             </span>
 
     &nbsp&nbsp
@@ -130,11 +164,11 @@
             </span>
 
     <span th:unless="${page.pages==page.pageNum}">
-                <a th:href="@{http://localhost:8080/ABC/admin/findMusicByTone(pageNo=${page.pageNum+1},tone=${session.tone})}" class="btn_FenYe">下一页</a>
+                <a th:href="@{/admin/findMusicByTone(pageNo=${page.pageNum+1},tone=${session.tone})}" class="btn_FenYe">下一页</a>
             </span>
 
     &nbsp&nbsp
-    <a th:href="@{http://localhost:8080/ABC/admin/findMusicByTone(pageNo=${page.pages},tone=${session.tone})}" class="btn" style="width: 40px">末页</a>
+    <a th:href="@{/admin/findMusicByTone(pageNo=${page.pages},tone=${session.tone})}" class="btn" style="width: 40px">末页</a>
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
 </div>
@@ -177,7 +211,7 @@
             }
             //上面会拼接出一个名为ids的数组ids=1&ids=2&ids=3&ids=4……
             //deleteByIds为controller的Mapping请求名
-            $.get("http://localhost:8080/ABC/admin/deleteByIds", ids, function (data) {
+            $.get("/admin/deleteByIds", ids, function (data) {
                 if (data == "ok") {
                     alert("删除成功!");
                     //删除成功后，调用action方法刷新页面信息

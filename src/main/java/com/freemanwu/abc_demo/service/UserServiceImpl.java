@@ -1,6 +1,7 @@
 package com.freemanwu.abc_demo.service;
 
 import com.freemanwu.abc_demo.dao.UserDAO;
+import com.freemanwu.abc_demo.entity.Favorite;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
 import com.freemanwu.abc_demo.utils.ConstantUtils;
@@ -120,6 +121,76 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Integer totalNumberOfUpA() {
+        return userDAO.totalNumberOfUpA();
+    }
+
+    @Override
+    public Integer totalNumberOfbA() {
+        return userDAO.totalNumberOfbA();
+    }
+
+    @Override
+    public Integer totalNumberOfUpB() {
+        return userDAO.totalNumberOfUpB();
+    }
+
+    @Override
+    public Integer totalNumberOfbB() {
+        return userDAO.totalNumberOfbB();
+    }
+
+    @Override
+    public Integer totalNumberOfUpC() {
+        return userDAO.totalNumberOfUpC();
+    }
+
+    @Override
+    public Integer totalNumberOfbC() {
+        return userDAO.totalNumberOfbC();
+    }
+
+    @Override
+    public Integer totalNumberOfUpD() {
+        return userDAO.totalNumberOfUpD();
+    }
+
+    @Override
+    public Integer totalNumberOfbD() {
+        return userDAO.totalNumberOfbD();
+    }
+
+    @Override
+    public Integer totalNumberOfUpE() {
+        return userDAO.totalNumberOfUpE();
+    }
+
+    @Override
+    public Integer totalNumberOfbE() {
+        return userDAO.totalNumberOfbE();
+    }
+
+    @Override
+    public Integer totalNumberOfUpF() {
+        return userDAO.totalNumberOfUpF();
+    }
+
+    @Override
+    public Integer totalNumberOfbF() {
+        return userDAO.totalNumberOfbF();
+    }
+
+    @Override
+    public Integer totalNumberOfUpG() {
+        return userDAO.totalNumberOfUpG();
+    }
+
+    @Override
+    public Integer totalNumberOfbG() {
+        return userDAO.totalNumberOfbG();
+    }
+
+    @Override
     public String totalBeatOf44() {
         return userDAO.totalBeatOf44();
     }
@@ -140,6 +211,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String totalBeatOf38() {
+        return userDAO.totalBeatOf38();
+    }
+
+    @Override
+    public String totalBeatOf68() {
+        return userDAO.totalBeatOf68();
+    }
+
+    @Override
     public void deleteAccount(String username) {
         userDAO.deleteAccount(username);
     }
@@ -147,5 +228,33 @@ public class UserServiceImpl implements UserService {
     @Override
     public void UnNamedMusic(String username) {
         userDAO.UnNamedMusic(username);
+    }
+
+    @Override
+    public Integer checkUserName(String username) {
+        return userDAO.checkUserName(username);
+    }
+
+    @Override
+    public void insertFavorite(Favorite favorite) {
+        userDAO.insertFavorite(favorite);
+    }
+
+    @Override
+    public PageInfo<Sheet_Music> showFavorite(String username,int pageNo) {
+        PageHelper.startPage(pageNo, ConstantUtils.PAGE_SIZE);
+        List<Sheet_Music> list = userDAO.showFavorite(username);
+        PageInfo<Sheet_Music> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public void deleteOneCollection(Integer music_id, String username) {
+        userDAO.deleteOneCollection(music_id, username);
+    }
+
+    @Override
+    public void deleteListCollection(Integer[] music_id, String username) {
+        userDAO.deleteListCollection(music_id, username);
     }
 }

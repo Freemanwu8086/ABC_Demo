@@ -139,6 +139,76 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public Integer totalNumberOfUpA() {
+        return adminDAO.totalNumberOfUpA();
+    }
+
+    @Override
+    public Integer totalNumberOfbA() {
+        return adminDAO.totalNumberOfbA();
+    }
+
+    @Override
+    public Integer totalNumberOfUpB() {
+        return adminDAO.totalNumberOfUpB();
+    }
+
+    @Override
+    public Integer totalNumberOfbB() {
+        return adminDAO.totalNumberOfbB();
+    }
+
+    @Override
+    public Integer totalNumberOfUpC() {
+        return adminDAO.totalNumberOfUpC();
+    }
+
+    @Override
+    public Integer totalNumberOfbC() {
+        return adminDAO.totalNumberOfbC();
+    }
+
+    @Override
+    public Integer totalNumberOfUpD() {
+        return adminDAO.totalNumberOfUpD();
+    }
+
+    @Override
+    public Integer totalNumberOfbD() {
+        return adminDAO.totalNumberOfbD();
+    }
+
+    @Override
+    public Integer totalNumberOfUpE() {
+        return adminDAO.totalNumberOfUpE();
+    }
+
+    @Override
+    public Integer totalNumberOfbE() {
+        return adminDAO.totalNumberOfbE();
+    }
+
+    @Override
+    public Integer totalNumberOfUpF() {
+        return adminDAO.totalNumberOfUpF();
+    }
+
+    @Override
+    public Integer totalNumberOfbF() {
+        return adminDAO.totalNumberOfbF();
+    }
+
+    @Override
+    public Integer totalNumberOfUpG() {
+        return adminDAO.totalNumberOfUpG();
+    }
+
+    @Override
+    public Integer totalNumberOfbG() {
+        return adminDAO.totalNumberOfbG();
+    }
+
+    @Override
     public String totalBeatOf44() {
         return adminDAO.totalBeatOf44();
     }
@@ -156,5 +226,15 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public String totalBeatOf14() {
         return adminDAO.totalBeatOf14();
+    }
+
+    @Override
+    public String totalBeatOf38() {
+        return adminDAO.totalBeatOf38();
+    }
+
+    @Override
+    public String totalBeatOf68() {
+        return adminDAO.totalBeatOf68();
     }
 }

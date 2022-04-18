@@ -21,5 +21,6 @@ public class Sheet_Music {
     private Date last_update_date;
     private String state;
     private String abc;
+    private String introduction;
     private Integer id;
 }

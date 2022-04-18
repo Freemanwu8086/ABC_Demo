@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>用户信息修改</title>
+    <link rel="icon" href="/img/favicon.ico"/>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 </head>
 <body style="background-color: #FFF5EE">
@@ -13,16 +14,16 @@
         <div class="ue4">
             <ul>
                 <li class="ue6">
-                    <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">
+                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
                         <b>当前用户：<span th:text="${session.loginUser.username}"></span></b>
                     </a>
                 </li>
                 <li class="add">
-                    <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">
+                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
                         主页&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a href="http://localhost:8080/ABC/Welcome.html">退出登陆</a>
+                    <a href="/index.html">退出登陆</a>
                 </li>
             </ul>
         </div>
@@ -30,7 +31,7 @@
 </div>
 
 <div class="return">
-     <a th:href="@{http://localhost:8080/ABC/user/First_Redirect}">
+     <a th:href="@{/user/First_Redirect}">
         <&nbsp&nbsp返回主页</a>
 </div>
 
@@ -39,30 +40,32 @@
         <div class="ul0">
             <ul>
                 <li>
-                    <a th:href="@{http://localhost:8080/ABC/user/findByName(username=${session.loginUser.username})}">—我的信息—</a>
+                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">—我的信息—</a>
                 </li>
                 <li>
-                    <a th:href="@{http://localhost:8080/ABC/music/listPersonalMusic}">—我的曲谱—</a>
+                    <a th:href="@{/music/listPersonalMusic}">—我的曲谱—</a>
                 </li>
                 <li>
-                    <a th:href="@{http://localhost:8080/ABC/user/update1(username=${session.loginUser.username})}" style="color: #FF8C69">—更改信息—</a>
+                    <a th:href="@{/user/showFavorite}">—我的收藏—</a>
+                </li>
+                <li>
+                    <a th:href="@{/user/update1(username=${session.loginUser.username})}" style="color: #FF8C69">—更改信息—</a>
                 </li>
             </ul>
         </div>
         <div class="out0" style="margin-left: 33px">
             <ul>
                 <li>
-                    <a href="http://localhost:8080/ABC/user/deleteAccount1"><h5>注销账号&nbsp丨</h5></a>
+                    <a href="/user/deleteAccount1"><h5>注销账号&nbsp丨</h5></a>
                 </li>
                 <li>
-                    <a href="http://localhost:8080/ABC/Welcome.html"><h5>退出登陆</h5></a>
+                    <a href="/index.html"><h5>退出登陆</h5></a>
                 </li>
             </ul>
         </div>
     </div>
     <div class="right">
         <div class="forg1">
-<!--            <img src="http://localhost:8082/Donation_war/img/57-My%20Center.png" class="img">-->
             <h1>更改信息&nbsp丨</h1>
         </div>
 

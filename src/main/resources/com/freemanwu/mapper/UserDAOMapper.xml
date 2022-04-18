@@ -2,8 +2,8 @@
 <mapper namespace="com.freemanwu.abc_demo.dao.UserDAO">
 <!--注册-->
     <insert id="register" parameterType="User">
-        insert into User (username, password, phoneNUmber, birthday, enroll_date)
-         values (#{username}, #{password}, #{phoneNumber}, #{birthday}, now());
+        insert into User (username, password, phoneNUmber, birthday, enroll_date, comment_mark)
+         values (#{username}, #{password}, #{phoneNumber}, #{birthday}, now(), 0);
     </insert>
 
 <!--登陆-->
@@ -23,7 +23,7 @@
     </select>
 
     <delete id="deleteOneUser" parameterType="java.lang.Integer">
-        delete from Sheet_music where id = #{id}
+        delete from Sheet_Music where id = #{id}
     </delete>
 
     <!--批量删除乐谱-->
@@ -48,30 +48,72 @@
     </select>
 
     <update id="forgetPassword" parameterType="User">
-        update User set password = #{password} where username = #{username}
+        update User set password = #{password} where username = #{username} and phoneNumber = #{phoneNumber}
     </update>
 
     <!--  饼状图数据-->
     <select id="totalNumberOfA" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'A' and state = '通过'
     </select>
+    <select id="totalNumberOfUpA" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#A' and state = '通过'
+    </select>
+    <select id="totalNumberOfbA" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bA' and state = '通过'
+    </select>
     <select id="totalNumberOfB" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'B' and state = '通过'
+    </select>
+    <select id="totalNumberOfUpB" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#B' and state = '通过'
+    </select>
+    <select id="totalNumberOfbB" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bB' and state = '通过'
     </select>
     <select id="totalNumberOfC" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'C' and state = '通过'
     </select>
+    <select id="totalNumberOfUpC" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#C' and state = '通过'
+    </select>
+    <select id="totalNumberOfbC" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bC' and state = '通过'
+    </select>
     <select id="totalNumberOfD" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'D' and state = '通过'
+    </select>
+    <select id="totalNumberOfUpD" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#D' and state = '通过'
+    </select>
+    <select id="totalNumberOfbD" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bD' and state = '通过'
     </select>
     <select id="totalNumberOfE" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'E' and state = '通过'
     </select>
+    <select id="totalNumberOfUpE" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#E' and state = '通过'
+    </select>
+    <select id="totalNumberOfbE" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bE' and state = '通过'
+    </select>
     <select id="totalNumberOfF" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'F' and state = '通过'
     </select>
+    <select id="totalNumberOfUpF" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#F' and state = '通过'
+    </select>
+    <select id="totalNumberOfbF" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bF' and state = '通过'
+    </select>
     <select id="totalNumberOfG" resultType="java.lang.Integer">
         select count(*) from Sheet_Music where tone = 'G' and state = '通过'
+    </select>
+    <select id="totalNumberOfUpG" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = '#G' and state = '通过'
+    </select>
+    <select id="totalNumberOfbG" resultType="java.lang.Integer">
+        select count(*) from Sheet_Music where tone = 'bG' and state = '通过'
     </select>
 
     <select id="totalBeatOf44" resultType="java.lang.String">
@@ -86,11 +128,45 @@
     <select id="totalBeatOf14" resultType="java.lang.String">
         select count(*) from Sheet_Music where beat = '1/4' and state = '通过'
     </select>
+    <select id="totalBeatOf38" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '3/8' and state = '通过'
+    </select>
+    <select id="totalBeatOf68" resultType="java.lang.String">
+        select count(*) from Sheet_Music where beat = '6/8' and state = '通过'
+    </select>
 
     <delete id="deleteAccount" parameterType="java.lang.String">
         delete from User where username = #{username};
+        delete from Favourite where username = #{username};
+        update Comment set username = '用户已注销' where username = #{username};
     </delete>
+
     <update id="UnNamedMusic" parameterType="java.lang.String">
         update Sheet_Music set username = '用户已注销' where username = #{username}
     </update>
+
+    <select id="checkUserName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from User where username = #{username}
+    </select>
+
+    <insert id="insertFavorite" parameterType="com.freemanwu.abc_demo.entity.Favorite">
+        insert into Favorite (username, music_id, collect_date)
+        values(#{username}, #{music_id}, now())
+    </insert>
+
+    <select id="showFavorite" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
+        SELECT a.* FROM Sheet_Music a, Favorite b WHERE a.id = b.music_id and b.username = #{username}
+    </select>
+
+    <delete id="deleteListCollection" parameterType="com.freemanwu.abc_demo.entity.Favorite">
+        delete from Favorite where username = #{username} and music_id in
+        <foreach collection="ids" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <delete id="deleteOneCollection" parameterType="com.freemanwu.abc_demo.entity.Favorite">
+        delete from Favorite where music_id = #{music_id} and username = #{username}
+    </delete>
+
 </mapper>

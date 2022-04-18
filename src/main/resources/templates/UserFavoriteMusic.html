@@ -45,10 +45,10 @@
                     <a th:href="@{/user/findByName(username=${session.loginUser.username})}">—我的信息—</a>
                 </li>
                 <li>
-                    <a th:href="@{/music/listPersonalMusic}" style="color: #FF8C69">—我的曲谱—</a>
+                    <a th:href="@{/music/listPersonalMusic}">—我的曲谱—</a>
                 </li>
                 <li>
-                    <a th:href="@{/user/showFavorite}">—我的收藏—</a>
+                    <a th:href="@{/user/showFavorite}" style="color: #FF8C69">—我的收藏—</a>
                 </li>
                 <li>
                     <a th:href="@{/user/update1(username=${session.loginUser.username})}">—更改信息—</a>
@@ -68,27 +68,21 @@
     </div>
 
     <div class="right" style="float: right; width: 85%">
-        <div style="width:5%;height:5%; margin-left: 5%;margin-bottom: -3%;">
-            <input class="deleteBtn" type="submit" value="删除选中的所有曲谱" style="border-radius:20px" onclick="del()" id="deleteAll">
-        </div>
         <div class="table-wrapper">
             <table class="fl-table">
                 <thead>
                 <tr>
-                    <th>全选：<input type="checkbox" id="checkAll"></th>
                     <th>乐曲名</th>
                     <th>创建用户</th>
                     <th>拍数</th>
                     <th>定调</th>
                     <th>创建时间</th>
                     <th>最后修改时间</th>
-                    <th>状态</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="music,musicStat:${musics}">
-                    <td><input type="checkbox" th:value="${music.id}" name="box"></td>
                     <td>
                         <a th:href="@{/music/UserFindMusicById(id=${music.id})}" th:target="_blank">
                             <span style="color: black" th:text="${music.music_name}"></span>
@@ -100,18 +94,9 @@
                     <td><span th:text="${#dates.format(music.insert_date,'yyyy年MM月dd日')}"></span></td>
                     <td><span th:text="${#dates.format(music.last_update_date,'yyyy年MM月dd日')}"></span></td>
                     <td>
-                        <span th:if="${music.state} eq '待审核'" th:text="待审核" style="color: #0014c3"></span>
-                        <span th:if="${music.state} eq '通过'" th:text="通过" style="color: rgba(7,89,2,0.58)"></span>
-                        <span th:if="${music.state} eq '请修改'" th:text="请修改" style="color: #ef1d1d"></span>
-                    </td>
-                    <td>
-                        <form th:action="@{/user/deleteOneUser}" method="post" style="width: 50%;float: left" onsubmit="return Sure()">
-                            <input type="text" th:value="${music.id}" name="id" style="display: none">
-                            <input type="submit" value="删除" class="deleteBtn">
-                        </form>
-                        <form th:action="@{/music/updateMusicUser1}" method="post" style="width: 50%;">
-                            <input type="text" th:value="${music.id}" name="id" style="display: none">
-                            <input type="submit" value="更新" class="updateBtn">
+                        <form th:action="@{/user/deleteOneCollection}" method="post" onsubmit="return Sure()">
+                        <input type="text" th:value="${music.id}" name="music_id" style="display: none">
+                        <input type="submit" value="删除" class="deleteBtn">
                         </form>
                     </td>
                 </tr>
@@ -123,19 +108,19 @@
             <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
             &nbsp&nbsp&nbsp
             <!--            首页作为第一页不可点击-->
-            <a th:href="@{/music/listPersonalMusic(pageNo=1)}" class="btn" style="width: 40px">首页</a>
+            <a th:href="@{/user/showFavorite(pageNo=1)}" class="btn" style="width: 40px">首页</a>
             &nbsp&nbsp
             <span th:if="${page.pageNum==1}">
                 <a onclick="return false" class="btn_FenYe">上一页</a>
             </span>
             <span th:unless="${page.pageNum==1}">
-                <a th:href="@{/music/listPersonalMusic}" class="btn_FenYe">上一页</a>
+                <a th:href="@{/user/showFavorite}" class="btn_FenYe">上一页</a>
             </span>
             &nbsp&nbsp
 
             <span th:each="i:${#numbers.sequence(1,page.pages)}">
         &nbsp
-                <a th:href="@{/music/listPersonalMusic(pageNo=${i})}" th:text="${i}">1</a>
+                <a th:href="@{/user/showFavorite(pageNo=${i})}" th:text="${i}">1</a>
             </span>
 
             &nbsp&nbsp
@@ -144,11 +129,11 @@
             </span>
 
             <span th:unless="${page.pages==page.pageNum}">
-                <a th:href="@{/music/listPersonalMusic(pageNo=${page.pageNum+1})}" class="btn_FenYe">下一页</a>
+                <a th:href="@{/user/showFavorite(pageNo=${page.pageNum+1})}" class="btn_FenYe">下一页</a>
             </span>
 
             &nbsp&nbsp
-            <a th:href="@{/music/listPersonalMusic(pageNo=${page.pages})}" class="btn" style="width: 40px">末页</a>
+            <a th:href="@{/user/showFavorite(pageNo=${page.pages})}" class="btn" style="width: 40px">末页</a>
             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
         </div>
@@ -164,59 +149,6 @@
         if (gnl == true) {
             return true;
         } else {
-            return false;
-        }
-    }
-    //全选
-    var oid = document.getElementsByName("box");
-    var checkAll = document.getElementById("checkAll");
-
-    checkAll.onclick = function (){
-        for (var i = 0; i< 15; i++){
-            if (checkAll.checked == true ){
-                oid[i].checked = true;
-            }else if(checkAll.checked== false){
-                oid[i].checked = false;
-            }
-        }
-    }
-
-    /*封面图-批量删除*/
-    function del(){
-        var r=confirm("是否确认删除？");
-        var id;
-        if (r == true) {
-            alert("删除成功！");
-            //确认删除
-            var n = 0;
-            var ids = "";
-            for (var i = 0; i < oid.length; i++) {
-                if (oid[i].checked == true) {   //选中为true
-                    id = oid[i].value;
-                    if (n == 0) {
-                        ids += "id=" + id;
-                    } else {
-                        ids += "&id=" + id;
-                    }
-                    n++;
-                }
-            }
-            //上面会拼接出一个名为ids的数组ids=1&ids=2&ids=3&ids=4……
-            //deleteByIds为controller的Mapping请求名
-            $.get("/user/deleteByIds", ids, function (data) {
-                if (data == "ok") {
-                    alert("删除成功!");
-                    //删除成功后，调用action方法刷新页面信息
-                    location.reload();
-                    $("input[name=id]").removeAttr("checked");
-                } else {
-                    alert("请刷新页面！");
-                }
-            });
-            return true;
-        } else {
-            //不删除
-            alert("请选中行！");
             return false;
         }
     }

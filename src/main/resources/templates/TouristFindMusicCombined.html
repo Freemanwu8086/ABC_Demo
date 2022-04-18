@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>用户之乐谱全展示</title>
+    <title>游客之乐谱全展示</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
     <link rel="icon" href="/img/favicon.ico"/>
 </head>
@@ -17,16 +17,9 @@
         </div>
         <div class="ue4">
             <ul>
-                <li class="ue6">
-                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
-                        <b>
-                            当前用户：<span th:text="${session.loginUser.username}"></span>
-                        </b>
-                    </a>
-                </li>
                 <li class="add">
-                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
-                        主页&nbsp&nbsp丨</a>
+                    <a th:href="@{/UserRegister.html}">
+                        注册账号&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
                     <a href="/index.html">退出登陆</a>
@@ -37,7 +30,7 @@
     </div>
 </div>
 <div id="CombinedQuery" class="QueryWindow">
-    <form action="/user/CombinedFindMusic" method="post" th:target="_blank">
+    <form action="/music/TouristCombinedFindMusic" method="post" th:target="_blank">
         <input type="submit" class="btn" value="组合" style="width: 80px;float: right;">
         <input type="text" name="music_name" placeholder="请输入乐谱名称，可模糊" class="input" style="float: right;">
         <select name="beat" class="shortSelect" style="float: right">
@@ -93,7 +86,7 @@
         <tbody>
         <tr th:each="music,musicStat:${musics}">
             <td>
-                <a th:href="@{/music/UserFindMusicById(id=${music.id})}" th:target="_blank">
+                <a th:href="@{/music/TouristFindMusicById(id=${music.id})}" th:target="_blank">
                     <span style="color: black" th:text="${music.music_name}"></span>
                 </a>
             </td>
@@ -114,21 +107,21 @@
     <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
     &nbsp&nbsp&nbsp
     <!--            首页作为第一页不可点击-->
-    <a th:href="@{/user/CombinedFindMusic(pageNo=1,music_name=${session.music_name1},
+    <a th:href="@{/music/CombinedFindMusic(pageNo=1,music_name=${session.music_name1},
     tone=${session.tone1},beat=${session.beat1})}" class="btn" style="width: 40px">首页</a>
     &nbsp&nbsp
     <span th:if="${page.pageNum==1}">
                 <a onclick="return false" class="btn_FenYe">上一页</a>
             </span>
     <span th:unless="${page.pageNum==1}">
-                <a th:href="@{/user/CombinedFindMusic(pageNo=${page.pageNum - 1},music_name=${session.music_name1},
+                <a th:href="@{/music/CombinedFindMusic(pageNo=${page.pageNum - 1},music_name=${session.music_name1},
     tone=${session.tone1},beat=${session.beat1})}" class="btn_FenYe">上一页</a>
             </span>
     &nbsp&nbsp
 
     <span th:each="i:${#numbers.sequence(1,page.pages)}">
         &nbsp
-                <a th:href="@{/user/CombinedFindMusic(pageNo=${i},music_name=${session.music_name1},
+                <a th:href="@{/music/CombinedFindMusic(pageNo=${i},music_name=${session.music_name1},
     tone=${session.tone1},beat=${session.beat1})}" th:text="${i}">1</a>
             </span>
 
@@ -138,12 +131,12 @@
             </span>
 
     <span th:unless="${page.pages==page.pageNum}">
-                <a th:href="@{/user/CombinedFindMusic(pageNo=${page.pageNum+1},music_name=${session.music_name1},
+                <a th:href="@{/music/CombinedFindMusic(pageNo=${page.pageNum+1},music_name=${session.music_name1},
     tone=${session.tone1},beat=${session.beat1})}" class="btn_FenYe">下一页</a>
             </span>
 
     &nbsp&nbsp
-    <a th:href="@{/user/CombinedFindMusic(pageNo=${page.pages},music_name=${session.music_name1},
+    <a th:href="@{/music/CombinedFindMusic(pageNo=${page.pages},music_name=${session.music_name1},
     tone=${session.tone1},beat=${session.beat1})}" class="btn" style="width: 40px">末页</a>
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <span th:text="'总条数'+${page.total}" style="font-size: small"></span>

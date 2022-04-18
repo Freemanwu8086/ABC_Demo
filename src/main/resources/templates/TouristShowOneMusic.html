@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ABC Info User</title>
+    <title>ABC游客</title>
 
     <link rel="icon" href="/img/favicon.ico"/>
     <link rel="stylesheet" th:href="@{/css/examples-styles.css}"/>
@@ -22,6 +22,7 @@
         //     }else
         //         intro.style.display = "block";
         // }
+
 
         var abcjsEditor;
 
@@ -94,19 +95,12 @@
         </div>
         <div class="ue4">
             <ul>
-                <li class="ue6">
-                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
-                        <b>
-                            当前用户：<span th:text="${session.loginUser.username}"></span>
-                        </b>
-                    </a>
+                <li class="add">
+                    <a th:href="@{/UserRegister.html}">
+                        注册账号&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
-                        主页&nbsp&nbsp丨</a>
-                </li>
-                <li class="add">
-                    <a href="/index.html">退出登陆</a>
+                    <a href="/index.html">回到登陆页</a>
                 </li>
             </ul>
         </div>
@@ -170,7 +164,7 @@
                 </div>
             </div>
         </span>
-        <span th:if="${music.introduction} ne null" style="display: block">
+        <span th:if="${music.introduction} ne null" style="display: block;">
             <div class="forg3">
                 <div class="forg_n">
                     <b>乐谱简介</b>
@@ -185,6 +179,7 @@
             </div>
         </span>
     </div>
+</div>
 
     <div>
         <div id="canvas" class="visible-background"></div>
@@ -197,56 +192,7 @@
 </div>
 
 <div style="margin-top: 10%">
-
-    <span th:if="${session.loginUser.comment_mark} eq 1" style="display: none">
-        <form action="/music/saveComment" method="post">
-            <div class="forg3">
-                <div class="forg_n">
-                    <b>发表评论</b>
-                </div>
-                <div>
-                <textarea name="comment" cols="50" rows="10"
-                          spellcheck="false"
-                          style="float: left;
-                                        border: 1px solid #FFD3B9;
-                                        border-radius: 5px;" placeholder="请文明发言！"></textarea>
-                </div>
-            </div>
-            <div class="forg3">
-                <div class="btn0" style="margin-bottom: 3%;margin-left: 5%;margin-top: 1%">
-                    <input type="text" name="username" th:value="${session.loginUser.username}" readonly style="display: none">
-                    <input type="text" name="music_id" th:value="${music.id}" readonly style="display: none">
-                    <input type="submit" value="发表" class="btn">
-                </div>
-            </div>
-        </form>
-    </span>
-
-    <span th:if="${session.loginUser.comment_mark} eq 0" style="display: block">
-        <form action="/music/saveComment" method="post">
-            <div class="forg3">
-                <div class="forg_n">
-                    <b>发表评论</b>
-                </div>
-                <div>
-                <textarea name="comment" cols="50" rows="10"
-                          spellcheck="false"
-                          style="float: left;
-                                        border: 1px solid #FFD3B9;
-                                        border-radius: 5px;" placeholder="请文明发言！"></textarea>
-                </div>
-            </div>
-            <div class="forg3">
-                <div class="btn0" style="margin-bottom: 3%;margin-left: 5%;margin-top: 1%">
-                    <input type="text" name="username" th:value="${session.loginUser.username}" readonly style="display: none">
-                    <input type="text" name="music_id" th:value="${music.id}" readonly style="display: none">
-                    <input type="submit" value="发表" class="btn">
-                </div>
-            </div>
-        </form>
-    </span>
-
-    <div class="forg3" style="margin-top: 15%">
+    <div class="forg3">
         <div class="forg_n">
             <b>评论区</b>
         </div>
@@ -266,19 +212,19 @@
         <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
         &nbsp&nbsp&nbsp
         <!--            首页作为第一页不可点击-->
-        <a th:href="@{/music/UserFindMusicById(pageNo=1,id=${music.id})}" class="btn" style="width: 40px">首页</a>
+        <a th:href="@{/music/TouristFindMusicById(pageNo=1,id=${music.id})}" class="btn" style="width: 40px">首页</a>
         &nbsp&nbsp
         <span th:if="${page.pageNum==1}">
                 <a onclick="return false" class="btn_FenYe">上一页</a>
             </span>
         <span th:unless="${page.pageNum==1}">
-                <a th:href="@{/music/UserFindMusicById(pageNo=${page.pageNum - 1},id=${music.id})}" class="btn_FenYe">上一页</a>
+                <a th:href="@{/music/TouristFindMusicById(pageNo=${page.pageNum - 1},id=${music.id})}" class="btn_FenYe">上一页</a>
             </span>
         &nbsp&nbsp
 
         <span th:each="i:${#numbers.sequence(1,page.pages)}">
         &nbsp
-                <a th:href="@{/music/UserFindMusicById(pageNo=${i},id=${music.id})}" th:text="${i}">1</a>
+                <a th:href="@{/music/TouristFindMusicById(pageNo=${i},id=${music.id})}" th:text="${i}">1</a>
             </span>
 
         &nbsp&nbsp
@@ -287,14 +233,15 @@
             </span>
 
         <span th:unless="${page.pages==page.pageNum}">
-                <a th:href="@{/music/UserFindMusicById(pageNo=${page.pageNum+1},id=${music.id})}" class="btn_FenYe">下一页</a>
+                <a th:href="@{/music/TouristFindMusicById(pageNo=${page.pageNum+1},id=${music.id})}" class="btn_FenYe">下一页</a>
             </span>
 
         &nbsp&nbsp
-        <a th:href="@{/music/UserFindMusicById(pageNo=${page.pages},id=${music.id})}" class="btn" style="width: 40px">末页</a>
+        <a th:href="@{/music/TouristFindMusicById(pageNo=${page.pages},id=${music.id})}" class="btn" style="width: 40px">末页</a>
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
     </div>
 </div>
+
 </body>
 </html>

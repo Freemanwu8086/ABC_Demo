@@ -7,6 +7,8 @@
 <!--    <link rel="icon" href="favicon.ico" type="image/x-icon"/>-->
     <title>ABC Info Admin</title>
 
+    <link rel="icon" href="/img/favicon.ico"/>
+
     <link rel="stylesheet" th:href="@{/css/examples-styles.css}"/>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 
@@ -14,8 +16,18 @@
     <link th:href="@{/css/abcjs-audio.css}" media="all" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
+        // window.onload = function (){
+        //     var intro = document.getElementById("introduction")
+        //     if(intro.innerText==null){
+        //         intro.style.display = "none";
+        //     }else
+        //         intro.style.display = "block";
+        // }
+
+        var abcjsEditor;
+
         window.onload = function () {
-            new ABCJS.Editor("abc", {
+            abcjsEditor = new ABCJS.Editor("abc", {
                 canvas_id: "canvas",
                 generate_warnings: true,
                 warnings_id: "warnings",
@@ -26,9 +38,37 @@
                 abcjsParams: {
                     responsive: "resize",
                     oneSvgPerLine: true
-                }
+                },
+                selectionChangeCallback: selectionChangeCallback
             });
+            document.getElementById("midi").addEventListener("click", downloadMidi);
         };
+        function clickListener(abcElem, tuneNumber, classes, analysis, drag, mouseEvent) {
+            var lastClicked = abcElem.midiPitches;
+            if (!lastClicked)
+                return;
+
+            ABCJS.synth.playEvent(lastClicked, abcElem.midiGraceNotePitches, abcjsEditor.millisecondsPerMeasure()).then(function (response) {
+                console.log("note played");
+            }).catch(function (error) {
+                console.log("error playing note", error);
+            });
+        }
+
+        function selectionChangeCallback(start, end) {
+            if (abcjsEditor) {
+                var el = abcjsEditor.tunes[0].getElementFromChar(start);
+                console.log(el);
+            }
+        }
+
+        function downloadMidi() {
+            var abc = document.getElementById("abc").value;
+            var a = document.getElementById("midi-download");
+            var midi = ABCJS.synth.getMidiFile(abc, { midiOutputType: "encoded" })
+            a.setAttribute("href", midi)
+            a.click();
+        }
     </script>
     <style>
         @media print {
@@ -62,7 +102,7 @@
                     </a>
                 </li>
                 <li class="add">
-                    <a href="http://localhost:8080/ABC/Welcome.html">退出登陆</a>
+                    <a href="/index.html">退出登陆</a>
                 </li>
             </ul>
         </div>
@@ -112,15 +152,106 @@
             <div id="warnings"></div>
             <div id="audio" class="audio"></div>
         </div>
+        <span th:if="${music.introduction} eq null" style="display: none">
+            <div class="forg3">
+                <div class="forg_n">
+                    <b>乐谱简介</b>
+                </div>
+                <div>
+                    <textarea name="introduction" cols="80" rows="15"
+                              spellcheck="false"
+                              style="float: left;
+                                    border: 1px solid #FFD3B9;
+                                    border-radius: 5px;" th:text="${music.introduction}" readonly></textarea>
+                </div>
+            </div>
+        </span>
+        <span th:if="${music.introduction} ne null" style="display: block">
+            <div class="forg3">
+                <div class="forg_n">
+                    <b>乐谱简介</b>
+                </div>
+                <div>
+                    <textarea name="introduction" cols="80" rows="15"
+                              spellcheck="false"
+                              style="float: left;
+                                    border: 1px solid #FFD3B9;
+                                    border-radius: 5px;" th:text="${music.introduction}" readonly></textarea>
+                </div>
+            </div>
+        </span>
     </div>
 
     <div>
         <div id="canvas" class="visible-background"></div>
     </div>
 
-    <div class="print">
-        <button onclick="window.print()" class="btn" >保存乐谱</button>
+<div class="print">
+    <button onclick="window.print()" class="btn">保存五线谱</button>
+    <button id="midi" class="btn">下载MIDI文件</button>
+    <a id="midi-download" th:download="${music.music_name}+'.mid'" style="display: none"></a>
+</div>
+
+<div style="margin-top: 10%">
+    <div class="forg3">
+        <div class="forg_n">
+            <b>评论区</b>
+        </div>
     </div>
+    <div style="margin-top: 6%;margin-left: 10%">
+        <span th:each="comment,commentStat:${comments}">
+            <div style="margin-top: 1%">
+                <span th:text="${comment.username}"></span>&nbsp&nbsp｜发布于<span th:text="${comment.comment_date}"></span>
+            </div>
+            <div>
+                <div style="float: left;width: 70%">
+                    <span th:text="${comment.comment}"></span>
+                </div>
+                <div style="float: right;margin-right: 25%">
+                    <form action="/admin/deleteOneComment" method="post">
+                        <input type="text" name="id" th:value="${comment.id}" style="display: none">
+                        <input type="submit" value="删除" class="deleteBtn" style="border-radius:20px">
+                    </form>
+                </div>
+            </div>
+        </span>
+    </div>
+
+    <div th:if="${page.pages>0}" style="margin-left: 35%;margin-top: 5%">
+        <!--当前页-->
+        <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
+        &nbsp&nbsp&nbsp
+        <!--            首页作为第一页不可点击-->
+        <a th:href="@{/music/AdminFindMusicById(pageNo=1,id=${music.id})}" class="btn" style="width: 40px">首页</a>
+        &nbsp&nbsp
+        <span th:if="${page.pageNum==1}">
+                <a onclick="return false" class="btn_FenYe">上一页</a>
+            </span>
+        <span th:unless="${page.pageNum==1}">
+                <a th:href="@{/music/AdminFindMusicById(pageNo=${page.pageNum - 1},id=${music.id})}" class="btn_FenYe">上一页</a>
+            </span>
+        &nbsp&nbsp
+
+        <span th:each="i:${#numbers.sequence(1,page.pages)}">
+        &nbsp
+                <a th:href="@{/music/AdminFindMusicById(pageNo=${i},id=${music.id})}" th:text="${i}">1</a>
+            </span>
+
+        &nbsp&nbsp
+        <span th:if="${page.pages==page.pageNum}">
+                <a onclick="return false" class="btn_FenYe">下一页</a>
+            </span>
+
+        <span th:unless="${page.pages==page.pageNum}">
+                <a th:href="@{/music/AdminFindMusicById(pageNo=${page.pageNum+1},id=${music.id})}" class="btn_FenYe">下一页</a>
+            </span>
+
+        &nbsp&nbsp
+        <a th:href="@{/music/AdminFindMusicById(pageNo=${page.pages},id=${music.id})}" class="btn" style="width: 40px">末页</a>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
+    </div>
+</div>
 
 
 </body>

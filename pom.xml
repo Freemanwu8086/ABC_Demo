@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.freemanwu</groupId>
-    <artifactId>ABC_Demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>ABC_Demo</name>
-    <description>ABC_Demo</description>
+    <artifactId>ABC</artifactId>
+    <version>ServerVersion</version>
+    <name>ABC</name>
+    <description>ABC</description>
     <properties>
         <java.version>8</java.version>
     </properties>

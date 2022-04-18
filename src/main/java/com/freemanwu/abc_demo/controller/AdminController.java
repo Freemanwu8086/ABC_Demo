@@ -1,11 +1,10 @@
 package com.freemanwu.abc_demo.controller;
 
-import com.freemanwu.abc_demo.entity.Admin;
-import com.freemanwu.abc_demo.entity.Announce;
-import com.freemanwu.abc_demo.entity.Sheet_Music;
-import com.freemanwu.abc_demo.entity.User;
+import com.freemanwu.abc_demo.entity.*;
 import com.freemanwu.abc_demo.service.AdminService;
 import com.freemanwu.abc_demo.service.AnnounceService;
+import com.freemanwu.abc_demo.service.CommentService;
+import com.freemanwu.abc_demo.service.Sheet_MusicService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +24,10 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private AnnounceService announceService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private Sheet_MusicService musicService;
 
     /**
      * 管理员登陆
@@ -33,15 +36,15 @@ public class AdminController {
      * @return
      */
     @RequestMapping("adminLogin")
-    public String AdminLogin(Admin admin, HttpSession session, Announce announce, Model model){
+    public String AdminLogin(Admin admin, HttpSession session, Announce announce){
         Admin loginAdmin = adminService.AdminLogin(admin);
         if (loginAdmin != null){
             Announce anna= announceService.showAnnounce(announce);
-            model.addAttribute("announce",anna);
+            session.setAttribute("announce",anna);
             session.setAttribute("loginAdmin",loginAdmin);
             return "AdminFirst";
         }else
-            return "Error";
+            return "error";
     }
 
     /**
@@ -208,35 +211,83 @@ public class AdminController {
     }
 
     @RequestMapping("WholeSiteAnnounce")
-    public String WholeSiteAnnounce(Announce announce){
+    public String WholeSiteAnnounce(Announce announce,HttpSession session){
         adminService.WholeSiteAnnounce(announce);
+        Announce anna= announceService.showAnnounce(announce);
+        session.setAttribute("announce",anna);
         return "AdminFirst";
     }
 
+    /**
+     * 管理员曲谱按定调分类饼状图
+     * @param model
+     * @return
+     */
     @RequestMapping("numbers")
     @ResponseBody
     public Integer[] numbers(Model model){
-        Integer[] numberList = new Integer[7];
+        Integer[] numberList = new Integer[21];
         numberList[0] = adminService.totalNumberOfA();
-        numberList[1] = adminService.totalNumberOfB();
-        numberList[2] = adminService.totalNumberOfC();
-        numberList[3] = adminService.totalNumberOfD();
-        numberList[4] = adminService.totalNumberOfE();
-        numberList[5] = adminService.totalNumberOfF();
-        numberList[6] = adminService.totalNumberOfG();
+        numberList[1] = adminService.totalNumberOfUpA();
+        numberList[2] = adminService.totalNumberOfbA();
+
+        numberList[3] = adminService.totalNumberOfB();
+        numberList[4] = adminService.totalNumberOfUpB();
+        numberList[5] = adminService.totalNumberOfbB();
+
+        numberList[6] = adminService.totalNumberOfC();
+        numberList[7] = adminService.totalNumberOfUpC();
+        numberList[8] = adminService.totalNumberOfbC();
+
+        numberList[9] = adminService.totalNumberOfD();
+        numberList[10] = adminService.totalNumberOfUpD();
+        numberList[11] = adminService.totalNumberOfbD();
+
+        numberList[12] = adminService.totalNumberOfE();
+        numberList[13] = adminService.totalNumberOfUpE();
+        numberList[14] = adminService.totalNumberOfbE();
+
+        numberList[15] = adminService.totalNumberOfF();
+        numberList[16] = adminService.totalNumberOfUpF();
+        numberList[17] = adminService.totalNumberOfbF();
+
+        numberList[18] = adminService.totalNumberOfG();
+        numberList[19] = adminService.totalNumberOfUpG();
+        numberList[20] = adminService.totalNumberOfbG();
+
 
         model.addAttribute("numberList",numberList);
         return numberList;
     }
 
+    /**
+     * 管理员曲谱按节拍分类饼状图
+     * @return
+     */
     @RequestMapping("beatsNumbers")
     @ResponseBody
     public String[] beatNumbers(){
-        String[] beatList = new String[4];
+        String[] beatList = new String[6];
         beatList[0] = adminService.totalBeatOf44();
         beatList[1] = adminService.totalBeatOf34();
         beatList[2] = adminService.totalBeatOf24();
         beatList[3] = adminService.totalBeatOf14();
+        beatList[4] = adminService.totalBeatOf38();
+        beatList[5] = adminService.totalBeatOf68();
         return beatList;
+    }
+
+    @RequestMapping("deleteOneComment")
+    public String deleteOneComment(HttpSession session, Integer id,@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                                   Map<String,Object> map,Model model){
+        commentService.deleteOneComment(id);
+        Integer music_id = (Integer) session.getAttribute("music_id");
+        Sheet_Music music = musicService.findMusicById(music_id);
+        PageInfo<Comment> page = commentService.findAllComments(pageNum,music_id);
+        List<Comment> comments = page.getList();
+        model.addAttribute("music",music);
+        model.addAttribute("comments",comments);
+        map.put("page",page);
+        return "AdminShowOneMusic";
     }
 }

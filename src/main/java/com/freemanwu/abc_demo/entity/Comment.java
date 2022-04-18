@@ -7,17 +7,19 @@ import lombok.ToString;
 
 import java.sql.Date;
 
-@Data
+/**
+ * @author searchingwu
+ * @Description
+ * @create 2022-04-14 15:09
+ */
 @AllArgsConstructor
-@ToString
 @NoArgsConstructor
-public class User  {
+@ToString
+@Data
+public class Comment {
     private String username;
-    private String password;
-    private String phoneNumber;
-    private Date birthday;
+    private Integer music_id;
+    private String comment;
+    private Date comment_date;
     private Integer id;
-    private String MusicAnnounce;
-    private Date enroll_date;
-    private Integer comment_mark;
 }
