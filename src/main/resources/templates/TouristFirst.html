@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>用户首页</title>
+    <title>游客首页</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
     <link rel="icon" href="/img/favicon.ico"/>
 </head>
@@ -14,19 +14,12 @@
         </div>
         <div class="ue4">
             <ul>
-                <li class="ue6">
-                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
-                        <b>
-                            当前用户：<span th:text="${session.loginUser.username}"></span>
-                        </b>
-                    </a>
+                <li class="add">
+                    <a th:href="@{/UserRegister.html}">
+                        注册账号&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a th:href="@{/user/findByName(username=${session.loginUser.username})}">
-                        主页&nbsp&nbsp丨</a>
-                </li>
-                <li class="add">
-                    <a href="/index.html">退出登陆</a>
+                    <a href="/index.html">回到登陆页面</a>
                 </li>
             </ul>
         </div>
@@ -37,12 +30,7 @@
     <div class="n">
         <div>
             <div class="leftbtn">
-                <button class="see" onclick="window.open('/music/listMusicUser')"><b>全部曲谱</b></button>
-            </div>
-        </div>
-        <div class="line">
-            <div class="rightbtns">
-                <button class="love" onclick="window.location.href='/user/ABCEditor'"><b>新建曲谱</b></button>
+                <button class="see" onclick="window.open('/music/tourist')"><b>全部曲谱</b></button>
             </div>
         </div>
         <div class="line">
@@ -63,7 +51,6 @@
         font-weight: 400; resize: none" readonly></textarea>
 
         <h6 th:text="${#dates.format(session.announce.update_date,'yyyy年MM月dd日')}"></h6>
-        <h6 th:text="${session.loginUser.musicAnnounce}" style="color: #5aa0ff"></h6>
         <h6>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspABC曲谱学习网</h6>
     </div>
 </div>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ABC记谱法教程</title>
+    <link rel="icon" href="/img/favicon.ico"/>
+<!--    <script type="text/javascript" th:src="@{/js/showdown.min.js}"></script>-->
+    <script src="/js/showdown.js" type="text/javascript"></script>
+
+    <style>
+        .ul0{
+            width: 200px;
+            height: 250px;
+            margin-left: 20%;
+            padding-top: 30%;
+        }
+        .ul0 ul li{
+            padding-bottom: 30px;
+            list-style: none;
+        }
+        .ul0 ul li a:hover{
+            color: #FF8C69 !important;
+        }
+        .ul0 ul li a:visited{
+            color: #312f2f;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+            font-size: 16px;
+            line-height: 1.42857143;
+            color: #333;
+            background-color: #fff;
+        }
+        ul li {
+            line-height: 24px;
+        }
+        blockquote {
+            border-left:#eee solid 5px;
+            padding-left:20px;
+        }
+        code {
+            color: #312f2f;
+            background: #F9F2F4;
+        }
+    </style>
+</head>
+<body onload="compile()" style="background-color: #FFF5EE">
+<div>
+    <textarea id="content" style="height:400px;width:600px;display: none"># ABC记谱法教程
+
+## ABC谱语法介绍
+
+参考原文：http://abcnotation.com/examples#Notes，以下结构根据此文略有调整
+
+## 1.音高
+
+**音高：**CDEFGAB分别代表C调的1234567，这里C为下五线谱加一线的中央C。
+
+**字母大小写代表八度关系：**小写cdefgab比大写CDEFGAB高八度
+
+**‘和,代表高低八度：**高八度加’，低八度加,
+
+**半音：**升号#写为^，降号b写为_，还原记号写为=
+
+**休止符：**z（一般为小写，有的软件大写也行）
+
+**解释：**CDEFGAB为中间八度，其中C为下加一线；高八度把字母变成小写cdefgab；以后再高八度加’，即c’，如果还需要高八度，则再加’，即
+c’’；比CDEFGAB低八度加,，即C,，如果还需要低八度，则再加,，即C,,。注意一个八度循环是从C开始到B的，所以B不是比C低，B,才是比C低的音。
+
+**示例：**
+
+“C”代表下加一线的C（即C调的1，F调的5，下同）
+
+“C,”代表比C低8度的C
+
+“c”代表比C高8度的C
+
+“c'”代表比“c”高8度的C，即比“C”高2个8度的C。
+
+不考虑调号的情况下，^C为#C，_E为bE，=C为还原C。考虑调号部分升降号可以省略，同五线谱。同时允许有两个升号或两个降号
+（重升号和重降号），如^^C或__C。
+
+## 2.时值
+
+一般的，单独的字母A，B，z代表8分音符（z即为8分休止符）
+
+A/2代表16分音符；
+
+A/4代表32分音符；
+
+A2代表4分音符；
+
+A3代表4分音符加附点；
+
+A4代表2分音符
+
+以此类推。
+
+注：A3/2代表16分音符加附点，不过不常用；一般来说3拍加1拍的形式，如A3/2 A/2，可以简写成A>A
+
+## 3.小节线和反复记号
+
+小节线用|
+
+简单的反复记号前面用|:，后面用:|
+
+反复后如果有1段或2段，直接在该段开头写上1或2，如|:CDEF|1 GABc:|2GFED|
+
+全曲结束用||或|]
+
+## 4.连音-
+
+A2-A即为A2连一个A，相当于A，连音符号可以跨小节。
+
+空格会改变音符的形式，如AA AA是2组2个音符分别连线，AAAA是1组4个音符连线
+
+3连音：“(3AAA”或“(3A2A2A2”
+
+以下较少用的
+
+4连音：“(4AAAA”
+
+以此类推，
+
+7连音：“(7AAAAAAA”
+
+## 5.其他
+
+**圆滑音加括号：**
+
+如(AA)，(A(AA)A)，(A|A)；
+
+(A|A)分开演奏还是与连音等效和软件有关：
+
+muse里(A|A)相当于A-|A，
+
+Abc Navigator里不识别(A|A)符号，相当于A|A，
+
+EasyABC里(A|A)显示和连音一样，但依然演奏2个音，显示同A-|A，但演奏为A|A。
+
+**音程、和弦：中括号**
+
+中括号内的为一起演奏，如：[C2G2][CEGc]
+
+**伴奏和弦：双引号**
+
+如："A"B "Gm7"D
+
+即在B音上是A和弦伴奏，D音上是Gm7和弦伴奏
+
+## 6.装饰音
+
+装饰音在本音前面加入以下符号：
+
+ABC谱通用的装饰音：
+
+**倚音**{}，大括号里面写倚音的音符，可以是1或多个音符：如{CDC}D2，即D2上加CDC做倚音。
+
+**波音**~，爱尔兰哨笛上的Roll技巧用波音表示，如G的Roll一般写作~G3
+
+**重音**.
+
+这个我不认识的装饰音v
+
+**断音**u
+
+**muse的一些符号：**
+
+重音k（这个是在音符上添加>）
+
+滑音J
+
+保持音M
+
+颤音T
+
+## 7.乐谱其他
+
+乐谱注释用%，注释不会显示在谱子上，一般用作谱子说明
+
+% lalala
+
+**乐谱开头**
+
+一般有：编号X:，曲名T:，拍子M:，调号K:就可以了，其他都可以不写
+
+O:E %mark all tunes with an E (English) for the index
+
+X:1 %tuneno 1，曲目编号，用于多首曲子写在1个ABC文件里编号
+
+T:DustyMiller, The % title，曲名
+
+T:Binny's Jig %an alternative title，第二行曲名，可不写
+
+C:Trad.%traditional，风格，可不写
+
+R:DH %double hornpipe，曲式，可不写
+
+M:3/4 %meter，拍子，允许在谱子正文中多次出现改变拍子
+
+E:8 %note spacing，可不写
+
+I:speed 300 %speed for playabc，演奏速度，可不写
+
+K:G % key，调号，允许在谱子正文中多次出现改变调号
+
+## 对于muse还可以有
+
+V:1 style=jianpu
+
+[V:1]
+
+ABC谱正文
+
+这个代表第一轨，显示样式为jianpu即“简谱”，同样可以写style=staff，代表显示“五线谱”或写style=tab，代表显示“吉他谱”。
+
+我在写五线谱和简谱对应的时候就是V:1是五线谱，然后V:2是简谱。
+
+## ABC谱的移调
+
+乐理小白强调一下，这里的移调是指改变整体音高，例如把D调的123改成C调的123演奏，而不是简谱的转调改写
+（例如D调的123写成G调的567，只是写法不同，实际音高不变）。
+
+移调可以在EasyABC里完成，或者可以把谱子复制到这个网址上进行移调：http://www.mandolintab.net/abcconverter.php
+
+注：同时这个网站也可以把传统的ABC谱转成图片
+
+移调包括升降半音，除了通过乐理知识计算，在刚刚介绍的这个网站上也能够得到需要进行的运算。
+
+假如说现在是D调的曲子，我要移调成C调演奏，那么通过网页下面的Transposing help可知，From D to C transpose ,
+down 2 semitones or up 10 semitones。即从D调移调到C调，需要降2个半音或升10个半音。具体来说是降还是升一般
+选择调整半音数较少的，如果结果不理想，还可以进行一个八度（12个半音或1 Octave）甚至两个八度（2 Octaves）的调整。
+
+## muse简谱处理
+
+muse的简谱是以C调来写的，就是把ABC谱的C翻译为1，而不管调号，所以：如果是C调曲子，下面的ABC谱一样复制过来就可以，
+如果不是C调曲子，如果要显示为其他首调的简谱，那么需要进行移调。
+
+假如说D调的DEFG翻译过来应该是D调的1234，但是是C调的2345，即muse里会自动把DEFG翻译成简谱的2345，所以我们要把
+DEFG移调为CDEF，即把D调移调到C调，和上面的一样，需要降2个半音或升10个半音。</textarea>
+    <div style="float: left;width: 25%;margin-top: 5%;background-color: white;border-top-right-radius:10%;border-bottom-left-radius:10%;" >
+        <div class="ul0">
+            <ul>
+                <li>
+                    <a href="/ABCHistory.html" style="text-decoration: none">—ABC记谱法简史—</a>
+                </li>
+                <li>
+                    <a href="/ABCLearn.html" style="text-decoration: none;color: #FF8C69;">—ABC记谱法教程—</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="result" style="float: right;width: 70%;border: 2px #FF8C69"></div>
+
+</div>
+
+<script type="text/javascript">
+    function compile(){
+        var text = document.getElementById("content").value;
+        var converter = new showdown.Converter();
+        var html = converter.makeHtml(text);
+        document.getElementById("result").innerHTML = html;
+    }
+</script>
+
+</body>
+</html>

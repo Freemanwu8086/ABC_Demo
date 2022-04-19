@@ -377,4 +377,11 @@ public class UserController {
         userService.deleteListCollection(music_id, username);
         return "redirect:/user/showFavorite";
     }
+
+    @RequestMapping("touristFirst")
+    public String touristFirst(Announce announce, HttpSession session){
+        Announce anna = announceService.showAnnounce(announce);
+        session.setAttribute("announce",anna);
+        return "TouristFirst";
+    }
 }
