@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>管理员之用户全展示</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
 </head>
 <body style="background-color: #FFF5EE">
 
@@ -23,7 +23,7 @@
                     </b>
                 </li>
                 <li class="add">
-                    <a href="/index.html">&nbsp|&nbsp退出登陆</a>
+                    <a th:href="@{/index.html}">&nbsp|&nbsp退出登陆</a>
                 </li>
             </ul>
         </div>
@@ -31,7 +31,7 @@
 </div>
 
 <div style="width: 20%;float: right;margin-top: 2%;margin-bottom: 1%">
-    <form action="/admin/findUsersByUserName" method="post" th:target="_blank">
+    <form th:action="@{/admin/findUsersByUserName}" method="post">
         <input type="text" name="username" placeholder="按用户名模糊查询" class="input">&nbsp
         <input type="submit" class="btn" value="查询" style="width: 40px">
     </form>

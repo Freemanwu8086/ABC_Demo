@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>游客首页</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
 </head>
 <body style="background-color: #FFF5EE">
 
@@ -19,7 +19,7 @@
                         注册账号&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a href="/index.html">回到登陆页面</a>
+                    <a th:href="@{/index.html}">回到登陆页面</a>
                 </li>
             </ul>
         </div>
@@ -30,12 +30,16 @@
     <div class="n">
         <div>
             <div class="leftbtn">
-                <button class="see" onclick="window.open('/music/tourist')"><b>全部曲谱</b></button>
+                <a th:href="@{/music/tourist}">
+                    <button class="see"><b>全部曲谱</b></button>
+                </a>
             </div>
         </div>
         <div class="line">
             <div class="rightbtns">
-                <button class="love" onclick="window.open('/ABCHistory.html')"><b>ABC记谱法简史与教程</b></button>
+                <a th:href="@{/user/ABCHistory}" th:target="_blank">
+                    <button class="love"><b>ABC记谱法简史与教程</b></button>
+                </a>
             </div>
         </div>
     </div>
@@ -56,7 +60,7 @@
 </div>
 <div style="width:100%;padding: 1% 0;background-color: white;position: fixed;bottom: 0;left: 0;">
     <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=61012502000217" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;margin-left: 1%">
-        <img src="/img/备案图标.png" style="float:left;"/>
+        <img th:src="@{/img/备案图标.png}" style="float:left;"/>
         <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
             陕公网安备 61012502000217号 | </p>
     </a>

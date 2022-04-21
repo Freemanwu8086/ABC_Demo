@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>管理员之模糊查询</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
 </head>
 <body style="background-color: #FFF5EE">
 
@@ -23,7 +23,7 @@
                     </b>
                 </li>
                 <li class="add">
-                    <a href="/index.html">&nbsp|&nbsp退出登陆</a>
+                    <a th:href="@{/index.html}">&nbsp|&nbsp退出登陆</a>
                 </li>
             </ul>
         </div>
@@ -35,13 +35,13 @@
 </div>
 <div id="easyQuery" class="QueryWindow">
     <div style="width: 25%;float: right">
-        <form action="/music/findByMusicName" method="post">
+        <form th:action="@{/music/findByMusicName}" method="post">
             <input type="text" name="music_name" placeholder="按曲谱名模糊查询" class="input">&nbsp
             <input type="submit" class="btn" value="查询" style="width: 40px">
         </form>
     </div>
     <div style="width: 20%;float: right">
-        <form action="/admin/findMusicByBeat" method="post">
+        <form th:action="@{/admin/findMusicByBeat}" method="post">
             <select name="beat" class="shortSelect">
                 <option selected>按节拍查询</option>
                 <option>---------</option>
@@ -56,7 +56,7 @@
         </form>
     </div>
     <div style="width: 20%;float: right">
-        <form action="/admin/findMusicByTone" method="post">
+        <form th:action="@{/admin/findMusicByTone}" method="post">
             <select name="tone" class="shortSelect">
                 <option selected>按定调查询</option>
                 <option>---------</option>
@@ -169,6 +169,7 @@
     &nbsp&nbsp
     <a th:href="@{/music/findByMusicName(pageNo=${page.pages},music_name=${session.music_name})}" class="btn" style="width: 40px">末页</a>
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <input type="text" th:value="@{/admin/deleteByIds}" id="deleteByIds" style="display: none">
     <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
 </div>
 
@@ -210,7 +211,7 @@
             }
             //上面会拼接出一个名为ids的数组ids=1&ids=2&ids=3&ids=4……
             //deleteByIds为controller的Mapping请求名
-            $.get("/admin/deleteByIds", ids, function (data) {
+            $.get(document.getElementById('deleteByIds').value, ids, function (data) {
                 if (data == "ok") {
                     alert("删除成功!");
                     //删除成功后，调用action方法刷新页面信息

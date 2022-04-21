@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>用户注销</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
 </head>
 <style>
     .input{
@@ -133,7 +133,7 @@
 <div class="forg1">
     <h1>注销账号&nbsp丨</h1>
 </div>
-    <form action="/user/deleteAccount2" method="post" onsubmit="return Sure()">
+    <form th:action="@{/user/deleteAccount2}" method="post" onsubmit="return Sure()">
                 <div class="forg2" style="position: center">
                     <input type="text" th:value="${session.loginUser.username}" name="username" style="display: none">
                     <div>
@@ -147,9 +147,10 @@
                             <b>验证码</b>
                         </div>
                         <div>
-                            <img id="num" src="/user/code"/>
+                            <input type="text" id="CODE" th:value="@{/user/code}" style="display: none">
+                            <img id="num" th:src="@{/user/code}"/>
                             <a href="javascript:;"
-                               onclick="document.getElementById('num').src = '/user/code?'+(new Date()).getTime()">获取新的验证码</a>
+                               onclick="document.getElementById('num').src = document.getElementById('CODE').value+'?'+(new Date()).getTime()">获取新的验证码</a>
                         </div>
                         <div style="margin-left: 9%">
                             <input type="text" class="input" name="code" size="4"/>

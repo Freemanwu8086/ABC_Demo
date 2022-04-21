@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>用户信息修改</title>
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 </head>
 <body style="background-color: #FFF5EE">
@@ -23,7 +23,7 @@
                         主页&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a href="/index.html">退出登陆</a>
+                    <a th:href="@{/index.html}">退出登陆</a>
                 </li>
             </ul>
         </div>
@@ -56,10 +56,10 @@
         <div class="out0" style="margin-left: 33px">
             <ul>
                 <li>
-                    <a href="/user/deleteAccount1"><h5>注销账号&nbsp丨</h5></a>
+                    <a th:href="@{/user/deleteAccount1}"><h5>注销账号&nbsp丨</h5></a>
                 </li>
                 <li>
-                    <a href="/index.html"><h5>退出登陆</h5></a>
+                    <a th:href="@{/index.html}"><h5>退出登陆</h5></a>
                 </li>
             </ul>
         </div>
@@ -69,8 +69,7 @@
             <h1>更改信息&nbsp丨</h1>
         </div>
 
-        <form th:action="@{update2}" method="post">
-
+        <form th:action="@{/user/update2}" method="post">
             <div class="forg2">
                 <div class="forg3">
                     <div class="forg_n">

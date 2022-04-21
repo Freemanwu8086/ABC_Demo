@@ -7,7 +7,7 @@
 
     <title>ABC游客</title>
 
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
     <link rel="stylesheet" th:href="@{/css/examples-styles.css}"/>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 
@@ -100,7 +100,7 @@
                         注册账号&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a href="/index.html">回到登陆页</a>
+                    <a th:href="@{/index.html}">回到登陆页</a>
                 </li>
             </ul>
         </div>

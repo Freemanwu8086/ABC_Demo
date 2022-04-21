@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>用户之模糊查询</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
 </head>
 <script type="text/javascript">
     window.onload = function (){
@@ -50,7 +50,7 @@
                             主页&nbsp&nbsp丨</a>
                     </li>
                     <li class="add">
-                        <a href="/index.html">退出登陆</a>
+                        <a th:href="@{/index.html}">退出登陆</a>
                     </li>
                 </ul>
             </div>
@@ -60,13 +60,13 @@
 
 <div id="easyQuery" class="QueryWindow">
     <div style="width: 25%;float: right">
-        <form action="/music/UserFindByMusicName" method="post" th:target="_blank">
+        <form th:action="@{/music/UserFindByMusicName}" method="post">
             <input type="text" name="music_name" placeholder="按曲谱名模糊查询" class="input">&nbsp
             <input type="submit" class="btn" value="查询" style="width: 40px">
         </form>
     </div>
     <div style="width: 25%;float: right">
-        <form action="/user/findMusicByBeat" method="post" th:target="_blank">
+        <form th:action="@{/user/findMusicByBeat}" method="post">
             <select name="beat" class="shortSelect">
                 <option selected>按节拍查询</option>
                 <option>---------</option>
@@ -81,7 +81,7 @@
         </form>
     </div>
     <div style="width: 25%;float: right">
-        <form action="/user/findMusicByTone" method="post" th:target="_blank">
+        <form th:action="@{/user/findMusicByTone}" method="post">
             <select name="tone" class="shortSelect">
                 <option selected>按定调查询</option>
                 <option>---------</option>

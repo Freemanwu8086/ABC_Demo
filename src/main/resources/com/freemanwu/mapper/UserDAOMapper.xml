@@ -137,7 +137,7 @@
 
     <delete id="deleteAccount" parameterType="java.lang.String">
         delete from User where username = #{username};
-        delete from Favourite where username = #{username};
+        delete from Favorite where username = #{username};
         update Comment set username = '用户已注销' where username = #{username};
     </delete>
 

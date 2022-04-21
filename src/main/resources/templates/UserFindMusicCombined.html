@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>用户之乐谱全展示</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
 </head>
 <body style="background-color: #FFF5EE">
 
@@ -29,7 +29,7 @@
                         主页&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a href="/index.html">退出登陆</a>
+                    <a th:href="@{/index.html}">退出登陆</a>
                 </li>
             </ul>
         </div>
@@ -37,7 +37,7 @@
     </div>
 </div>
 <div id="CombinedQuery" class="QueryWindow">
-    <form action="/user/CombinedFindMusic" method="post" th:target="_blank">
+    <form th:action="@{/user/CombinedFindMusic}" method="post">
         <input type="submit" class="btn" value="组合" style="width: 80px;float: right;">
         <input type="text" name="music_name" placeholder="请输入乐谱名称，可模糊" class="input" style="float: right;">
         <select name="beat" class="shortSelect" style="float: right">

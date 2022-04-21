@@ -7,7 +7,7 @@
 
     <title>ABC Info User</title>
 
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
     <link rel="stylesheet" th:href="@{/css/examples-styles.css}"/>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 
@@ -106,7 +106,7 @@
                         主页&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a href="/index.html">退出登陆</a>
+                    <a th:href="@{/index.html}">退出登陆</a>
                 </li>
             </ul>
         </div>
@@ -199,7 +199,7 @@
 <div style="margin-top: 10%">
 
     <span th:if="${session.loginUser.comment_mark} eq 1" style="display: none">
-        <form action="/music/saveComment" method="post">
+        <form th:action="@{/music/saveComment}" method="post">
             <div class="forg3">
                 <div class="forg_n">
                     <b>发表评论</b>
@@ -223,7 +223,7 @@
     </span>
 
     <span th:if="${session.loginUser.comment_mark} eq 0" style="display: block">
-        <form action="/music/saveComment" method="post">
+        <form th:action="@{/music/saveComment}" method="post">
             <div class="forg3">
                 <div class="forg_n">
                     <b>发表评论</b>

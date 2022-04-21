@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="content-type" content="text/html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
     <title>ABC管理员乐谱修改</title>
 
     <link rel="stylesheet" th:href="@{/css/examples-styles.css}"/>
@@ -75,7 +75,7 @@
                         主页&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a href="/index.html">退出登陆</a>
+                    <a th:href="@{/index.html}">退出登陆</a>
                 </li>
             </ul>
         </div>

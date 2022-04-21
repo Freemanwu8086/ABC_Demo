@@ -34,7 +34,7 @@
 
     <update id="updateMusicUser" parameterType="Sheet_music">
         update Sheet_Music set music_name = #{music_name}, beat = #{beat}, tone = #{tone}, last_update_date = now(),
-                            abc = #{abc}, introduction = #{introduction} state = '待审核' where id = #{id}
+                            abc = #{abc}, introduction = #{introduction}, state = '待审核' where id = #{id}
     </update>
 
     <select id="findByMusicUserName" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">

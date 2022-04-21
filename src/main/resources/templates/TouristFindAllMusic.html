@@ -5,7 +5,7 @@
     <title>游客之乐谱全展示</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
 
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
     <style>
         #pieTone {
             width: 400px;
@@ -55,7 +55,7 @@
                         注册账号&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a href="/index.html">回到登陆页面</a>
+                    <a th:href="@{/index.html}">回到登陆页面</a>
                 </li>
             </ul>
         </div>
@@ -69,13 +69,13 @@
 
 <div id="easyQuery" class="QueryWindow">
     <div style="width: 25%;float: right">
-        <form action="/music/TouristFindByMusicName" method="post" th:target="_blank">
+        <form th:action="@{/music/TouristFindByMusicName}" method="post">
             <input type="text" name="music_name" placeholder="按曲谱名模糊查询" class="input">&nbsp
             <input type="submit" class="btn" value="查询" style="width: 40px">
         </form>
     </div>
     <div style="width: 25%;float: right">
-        <form action="/music/findMusicByBeat" method="post" th:target="_blank">
+        <form th:action="@{/music/findMusicByBeat}" method="post">
             <select name="beat" class="shortSelect">
                 <option selected>按节拍查询</option>
                 <option>---------</option>
@@ -90,7 +90,7 @@
         </form>
     </div>
     <div style="width: 25%;float: right">
-        <form action="/music/findMusicByTone" method="post" th:target="_blank">
+        <form th:action="@{/music/findMusicByTone}" method="post">
             <select name="tone" class="shortSelect">
                 <option selected>按定调查询</option>
                 <option>---------</option>
@@ -121,7 +121,7 @@
     </div>
 </div>
 <div id="CombinedQuery" class="QueryWindow">
-    <form action="/music/CombinedFindMusic" method="post" th:target="_blank">
+    <form th:action="@{/music/CombinedFindMusic}" method="post">
         <input type="submit" class="btn" value="组合" style="width: 80px;float: right;">
         <input type="text" name="music_name" placeholder="请输入乐谱名称，可模糊" class="input" style="float: right;">
         <select name="beat" class="shortSelect" style="float: right">
@@ -232,12 +232,14 @@
     <form th:action="@{/music/tourist}">
         </span><input type="text" class="input" style="width: 40px" name="pageNo" th:value="${page.pageNum}">页
         <input type="submit" value="跳转" class="btn" style="width: 40px">
+        <input type="text" th:value="@{/user/numbers}" id="TonePieUrl" style="display: none">
+        <input type="text" th:value="@{/user/beatsNumbers}" id="BeatPieUrl" style="display: none">
     </form>
 </div>
 <div style="float: left; width: 50%">
     <!--按节拍-->
-    <script type="text/javascript" src="/js/echarts.js"></script>
-    <script type="text/javascript" src="/js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" th:src="@{/js/echarts.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
     <div id="pieBeat" style="margin-left: 40%"></div>
     <script>
         // 饼状图
@@ -299,7 +301,7 @@
         pieBeat.setOption(pieBeatOption);
 
         // 异步加载数据
-        $.post('/user/beatsNumbers').done(function(beatList) {
+        $.post(document.getElementById('BeatPieUrl').value).done(function(beatList) {
             // 填入数据
             pieBeat.setOption({
                 series: [
@@ -335,8 +337,8 @@
 
 <div style="float: right; width: 50%">
     <!--按定调数量统计图-->
-    <script type="text/javascript" src="/js/echarts.js"></script>
-    <script type="text/javascript" src="/js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" th:src="@{/js/echarts.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
     <div id="pieTone" style="float: right; margin-right: 40%"></div>
     <script>
         // 饼状图
@@ -398,7 +400,7 @@
         pieTone.setOption(pieToneOption);
 
         // 异步加载数据
-        $.post('/user/numbers').done(function(numberList) {
+        $.post(document.getElementById('TonePieUrl').value).done(function(numberList) {
             // 填入数据
             pieTone.setOption({
                 series: [

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ABC曲谱系统</title>
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
 </head>
 <style>
     .return{
@@ -171,9 +171,9 @@
         var num = document.form.m.value
 
         if (num == 1) {
-            document.form.action = "/user/findByNameAndPassword"
+            document.form.action = document.getElementById('loginChose1').value
         } else {
-            document.form.action = "/admin/adminLogin"
+            document.form.action = document.getElementById('loginChose2').value
         }
     }
 
@@ -192,13 +192,15 @@
 </script>
 
 
-<body style="background-image: url(/img/Cover.jpeg);">
+<body style="background-image: url(./img/Cover.jpeg);">
 <div class="card">
     <form name="form" method="post">
     <div class="left">
         <div class="forg1">
             <h1>登陆系统</h1>
-            <a href="/user/touristFirst" class="return" style="float: right;font-size: medium">我不想注册</a>
+            <input type="text" id="loginChose1" th:value="@{/user/findByNameAndPassword}" style="display: none">
+            <input type="text" id="loginChose2" th:value="@{/admin/adminLogin}" style="display: none">
+            <a th:href="@{/user/touristFirst}" class="return" style="float: right;font-size: medium">我不想注册</a>
         </div>
         <div class="radio">
             请选择您的登陆身份：
@@ -228,10 +230,10 @@
         </div>
         <div id="register">
             <div class="forg3" style="margin-top: 35px;margin-left: 140px">
-                <a href="/UserRegister.html" class="return">还没有账号？注册一个！</a>
+                <a th:href="@{/UserRegister.html}" class="return">还没有账号？注册一个！</a>
             </div>
             <div class="forg3" style="margin-left: 155px;">
-                <a href="/UserForgetPassword.html" class="return">忘记密码？</a>
+                <a th:href="@{/UserForgetPassword.html}" class="return">忘记密码？</a>
             </div>
         </div>
     </div>
@@ -246,13 +248,13 @@
             <h1>微信公众号</h1>
         </div>
         <div class="forg1" style="margin-left: 100px">
-            <img src="/img/QRcode.jpeg">
+            <img th:src="@{/img/QRcode.jpeg}">
         </div>
     </div>
 </div>
 <div style="width:100%;padding: 1% 0;background-color: white;position: fixed;bottom: 0;left: 0;">
     <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=61012502000217" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;margin-left: 1%">
-        <img src="/img/备案图标.png" style="float:left;"/>
+        <img th:src="@{/img/备案图标.png}" style="float:left;"/>
         <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
             陕公网安备 61012502000217号 | </p>
     </a>

@@ -7,7 +7,7 @@
 <!--    <link rel="icon" href="favicon.ico" type="image/x-icon"/>-->
     <title>管理员发布公告</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
 
     <script type="text/javascript">
         function Sure() {
@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li class="add">
-                    <a href="/index.html">退出登陆</a>
+                    <a th:href="@{/index.html}">退出登陆</a>
                 </li>
             </ul>
         </div>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>ABC记谱法教程</title>
-    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}"/>
 <!--    <script type="text/javascript" th:src="@{/js/showdown.min.js}"></script>-->
-    <script src="/js/showdown.js" type="text/javascript"></script>
+    <script th:src="@{/js/showdown.js}" type="text/javascript"></script>
 
     <style>
         .ul0{
@@ -242,10 +242,10 @@ DEFG移调为CDEF，即把D调移调到C调，和上面的一样，需要降2个
         <div class="ul0">
             <ul>
                 <li>
-                    <a href="/ABCHistory.html" style="text-decoration: none">—ABC记谱法简史—</a>
+                    <a th:href="@{/user/ABCHistory}" style="text-decoration: none">—ABC记谱法简史—</a>
                 </li>
                 <li>
-                    <a href="/ABCLearn.html" style="text-decoration: none;color: #FF8C69;">—ABC记谱法教程—</a>
+                    <a th:href="@{/user/ABCLearn}" style="text-decoration: none;color: #FF8C69;">—ABC记谱法教程—</a>
                 </li>
             </ul>
         </div>
