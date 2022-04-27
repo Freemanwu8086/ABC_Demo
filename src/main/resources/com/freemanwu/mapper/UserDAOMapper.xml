@@ -39,12 +39,23 @@
     </select>
 
     <select id="findMusicByTone" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
-        select * from Sheet_Music where tone = #{tone} and state = '通过'
+        select * from Sheet_Music where tone like BINARY CONCAT(CONCAT('%',#{tone}),'%') and state = '通过'
     </select>
 
     <select id="CombinedFindMusic" parameterType="com.freemanwu.abc_demo.entity.Sheet_Music" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
-        select * from Sheet_Music where beat = #{beat} and tone = #{tone} and music_name like CONCAT(CONCAT('%',#{music_name}),'%')
-                                    and state = '通过'
+        select * from Sheet_Music
+        <where>
+            <if test="beat != null and beat != ''">
+                and beat = #{beat}
+            </if>
+            <if test="tone != null and tone != ''">
+                and tone = #{tone}
+            </if>
+            <if test="music_name != null and music_name != ''">
+                and music_name like CONCAT(CONCAT('%',#{music_name}),'%')
+            </if>
+        </where>
+                and state = '通过'
     </select>
 
     <update id="forgetPassword" parameterType="User">

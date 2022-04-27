@@ -52,11 +52,22 @@
     </select>
 
     <select id="findMusicByTone" parameterType="java.lang.String" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
-        select * from Sheet_Music where tone = #{tone}
+        select * from Sheet_Music where tone like BINARY CONCAT(CONCAT('%',#{tone}),'%')
     </select>
 
     <select id="CombinedFindMusic" parameterType="com.freemanwu.abc_demo.entity.Sheet_Music" resultType="com.freemanwu.abc_demo.entity.Sheet_Music">
-        select * from Sheet_Music where beat = #{beat} and tone = #{tone} and music_name like CONCAT(CONCAT('%',#{music_name}),'%')
+        select * from Sheet_Music
+                 <where>
+                     <if test="beat != null and beat != ''">
+                         and beat = #{beat}
+                     </if>
+                    <if test="tone != null and tone != ''">
+                        and tone = #{tone}
+                    </if>
+                    <if test="music_name != null and music_name != ''">
+                        and music_name like CONCAT(CONCAT('%',#{music_name}),'%')
+                    </if>
+                 </where>
     </select>
 <!--  饼状图数据-->
     <select id="totalNumberOfA" resultType="java.lang.Integer">

@@ -1,12 +1,10 @@
 package com.freemanwu.abc_demo.controller;
 
+import com.freemanwu.abc_demo.entity.Announce;
 import com.freemanwu.abc_demo.entity.Comment;
 import com.freemanwu.abc_demo.entity.Sheet_Music;
 import com.freemanwu.abc_demo.entity.User;
-import com.freemanwu.abc_demo.service.AdminService;
-import com.freemanwu.abc_demo.service.CommentService;
-import com.freemanwu.abc_demo.service.Sheet_MusicService;
-import com.freemanwu.abc_demo.service.UserService;
+import com.freemanwu.abc_demo.service.*;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +28,8 @@ public class Sheet_MusicController {
     private UserService userService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private AnnounceService announceService;
 
     /**
      * 新建曲谱
@@ -39,7 +39,17 @@ public class Sheet_MusicController {
     @RequestMapping("save")
     public String saveMusic(Sheet_Music music){
         musicService.save(music);
-        return "UserFirst";
+        return "redirect:/music/listMusicUser";
+    }
+
+    @RequestMapping("AdminABCEditor")
+    public String AdminABCEditor(){
+        return "AdminSaveABCSheet";
+    }
+    @RequestMapping("adminSaveMusic")
+    public String adminSaveMusic(Sheet_Music music){
+        musicService.adminSaveMusic(music);
+        return "redirect:/music/listMusicAdmin";
     }
 
     /**
@@ -57,7 +67,7 @@ public class Sheet_MusicController {
 
         model.addAttribute("musics",musics);
         map.put("page",page);
-        return "AdminFindAllMusic";  //转发到你自己的页面
+        return "AdminFindAllMusic";
     }
 
     /**
@@ -107,7 +117,9 @@ public class Sheet_MusicController {
      */
     @RequestMapping("tourist")
     public String touristFindAllMusic(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
-                                      Map<String,Object> map, Model model){
+                                      Map<String,Object> map, Model model,Announce announce,HttpSession session){
+        Announce anna= announceService.showAnnounce(announce);
+        session.setAttribute("announce",anna);
         PageInfo<Sheet_Music> page = musicService.findAllMusicUser(pageNum);
         List<Sheet_Music> musics = page.getList();
 

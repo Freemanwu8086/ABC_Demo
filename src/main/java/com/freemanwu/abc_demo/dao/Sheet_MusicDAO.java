@@ -12,6 +12,8 @@ import java.util.List;
 public interface Sheet_MusicDAO {
     //新增乐谱
     void save(Sheet_Music music);
+
+    void adminSaveMusic(Sheet_Music music);
 //——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
     //展示所有曲谱（管理员）
     List<Sheet_Music> findAllMusic();

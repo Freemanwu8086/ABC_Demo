@@ -126,6 +126,7 @@
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
                 var data = xmlHttp.responseText;
                 callBack(data);
+                checkAgain();
             }
         };
         //3、初始化异步请求对象
@@ -134,12 +135,19 @@
         //4、通知异步请求对象代替浏览器发送请求协议包
         xmlHttp.send();
     }
+    function checkAgain(){
+        if ((document.getElementById("username").value =='管理员') || (document.getElementById("username").value=='系统管理员') ||
+            (document.getElementById("username").value=='管理')){
+            document.getElementById("myFont").innerText='❌亲，用户名不可为"管理"字样!';
+            document.getElementById("submit").disabled=true;
+        }
+    }
     //局部刷新函数
     function callBack(param) {
         if(param == 0){
             document.getElementById("myFont").innerText='✅用户名可以使用';
             document.getElementById("submit").disabled=false;
-        } else {
+        } else{
             document.getElementById("myFont").innerText='❌亲，用户名已被占用哦～';
             document.getElementById("submit").disabled=true;
         }
@@ -181,7 +189,7 @@
                         <b>确认密码</b>
                     </div>
                     <div>
-                        <input id="password2" type="password" name="password" placeholder="请再次输入您的密码" class="input" onblur="checkPwd()">
+                        <input id="password2" type="password" name="password" placeholder="请再次输入您的密码" class="input" onblur="checkPwd();">
                     </div>
                 </div>
                 <div class="forg3">

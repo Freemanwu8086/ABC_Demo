@@ -13,6 +13,12 @@ import java.util.List;
 public class Sheet_MusicServiceImpl implements Sheet_MusicService {
     @Autowired
     private Sheet_MusicDAO musicDAO;
+
+    @Override
+    public void adminSaveMusic(Sheet_Music music) {
+        musicDAO.adminSaveMusic(music);
+    }
+
     @Override
     public void save(Sheet_Music music) {
         musicDAO.save(music);

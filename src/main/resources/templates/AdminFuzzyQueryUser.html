@@ -29,26 +29,59 @@
         </div>
     </div>
 </div>
+<div class="under">
+    <div class="left" style="float: left;width: 10%;height: 800px">
+        <div class="ul0" style="margin-left: -10%;margin-top: -70%;height: 100%">
+            <ul>
+                <li>
+                    <a th:href="@{/music/listMusicAdmin}">—曲谱管理—</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/listUsers}" style="color: #FF8C69">—用户管理—</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/newAnnounce}">—发布公告—</a>
+                </li>
+                <li>
+                    <a th:href="@{/music/AdminABCEditor}">—新建曲谱—</a>
+                </li>
+                <li>
+                    <a th:href="@{/user/ABCHistory}" th:target="_blank">—ABC记谱法简史与教程—</a>
+                </li>
+            </ul>
+            <div class="title" style="width: 100%">
+                <b>公告</b>
+            </div>
+            <div class="text1">
+        <textarea name="announce" cols="19" rows="8" th:text="${session.announce.announce}"  style="border: none;color: #ff8f3d;
+        font-size: 5px;
+        font-family: 'Adobe 宋体 Std L';
+        font-weight: 400; resize: none" readonly></textarea>
+                <h6 th:text="${#dates.format(session.announce.update_date,'yyyy年MM月dd日')}"></h6>
+                <h6>ABC乐谱系统</h6>
+            </div>
+        </div>
+    </div>
+    <div class="right" style="float: right;width: 90%">
+        <div style="width: 20%;float: right;margin-bottom: 1%" >
+            <form th:action="@{/admin/findUsersByUserName}" method="post">
+                <input type="text" name="username" placeholder="按用户名模糊查询" class="input">&nbsp
+                <input type="submit" class="btn" value="查询" style="width: 40px">
+            </form>
+        </div>
 
-<div style="width: 20%;float: right;margin-top: 2%;margin-bottom: 1%" >
-    <form th:action="@{/admin/findUsersByUserName}" method="post">
-        <input type="text" name="username" placeholder="按用户名模糊查询" class="input">&nbsp
-        <input type="submit" class="btn" value="查询" style="width: 40px">
-    </form>
-</div>
-
-<div class="table-wrapper">
-    <table class="fl-table">
-        <thead>
-        <tr>
-            <th>用户名</th>
-            <th>密码</th>
-            <th>电话号码</th>
-            <th>生日</th>
-            <th>注册时间</th>
-            <th>操作</th>
-        </tr>
-        </thead>
+        <div class="table-wrapper">
+            <table class="fl-table">
+                <thead>
+                <tr>
+                    <th>用户名</th>
+                    <th>密码</th>
+                    <th>电话号码</th>
+                    <th>生日</th>
+                    <th>注册时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
                 <tbody>
                 <tr th:each="user,musicStat:${users}">
                     <td><span th:text="${user.username}"></span></td>
@@ -68,41 +101,66 @@
                     </td>
                 </tr>
                 </tbody>
-    </table>
-</div>
-<div th:if="${page.pages>0}" style="margin-left: 35%">
-    <!--当前页-->
-    <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
-    &nbsp&nbsp&nbsp
-    <!--            首页作为第一页不可点击-->
-    <a th:href="@{/admin/listUsers(pageNo=1,username=${session.username})}" class="btn" style="width: 40px">首页</a>
-    &nbsp&nbsp
-    <span th:if="${page.pageNum==1}">
+            </table>
+        </div>
+        <div th:if="${page.pages>0}" style="margin-left: 35%">
+            <!--当前页-->
+            <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
+            &nbsp&nbsp&nbsp
+            <!--            首页作为第一页不可点击-->
+            <a th:href="@{/admin/listUsers(pageNo=1,username=${session.username})}" class="btn" style="width: 40px">首页</a>
+            &nbsp&nbsp
+            <span th:if="${page.pageNum==1}">
                 <a onclick="return false" class="btn_FenYe">上一页</a>
             </span>
-    <span th:unless="${page.pageNum==1}">
+            <span th:unless="${page.pageNum==1}">
                 <a th:href="@{/admin/listUsers(pageNo=${page.pageNum - 1},username=${session.username})}" class="btn_FenYe">上一页</a>
             </span>
-    &nbsp&nbsp
+            &nbsp&nbsp
 
-    <span th:each="i:${#numbers.sequence(1,page.pages)}">
+            <span th:each="i:${#numbers.sequence(1,page.pages)}">
         &nbsp
                 <a th:href="@{/admin/listUsers(pageNo=${i},username=${session.username})}" th:text="${i}">1</a>
             </span>
 
-    &nbsp&nbsp
-    <span th:if="${page.pages==page.pageNum}">
+            &nbsp&nbsp
+            <span th:if="${page.pages==page.pageNum}">
                 <a onclick="return false" class="btn_FenYe">下一页</a>
             </span>
 
-    <span th:unless="${page.pages==page.pageNum}">
+            <span th:unless="${page.pages==page.pageNum}">
                 <a th:href="@{/admin/listUsers(pageNo=${page.pageNum+1},username=${session.username})}" class="btn_FenYe">下一页</a>
             </span>
 
-    &nbsp&nbsp
-    <a th:href="@{/admin/listUsers(pageNo=${page.pages},username=${session.username})}" class="btn" style="width: 40px">末页</a>
-    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
+            &nbsp&nbsp
+            <a th:href="@{/admin/listUsers(pageNo=${page.pages},username=${session.username})}" class="btn" style="width: 40px">末页</a>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
+        </div>
+    </div>
+</div>
+<div style="width:100%;padding: 1% 0;background-color: white;position: fixed;bottom: 0;left: 0;">
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=61012502000217" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;margin-left: 1%">
+        <img th:src="@{/img/备案图标.png}" style="float:left;"/>
+        <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+            陕公网安备 61012502000217号 | </p>
+    </a>
+
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+        <img src="" style="float:left;"/>
+        <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+            ICP主体备案号 陕ICP备2022002102号 ｜ </p>
+    </a>
+    <a style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+        <img src="" style="float:left;"/>
+        <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ff8f3d;">
+            建议您使用Chrome、Firefox、Edge、IE10及以上版本和360等主流浏览器浏览本网站</p>
+    </a>
+    <a style="display:inline-block;text-decoration:none;height:20px;line-height:20px;float: right;margin-right: 3%">
+        <img src="" style="float:right;"/>
+        <p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+            | © 吴思卿 2022</p>
+    </a>
 </div>
 </body>
 </html>

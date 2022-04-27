@@ -193,6 +193,7 @@
 
 
 <body style="background-image: url(./img/Cover.jpeg);">
+<!--<body style="background-color: #FF8C69">-->
 <div class="card">
     <form name="form" method="post">
     <div class="left">
@@ -200,7 +201,7 @@
             <h1>登陆系统</h1>
             <input type="text" id="loginChose1" th:value="@{/user/findByNameAndPassword}" style="display: none">
             <input type="text" id="loginChose2" th:value="@{/admin/adminLogin}" style="display: none">
-            <a th:href="@{/user/touristFirst}" class="return" style="float: right;font-size: medium">我不想注册</a>
+            <a th:href="@{/music/tourist}" class="return" style="float: right;font-size: medium">我只想看看</a>
         </div>
         <div class="radio">
             请选择您的登陆身份：

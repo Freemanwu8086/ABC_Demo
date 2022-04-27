@@ -10,6 +10,8 @@ import java.util.List;
 public interface Sheet_MusicService {
     //新增乐谱
     void save(Sheet_Music music);
+
+    void adminSaveMusic(Sheet_Music music);
     //——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
     //展示所有曲谱（管理员/用户）
     PageInfo<Sheet_Music> findAllMusic(int pageNo);

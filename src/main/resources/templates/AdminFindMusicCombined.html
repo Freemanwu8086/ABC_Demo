@@ -5,6 +5,17 @@
     <title>管理员之乐谱全展示</title>
     <link rel="stylesheet" th:href="@{/css/Type1.css}">
     <link rel="icon" th:href="@{/img/favicon.ico}"/>
+
+    <style>
+        #pieTone {
+            width: 300px;
+            height: 300px;
+        }
+        #pieBeat{
+            width: 300px;
+            height: 300px;
+        }
+    </style>
 </head>
 <body style="background-color: #FFF5EE">
 
@@ -29,67 +40,98 @@
         </div>
     </div>
 </div>
+<div class="under">
+    <div class="left" style="float: left;width: 10%;height: 800px">
+        <div class="ul0" style="margin-left: -10%;margin-top: -70%;height: 100%">
+            <ul>
+                <li>
+                    <a th:href="@{/music/listMusicAdmin}" style="color: #FF8C69">—曲谱管理—</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/listUsers}">—用户管理—</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/newAnnounce}">—发布公告—</a>
+                </li>
+                <li>
+                    <a th:href="@{/music/AdminABCEditor}">—新建曲谱—</a>
+                </li>
+                <li>
+                    <a th:href="@{/user/ABCHistory}" th:target="_blank">—ABC记谱法简史与教程—</a>
+                </li>
+            </ul>
+            <div class="title" style="width: 100%">
+                <b>公告</b>
+            </div>
+            <div class="text1">
+        <textarea name="announce" cols="19" rows="8" th:text="${session.announce.announce}"  style="border: none;color: #ff8f3d;
+        font-size: 5px;
+        font-family: 'Adobe 宋体 Std L';
+        font-weight: 400; resize: none" readonly></textarea>
+                <h6 th:text="${#dates.format(session.announce.update_date,'yyyy年MM月dd日')}"></h6>
+                <h6>ABC乐谱系统</h6>
+            </div>
+        </div>
+    </div>
+    <div style="float: left;width: 70%">
+        <div style="width:5%;height:5%; margin-left: 5%;margin-bottom: -3%;margin-top: 1%">
+            <input class="deleteBtn" type="submit" value="删除选中的所有曲谱" style="border-radius:20px" onclick="del()" id="deleteAll">
+        </div>
+        <div id="CombinedQuery" class="QueryWindow">
+            <form th:action="@{/admin/CombinedFindMusic}" method="post">
+                <input type="submit" class="btn" value="查询" style="width: 80px;float: right;">
+                <input type="text" name="music_name" placeholder="请输入乐谱名称，可模糊" class="input" style="float: right;">
+                <select name="beat" class="shortSelect" style="float: right">
+                    <option selected value="">节拍选择</option>
+                    <option value="">---------</option>
+                    <option value = "1/4">1/4</option>
+                    <option value = "2/4">2/4</option>
+                    <option value = "3/4">3/4</option>
+                    <option value = "4/4">4/4</option>
+                    <option value = "3/8">3/4</option>
+                    <option value = "6/8">3/4</option>
+                </select>
+                <select name="tone" class="shortSelect" style="float: right">
+                    <option selected value="">定调选择</option>
+                    <option value="">---------</option>
+                    <option value = "C">C</option>
+                    <option value = "#C">#C</option>
+                    <option value = "bC">bC</option>
+                    <option value = "D">D</option>
+                    <option value = "#D">#D</option>
+                    <option value = "bD">bD</option>
+                    <option value = "E">E</option>
+                    <option value = "#E">#E</option>
+                    <option value = "bE">bE</option>
+                    <option value = "F">F</option>
+                    <option value = "#F">#F</option>
+                    <option value = "bF">bF</option>
+                    <option value = "G">G</option>
+                    <option value = "#G">#G</option>
+                    <option value = "bG">bG</option>
+                    <option value = "A">A</option>
+                    <option value = "#A">#A</option>
+                    <option value = "bA">bA</option>
+                    <option value = "B">B</option>
+                    <option value = "#B">#B</option>
+                    <option value = "bB">bB</option>
+                </select>
+            </form>
+        </div>
 
-<div style="width:5%;height:5%; margin-left: 5%;margin-bottom: -3%;margin-top: 4%;">
-    <input class="deleteBtn" type="submit" value="删除选中的所有信息" style="border-radius:20px" onclick="del()" id="deleteAll">
-</div>
-<div id="CombinedQuery" class="QueryWindow">
-    <form th:action="@{/admin/CombinedFindMusic}" method="post">
-        <input type="submit" class="btn" value="组合" style="width: 80px;float: right;">
-        <input type="text" name="music_name" placeholder="请输入乐谱名称，可模糊" class="input" style="float: right;">
-        <select name="beat" class="shortSelect" style="float: right">
-            <option selected>节拍选择</option>
-            <option>---------</option>
-            <option value = "1/4">1/4</option>
-            <option value = "2/4">2/4</option>
-            <option value = "3/4">3/4</option>
-            <option value = "4/4">4/4</option>
-            <option value = "3/8">3/4</option>
-            <option value = "6/8">3/4</option>
-        </select>
-        <select name="tone" class="shortSelect" style="float: right">
-            <option selected>定调选择</option>
-            <option>---------</option>
-            <option value = "C">C</option>
-            <option value = "#C">#C</option>
-            <option value = "bC">bC</option>
-            <option value = "D">D</option>
-            <option value = "#D">#D</option>
-            <option value = "bD">bD</option>
-            <option value = "E">E</option>
-            <option value = "#E">#E</option>
-            <option value = "bE">bE</option>
-            <option value = "F">F</option>
-            <option value = "#F">#F</option>
-            <option value = "bF">bF</option>
-            <option value = "G">G</option>
-            <option value = "#G">#G</option>
-            <option value = "bG">bG</option>
-            <option value = "A">A</option>
-            <option value = "#A">#A</option>
-            <option value = "bA">bA</option>
-            <option value = "B">B</option>
-            <option value = "#B">#B</option>
-            <option value = "bB">bB</option>
-        </select>
-    </form>
-</div>
-
-<div class="table-wrapper">
-    <table class="fl-table">
-        <thead>
-        <tr>
-            <th>全选：<input type="checkbox" id="checkAll"></th>
-            <th>乐曲名</th>
-            <th>创建用户</th>
-            <th>拍数</th>
-            <th>定调</th>
-            <th>创建时间</th>
-            <th>最后修改时间</th>
-            <th>状态</th>
-            <th>操作</th>
-        </tr>
-        </thead>
+        <div class="table-wrapper">
+            <table class="fl-table">
+                <thead>
+                <tr>
+                    <th>全选：<input type="checkbox" id="checkAll"></th>
+                    <th>乐曲名</th>
+                    <th>拍数</th>
+                    <th>定调</th>
+                    <th>创建用户</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
                 <tbody>
                 <tr th:each="music,musicStat:${musics}">
                     <td><input type="checkbox" th:value="${music.id}" name="box"></td>
@@ -98,14 +140,12 @@
                             <span style="color: black" th:text="${music.music_name}"></span>
                         </a>
                     </td>
+                    <td><span th:text="${music.beat}"></span></td>
+                    <td><span th:text="${music.tone}"></span></td>
                     <td>
                         <span th:if="${music.username} eq '用户已注销'" th:text="用户已注销" style="color: #ef1d1d"></span>
                         <span th:if="${music.username} ne '用户已注销'" th:text="${music.username}"></span>
                     </td>
-                    <td><span th:text="${music.beat}"></span></td>
-                    <td><span th:text="${music.tone}"></span></td>
-                    <td><span th:text="${#dates.format(music.insert_date,'yyyy年MM月dd日')}"></span></td>
-                    <td><span th:text="${#dates.format(music.last_update_date,'yyyy年MM月dd日')}"></span></td>
                     <td>
                         <span th:if="${music.state} eq '待审核'" th:text="待审核" style="color: #0014c3"></span>
                         <span th:if="${music.state} eq '通过'" th:text="通过" style="color: rgba(7,89,2,0.58)"></span>
@@ -123,47 +163,275 @@
                     </td>
                 </tr>
                 </tbody>
-    </table>
-</div>
-<div th:if="${page.pages>0}" style="margin-left: 35%">
-    <!--当前页-->
-    <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
-    &nbsp&nbsp&nbsp
-    <!--            首页作为第一页不可点击-->
-    <a th:href="@{/admin/CombinedFindMusic(pageNo=1,beat=${session.beat2},
+            </table>
+        </div>
+        <div th:if="${page.pages>0}" style="margin-left: 35%">
+            <!--当前页-->
+            <span th:text="'当前页: '+${page.pageNum}" style="font-size: small"></span>
+            &nbsp&nbsp&nbsp
+            <!--            首页作为第一页不可点击-->
+            <a th:href="@{/admin/CombinedFindMusic(pageNo=1,beat=${session.beat2},
     tone=${session.tone2},music_name=${session.music_name2})}" class="btn" style="width: 40px">首页</a>
-    &nbsp&nbsp
-    <span th:if="${page.pageNum==1}">
+            &nbsp&nbsp
+            <span th:if="${page.pageNum==1}">
                 <a onclick="return false" class="btn_FenYe">上一页</a>
             </span>
-    <span th:unless="${page.pageNum==1}">
+            <span th:unless="${page.pageNum==1}">
                 <a th:href="@{/admin/CombinedFindMusic(pageNo=${page.pageNum - 1},beat=${session.beat2},
     tone=${session.tone2},music_name=${session.music_name2})}" class="btn_FenYe">上一页</a>
             </span>
-    &nbsp&nbsp
+            &nbsp&nbsp
 
-    <span th:each="i:${#numbers.sequence(1,page.pages)}">
+            <span th:each="i:${#numbers.sequence(1,page.pages)}">
         &nbsp
                 <a th:href="@{/admin/CombinedFindMusic(pageNo=${i},beat=${session.beat2},
     tone=${session.tone2},music_name=${session.music_name2})}" th:text="${i}">1</a>
             </span>
 
-    &nbsp&nbsp
-    <span th:if="${page.pages==page.pageNum}">
+            &nbsp&nbsp
+            <span th:if="${page.pages==page.pageNum}">
                 <a onclick="return false" class="btn_FenYe">下一页</a>
             </span>
 
-    <span th:unless="${page.pages==page.pageNum}">
+            <span th:unless="${page.pages==page.pageNum}">
                 <a th:href="@{h/admin/CombinedFindMusic(pageNo=${page.pageNum+1},beat=${session.beat2},
     tone=${session.tone2},music_name=${session.music_name2})}" class="btn_FenYe">下一页</a>
             </span>
 
-    &nbsp&nbsp
-    <a th:href="@{/admin/CombinedFindMusic(pageNo=${page.pages},beat=${session.beat2},
+            &nbsp&nbsp
+            <a th:href="@{/admin/CombinedFindMusic(pageNo=${page.pages},beat=${session.beat2},
     tone=${session.tone2},music_name=${session.music_name2})}" class="btn" style="width: 40px">末页</a>
-    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <input type="text" th:value="@{/admin/deleteByIds}" id="deleteByIds" style="display: none">
-    <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <span th:text="'总条数'+${page.total}" style="font-size: small"></span>
+        </div>
+    </div>
+    <div style="float: right;width: 20%;">
+        <input type="text" th:value="@{/admin/numbers}" id="TonePieUrl" style="display: none">
+        <input type="text" th:value="@{/admin/beatsNumbers}" id="BeatPieUrl" style="display: none">
+        <input type="text" th:value="@{/admin/deleteByIds}" id="deleteByIds" style="display: none">
+
+        <input type="text" th:value="@{/admin/findMusicByBeat}" id="BeatSearch" style="display: none">
+        <input type="text" th:value="@{/admin/findMusicByTone}" id="ToneSearch" style="display: none">
+        <div>
+            <!--按节拍-->
+            <script type="text/javascript" th:src="@{/js/echarts.js}"></script>
+            <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
+            <div id="pieBeat"></div>
+            <script>
+                // 饼状图
+                // 基于准备好的dom，初始化echarts实例
+                var pieBeat = echarts.init(document.getElementById('pieBeat'));
+                // 指定图表的配置项和数据
+                pieBeatOption = {
+                    // 标题
+                    title: {
+                        text: '按节拍分类',
+                        subtext: '所有曲谱',
+                        left: 'center'
+                    },
+                    animation: false,
+                    // 图例
+
+                    tooltip: {
+                        show: true,
+                        trigger: "item",
+                        backgroundColor: "#fff3e9",
+                        // {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
+                        formatter: "{a}：{b}<br/>{c}个({d}%)"
+                    },
+
+                    // 不同区域的颜色
+                    // color: ['#4992ff', '#7cffb2', '#fddd60','#ff6e76','#58d9f9','#05c091','#ff8a45','#8d48e3'],
+                    series: [
+                        {
+                            name: '节拍',
+                            type: 'pie',
+                            // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
+                            radius: '50%',
+                            // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
+                            center: ['50%', '50%'],
+                            data: [
+
+                            ],
+                            itemStyle: {
+                                // 显示图例
+                                normal: {
+                                    label: {
+                                        show: true
+                                    },
+                                    labelLine: {
+                                        show: true
+                                    }
+                                },
+                                emphasis: {
+                                    // 图形阴影的模糊大小
+                                    shadowBlur: 10,
+                                    // 阴影水平方向上的偏移距离
+                                    shadowOffsetX: 0,
+                                    // 阴影颜色
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+                pieBeat.setOption(pieBeatOption);
+
+                // 异步加载数据
+                $.post(document.getElementById('BeatPieUrl').value).done(function(beatList) {
+                    // 填入数据
+                    pieBeat.setOption({
+                        series: [
+                            {
+                                // 根据名字对应到相应的系列
+                                data: [
+                                    {
+                                        value: beatList[0],name: '4/4拍', url: document.getElementById("BeatSearch").value + '?beat=4/4'
+                                    },
+                                    {
+                                        value: beatList[1],name: '3/4拍', url: document.getElementById("BeatSearch").value + '?beat=3/4'
+                                    },
+                                    {
+                                        value: beatList[2],name: '2/4拍', url: document.getElementById("BeatSearch").value + '?beat=2/4'
+                                    },
+                                    {
+                                        value: beatList[3],name: '1/4拍', url: document.getElementById("BeatSearch").value + '?beat=1/4'
+                                    },
+                                    {
+                                        value: beatList[4],name: '3/8拍', url: document.getElementById("BeatSearch").value + '?beat=3/8'
+                                    },
+                                    {
+                                        value: beatList[5],name: '6/8拍', url: document.getElementById("BeatSearch").value + '?beat=6/8'
+                                    },
+                                ],
+                            }
+                        ]
+                    });
+                });
+                pieBeat.on('click', function (param){
+                    window.location.href = param.data.url;
+                });
+            </script>
+        </div>
+
+        <div>
+            <!--按定调数量统计图-->
+            <script type="text/javascript" th:src="@{/js/echarts.js}"></script>
+            <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
+            <div id="pieTone"></div>
+            <script>
+                // 饼状图
+                // 基于准备好的dom，初始化echarts实例
+                var pieTone = echarts.init(document.getElementById('pieTone'));
+                // 指定图表的配置项和数据
+                pieToneOption = {
+                    // 标题
+                    title: {
+                        text: '按定调分类',
+                        subtext: '所有曲谱',
+                        left: 'center'
+                    },
+                    animation: false,
+                    // 图例
+
+                    tooltip: {
+                        show: true,
+                        trigger: "item",
+                        backgroundColor: "#fff3e9",
+                        // {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
+                        formatter: "{a}：{b}<br/>{c}个({d}%)"
+                    },
+
+                    // 不同区域的颜色
+                    // color: ['#4992ff', '#7cffb2', '#fddd60','#ff6e76','#58d9f9','#05c091','#ff8a45','#8d48e3'],
+                    series: [
+                        {
+                            name: '定调',
+                            type: 'pie',
+                            // 数组的第一项是内半径，第二项是外半径；可以设置不同的内外半径显示成圆环图
+                            radius: '50%',
+                            // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标；设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
+                            center: ['50%', '50%'],
+                            data: [
+
+                            ],
+                            itemStyle: {
+                                // 显示图例
+                                normal: {
+                                    label: {
+                                        show: true
+                                    },
+                                    labelLine: {
+                                        show: true
+                                    }
+                                },
+                                emphasis: {
+                                    // 图形阴影的模糊大小
+                                    shadowBlur: 10,
+                                    // 阴影水平方向上的偏移距离
+                                    shadowOffsetX: 0,
+                                    // 阴影颜色
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+                pieTone.setOption(pieToneOption);
+
+                // 异步加载数据
+                $.post(document.getElementById('TonePieUrl').value).done(function(numberList) {
+                    // 填入数据
+                    pieTone.setOption({
+                        series: [
+                            {
+                                // 根据名字对应到相应的系列
+                                data: [
+                                    {
+                                        value: numberList[0]+numberList[1]+numberList[2],name: 'A调(含升与降)',
+                                        url: document.getElementById("ToneSearch").value + '?tone=A'
+                                    },
+
+                                    {
+                                        value: numberList[3]+numberList[4]+numberList[5],name: 'B调(含升与降)',
+                                        url: document.getElementById("ToneSearch").value + '?tone=B'
+                                    },
+
+                                    {
+                                        value: numberList[6]+numberList[7]+numberList[8],name: 'C调(含升与降)',
+                                        url: document.getElementById("ToneSearch").value + '?tone=C'
+                                    },
+
+                                    {
+                                        value: numberList[9]+numberList[10]+numberList[11],name: 'D调(含升与降)',
+                                        url: document.getElementById("ToneSearch").value + '?tone=D'
+                                    },
+
+                                    {
+                                        value: numberList[12]+numberList[13]+numberList[14],name: 'E调(含升与降)',
+                                        url: document.getElementById("ToneSearch").value + '?tone=E'
+                                    },
+
+                                    {
+                                        value: numberList[15]+numberList[16]+numberList[17],name: 'F调(含升与降)',
+                                        url: document.getElementById("ToneSearch").value + '?tone=F'
+                                    },
+
+                                    {
+                                        value: numberList[18]+numberList[19]+numberList[20],name: 'G调(含升与降)',
+                                        url: document.getElementById("ToneSearch").value + '?tone=G'
+                                    },
+                                ],
+                            }
+                        ]
+                    });
+                });
+                pieTone.on('click', function (param){
+                    window.location.href = param.data.url;
+                });
+            </script>
+        </div>
+    </div>
 </div>
 
 <script th:src="@{/js/jquery-3.4.1.js}"></script>
@@ -222,5 +490,28 @@
         }
     }
 </script>
+<div style="width:100%;padding: 1% 0;background-color: white;position: fixed;bottom: 0;left: 0;">
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=61012502000217" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;margin-left: 1%">
+        <img th:src="@{/img/备案图标.png}" style="float:left;"/>
+        <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+            陕公网安备 61012502000217号 | </p>
+    </a>
+
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+        <img src="" style="float:left;"/>
+        <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+            ICP主体备案号 陕ICP备2022002102号 ｜ </p>
+    </a>
+    <a style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+        <img src="" style="float:left;"/>
+        <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ff8f3d;">
+            建议您使用Chrome、Firefox、Edge、IE10及以上版本和360等主流浏览器浏览本网站</p>
+    </a>
+    <a style="display:inline-block;text-decoration:none;height:20px;line-height:20px;float: right;margin-right: 3%">
+        <img src="" style="float:right;"/>
+        <p style="float:right;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+            | © 吴思卿 2022</p>
+    </a>
+</div>
 </body>
 </html>

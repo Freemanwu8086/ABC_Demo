@@ -112,7 +112,7 @@
                 <b>曲谱名</b>
             </div>
             <div>
-                <input type="text" th:value="${music.music_name}" class="input" readonly>
+                <span th:text="${music.music_name}"></span>
             </div>
         </div>
 
@@ -121,7 +121,7 @@
                 <b>节&nbsp&nbsp&nbsp拍</b>
             </div>
             <div>
-                <input type="text" th:value="${music.beat}" class="input" readonly>
+                <span th:text="${music.beat}"></span>
             </div>
         </div>
 
@@ -130,7 +130,7 @@
                 <b>定&nbsp&nbsp&nbsp调</b>
             </div>
             <div>
-                <input type="text" th:value="${music.tone}" class="input" readonly>
+                <span th:text="${music.tone}"></span>
             </div>
         </div>
 <!--        -->

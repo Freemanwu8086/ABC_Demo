@@ -1,5 +1,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.freemanwu.abc_demo.dao.Sheet_MusicDAO">
+    <insert id="adminSaveMusic" parameterType="com.freemanwu.abc_demo.entity.Sheet_Music">
+        insert into Sheet_Music (music_name, beat, tone, username, state, abc, insert_date, introduction)
+        values (#{music_name},#{beat},#{tone},#{username},'通过',#{abc},now(),#{introduction});
+    </insert>
 
     <insert id="save" parameterType="Sheet_Music">
         insert into Sheet_Music (music_name, beat, tone, username, state, abc, insert_date, introduction)

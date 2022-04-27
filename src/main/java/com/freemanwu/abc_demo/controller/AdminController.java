@@ -36,13 +36,19 @@ public class AdminController {
      * @return
      */
     @RequestMapping("adminLogin")
-    public String AdminLogin(Admin admin, HttpSession session, Announce announce){
+    public String AdminLogin(Admin admin, HttpSession session, Announce announce, @RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
+                             Map<String,Object> map, Model model){
         Admin loginAdmin = adminService.AdminLogin(admin);
         if (loginAdmin != null){
             Announce anna= announceService.showAnnounce(announce);
             session.setAttribute("announce",anna);
             session.setAttribute("loginAdmin",loginAdmin);
-            return "AdminFirst";
+            PageInfo<Sheet_Music> page = musicService.findAllMusic(pageNum);
+            List<Sheet_Music> musics = page.getList();
+
+            model.addAttribute("musics",musics);
+            map.put("page",page);
+            return "AdminFindAllMusic";
         }else
             return "error";
     }
@@ -81,7 +87,9 @@ public class AdminController {
      */
     @RequestMapping("listUsers")
     public String ListUsers(@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
-                               Map<String,Object> map, Model model){
+                               Map<String,Object> map, Model model,HttpSession session,Announce announce){
+        Announce anna= announceService.showAnnounce(announce);
+        session.setAttribute("announce",anna);
         PageInfo<User> page = adminService.findAllUser(pageNum);
         List<User> users = page.getList();
 
@@ -215,7 +223,7 @@ public class AdminController {
         adminService.WholeSiteAnnounce(announce);
         Announce anna= announceService.showAnnounce(announce);
         session.setAttribute("announce",anna);
-        return "AdminFirst";
+        return "redirect:/music/listMusicAdmin";
     }
 
     /**

@@ -600,18 +600,14 @@ a{
 }
 
 .tell{
-    width: 250px;
-    height: 500px;
-    float: right;
-    margin-right: 30px;
     margin-top: 50px;
-
+    width: 10%;
     border-radius: 5px;
     background-color: #ffffff;
     border: 1px solid #CDC9C9;
 }
 .title{
-    width: 250px;
+    width: 10%;
     height: 30px;
     border-bottom: 1px solid #CFCFCF;
     padding-left: 20px;
@@ -622,7 +618,6 @@ a{
 }
 .text1{
     padding-left: 20px;
-    padding-right: 20px;
 }
 .text1 h6{
     color: #CDC9C9;
