@@ -213,6 +213,10 @@ public class AdminController {
     }
 
 
+    /**
+     * 发布公告
+     * @return
+     */
     @RequestMapping("newAnnounce")
     public String newAnnounce(){
         return "AdminUpdateAnnounce";
@@ -285,6 +289,15 @@ public class AdminController {
         return beatList;
     }
 
+    /**
+     * 删除评论
+     * @param session
+     * @param id
+     * @param pageNum
+     * @param map
+     * @param model
+     * @return
+     */
     @RequestMapping("deleteOneComment")
     public String deleteOneComment(HttpSession session, Integer id,@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
                                    Map<String,Object> map,Model model){

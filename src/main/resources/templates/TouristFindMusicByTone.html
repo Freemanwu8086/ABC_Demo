@@ -21,7 +21,8 @@
 
 <div class="ue1">
     <div class="ue2">
-        <div style="float: left;height: 50px;width: 20%;margin-left: 45%">
+        <img th:src="@{/img/ABC记谱法.png}" style="float:left;"/>
+        <div style="float: left;height: 50px;width: 20%;margin-left: 20%">
             <b style="font-size: 40px;color: #FF8C69">
                 <strong th:text="'所有'+${session.tone}+'调(含升降)曲谱'"></strong>
             </b>
@@ -33,7 +34,7 @@
                         注册账号&nbsp&nbsp丨</a>
                 </li>
                 <li class="add">
-                    <a th:href="@{/index.html}">退出登陆</a>
+                    <a th:href="@{/index.html}">回到登陆页面</a>
                 </li>
             </ul>
         </div>
@@ -45,8 +46,8 @@
 
 <div class="under">
     <div class="left" style="float: left;width: 10%;height: 700px">
-        <div class="ul0" style="margin-left: -10%;margin-top: -70%;height: 100%">
-            <ul>
+        <div class="ul0" style="margin-left: -15%;margin-top: -70%;height: 100%">
+            <ul style="font-size: large ">
                 <li>
                     <a th:href="@{/music/tourist}" style="color: #FF8C69">—全部曲谱—</a>
                 </li>

@@ -54,8 +54,8 @@
             <if test="music_name != null and music_name != ''">
                 and music_name like CONCAT(CONCAT('%',#{music_name}),'%')
             </if>
+            and state = '通过'
         </where>
-                and state = '通过'
     </select>
 
     <update id="forgetPassword" parameterType="User">

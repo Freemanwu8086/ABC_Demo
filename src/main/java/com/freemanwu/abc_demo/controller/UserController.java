@@ -352,6 +352,11 @@ public class UserController {
         return "index";
     }
 
+    /**
+     * 用户收藏曲谱
+     * @param favorite
+     * @return
+     */
     @RequestMapping("favorite")
     public String insertFavorite(Favorite favorite){
         try {
@@ -363,6 +368,14 @@ public class UserController {
         }
     }
 
+    /**
+     * 用户展示收藏曲谱
+     * @param pageNum
+     * @param map
+     * @param model
+     * @param request
+     * @return
+     */
     @RequestMapping("showFavorite")
     public String showFavorite(@RequestParam(value = "pageNo", defaultValue = "1") int pageNum,
                                Map<String, Object> map, Model model, HttpServletRequest request){
@@ -375,6 +388,12 @@ public class UserController {
         return "UserFavoriteMusic";
     }
 
+    /**
+     * 用户删除单一收藏曲谱
+     * @param music_id
+     * @param request
+     * @return
+     */
     @RequestMapping("deleteOneCollection")
     public String deleteOneCollection(Integer music_id, HttpServletRequest request){
         String username = (String) request.getSession().getAttribute("username");
@@ -382,6 +401,12 @@ public class UserController {
         return "redirect:/user/showFavorite";
     }
 
+    /**
+     * 用户批量删除收藏曲谱
+     * @param music_id
+     * @param request
+     * @return
+     */
     @RequestMapping("deleteCollectionsByIds")
     public String deleteCollectionsByIds(Integer[] music_id, HttpServletRequest request){
         String username = (String) request.getSession().getAttribute("username");
@@ -396,10 +421,19 @@ public class UserController {
         return "TouristFirst";
     }
 
+    /**
+     * ABC记谱法教程页
+     * @return
+     */
     @RequestMapping("ABCLearn")
     public String ABCLearn(){
         return "ABCLearn";
     }
+
+    /**
+     * ABC记谱法简史页
+     * @return
+     */
     @RequestMapping("ABCHistory")
     public String ABCHistory(){
         return "ABCHistory";

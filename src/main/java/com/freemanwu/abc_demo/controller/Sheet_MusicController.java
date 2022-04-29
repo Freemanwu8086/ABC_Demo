@@ -128,7 +128,7 @@ public class Sheet_MusicController {
         return "TouristFindAllMusic";
     }
     /**
-     * 有何按节拍查询
+     * 游客按节拍查询
      * @param pageNum
      * @param map
      * @param model
@@ -307,6 +307,12 @@ public class Sheet_MusicController {
         return "UserShowOneMusic";
     }
 
+    /**
+     * 管理员更新曲谱
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping("updateMusicAdmin1")
     public String updateMusicAdmin1(Model model, Integer id){
         Sheet_Music music = musicService.findMusicById(id);
@@ -357,6 +363,15 @@ public class Sheet_MusicController {
         return "redirect:/music/listPersonalMusic";
     }
 
+    /**
+     * 用户保存评论
+     * @param comment
+     * @param model
+     * @param pageNum
+     * @param map
+     * @param request
+     * @return
+     */
     @RequestMapping("saveComment")
     public String saveComment(Comment comment,Model model,@RequestParam(value = "pageNo",defaultValue = "1") int pageNum,
                               Map<String,Object> map, HttpServletRequest request){
